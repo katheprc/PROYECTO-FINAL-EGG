@@ -1,17 +1,15 @@
 # PROYECTO-FINAL-EGG
 Proyecto web app Alquiler de quinchos para fiestas
 
-Integrantes:
+BACKEND:
+* Federico Grassi
+* Carlos Morillo
+* Maria Aredes (Agile Delivery Manager)
+* Yael Valdez (Tech Lead)
 
-BACK:
-Federico Grassi
-Carlos Morillo
-Maria Aredes (Agile Delivery Manager)
-Yael Valdez (Tech Lead)
-
-FRONT:
-Marcos Urdaneta
-Geronimo Kramar (Scrum Master)
-Ariadna Menedin
-Cristina Albarenga
+FRONTEND:
+* Marcos Urdaneta
+* Geronimo Kramar (Scrum Master)
+* Ariadna Menedin
+* Cristina Albarenga
 
