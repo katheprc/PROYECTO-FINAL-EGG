@@ -20,19 +20,4 @@ public class rentalController {
 		return "index.html";
 	}
 	
-	@GetMapping("/login")
-	public String login() {
-		return "login.html";
-	}
-	
-	@GetMapping("/register")
-	public String register() {
-		return "register.html";
-	}
-	
-	
-	
-	
-
-	
 }
