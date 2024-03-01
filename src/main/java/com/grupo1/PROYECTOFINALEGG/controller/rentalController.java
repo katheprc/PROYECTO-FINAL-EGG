@@ -29,6 +29,10 @@ public class rentalController {
 	public String register() {
 		return "register.html";
 	}
+	
+	
+	
+	
 
 	
 }
