@@ -1,0 +1,138 @@
+body {
+    font-family: Arial;
+    margin: 0;
+    padding: 0;
+}
+
+
+body {
+    background-color: #f2f2f2; 
+}
+ 
+nav { 
+    width: 100%; 
+    background-color: transparent;
+    overflow: hidden;
+    position: fixed;
+    top:0%;
+}
+
+.navbar ul{ 
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+.navbar ul li{
+    float: left;
+}
+
+a{ 
+    padding: 20px;
+    width: 100px;
+    display:block;
+    text-decoration: none;
+    text-transform: uppercase;
+    font-weight: bold;
+}
+
+
+.navbar ul {
+    list-style-type: none;
+    margin: 0 auto;
+    padding: 0;
+    overflow: hidden;
+}
+
+.navbar li {
+    float: right;
+}
+
+.navbar li a {
+    display: inline-flexbox;
+    color: white;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+}
+
+/* Sección de búsqueda */
+
+.carousel-container {
+    width: 80%; 
+    margin: 0 auto; 
+    overflow: hidden; 
+}
+
+.carousel {
+    display: flex ; 
+    transition:transform 0.5s ease;
+    width: 100%;
+}
+
+.slide {
+    flex: 0 0 40%; 
+}
+
+.slide img {
+    width: 100%; 
+}
+
+.search-section {
+    position: relative;
+    height: 500%; 
+}
+
+.background-image {
+    
+    background-size: cover;
+    
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    opacity: 0.5; 
+}
+
+.carousel-section {
+    background-color: gray;
+    padding: 50px;
+    height: 700px;
+    width: 100%;
+    display: inline-block;
+}
+
+.image-section {
+    background-color: lightgray;
+    padding: 50px;
+}
+
+.text-section {
+    background-color: darkgray;
+    padding: 50px;
+}
+
+/* Secciones naranja y marrón */
+
+.orange-section {
+    background-color: orange;
+    height: 3cm;
+}
+
+.brown-section {
+    background-color: brown;
+    height: 2cm;
+}
+
+/* Sección de publicaciones */
+
+.publications-section {
+    padding: 50px;
+}
+
+/* Sección de búsqueda con filtros */
+
+.search-filter-section {
+    padding: 50px;
+}
