@@ -30,6 +30,20 @@
     <title>Login - Iniciar sesion</title>
   </head>
   <body>
+	  <div th:if="${error != null}" class="card text-white bg-danger nb-3 mensajeError">
+		<div class="car-body">
+			<h5 class="card-title"> Error :(</h5>
+			<p class="card-text" th:text="${error}"> </p>
+		</div>
+
+	</div>
+
+	<div th:if="${exito != null}" class="card text-white bg-success mb-3 mt-3 mensajeExito">
+		<div class="car-body">
+			<h5 class="card-title"> Exito :)</h5>
+			<p class="card-text" th:text="${exito}"> </p>
+		</div>
+	</div>
     <main class="login">
       <h2 class="login__heading">Iniciar sesion</h2>
       <p class="login__heading">
@@ -37,13 +51,13 @@
         para ti.
       </p>
 
-      <form method="" action="" class="formulario">
+      <form method="post" action="/login" class="formulario">
         <div class="formulario__campo">
           <label for="email" class="formulario__label"></label>
           <input
             type="email"
             class="formulario__input"
-            placeholder="Email"
+            placeholder="username"
             id="email"
             name="email"
             value=""

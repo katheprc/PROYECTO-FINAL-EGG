@@ -4,13 +4,18 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.grupo1.PROYECTOFINALEGG.Entity.User;
 import com.grupo1.PROYECTOFINALEGG.Exceptions.MyException;
@@ -33,22 +38,15 @@ public class rentalController {
 		return "index.html";
 	}
 	
-	@GetMapping("/login")
-	public String login() {
-		return "login.html";
+	@GetMapping("/dashboard")
+	public String dashboard() {
+		return "index.html";
 	}
 	
-	 @GetMapping("/loginCheck")
-	    public String login(@RequestParam(required = false) String error, ModelMap modelo ) {  //localhost:8080/login
-	        
-	        if (error != null) {
-	            modelo.put("error", "Usuario o Contraseña invalidos!");
-	            return "register.html";
-	        } else {
-	        	return "index.html";
-	        }
-	        
-	    }
+	@GetMapping("/login")
+	public String loginPage() {
+		return "login.html";
+	}
 	
 	@GetMapping("/register")
 	public String register() {

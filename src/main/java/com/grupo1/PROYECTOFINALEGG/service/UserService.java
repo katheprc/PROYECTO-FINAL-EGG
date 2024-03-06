@@ -150,7 +150,7 @@ public class UserService implements UserDetailsService
 	            
 	            return new User(usuario.getEmail(), usuario.getPassword(),permisos);
 	        }else{
-	            return null;
+	        	throw new UsernameNotFoundException("Usuario no encontrado con email: " + email);
 	        }
 
 	    } 
