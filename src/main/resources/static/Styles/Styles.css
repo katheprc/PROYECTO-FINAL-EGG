@@ -2,58 +2,191 @@ body {
     font-family: Arial;
     margin: 0;
     padding: 0;
-}
-
-
-body {
     background-color: #f2f2f2; 
-}
- 
-nav { 
+
+/* nav { 
     width: 100%; 
     background-color: transparent;
     overflow: hidden;
     position: fixed;
     top:0%;
+} */
+
+header {
+    width: 100vw;
 }
 
-.navbar ul{ 
-    margin: 0;
-    padding: 0;
-    list-style: none;
+header .navbar {
+    width: 100%;
+    flex-wrap: wrap;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    font-size: 20px;
+    position: fixed;
+    overflow: hidden;
+    z-index: 100;
+    -webkit-transition: .9s;
+    transition: .9s;
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    background-color: #0000002c;
 }
 
-.navbar ul li{
-    float: left;
+.navbar {
+    width: 100vw;
+    box-shadow: 0px 2px 8px rgba(0, 0, 0, 0.10);
+
 }
 
-a{ 
-    padding: 20px;
-    width: 100px;
-    display:block;
-    text-decoration: none;
-    text-transform: uppercase;
-    font-weight: bold;
+header.abajo .navbar {
+    background-color: rgb(255, 255, 255);
+    color: #000000;
+}
+
+header.abajo #menu a {
+    color: #000000;
+}
+
+header.abajo #menu a:hover {
+    color: gainsboro;
+}
+
+
+.logo {
+    margin-top: 20px;
 }
 
 
 .navbar ul {
     list-style-type: none;
-    margin: 0 auto;
-    padding: 0;
-    overflow: hidden;
+    margin-top: 15px;
 }
 
 .navbar li {
-    float: right;
+    display: inline-block;
 }
 
 .navbar li a {
-    display: inline-flexbox;
-    color: white;
+    display: block;
+    letter-spacing: 2px;
+    margin: 15px;
+    height: 50px;
     text-align: center;
-    padding: 14px 16px;
+    line-height: 70px;
+    color: var(--color-blanco);
     text-decoration: none;
+    transition: all 0.5s ease;
+}
+
+.navbar li:hover a {
+    color: gray;
+}
+
+.show-menu {
+    text-decoration: none;
+    color: #000000;
+    text-align: center;
+    display: none;
+    width: 10%;
+    height: 10%;
+    transition: all 0.5s ease;
+    border-style: none;
+    box-shadow: 0px 2px 8px rgba(0, 0, 0, 0.521);
+}
+
+
+ input[type=checkbox] {
+    display: none;
+
+}
+
+input[type=checkbox]:checked~#menu {
+    display: block;
+
+}
+/*
+#close-menu {
+    text-decoration: none;
+    color: #000000;
+    text-align: center;
+    padding: 2px 0;
+    display: none;
+    width: 30px;
+    height: 30px;
+    cursor: pointer;
+    position: fixed;
+    top: 18px;
+    right: 6px;
+    background-color: #6bc71b;
+    border-radius: 50%;
+    font-size: 20px;
+} */
+
+@media screen and (min-width: 150px) and (max-width: 760px) {
+    /* Otros estilos existentes */
+
+    header .navbar {
+        background-color: #ffffff00;
+    }
+
+    .navbar {
+        box-shadow: 0px 0px 0px rgba(255, 255, 255, 0);
+
+    }
+
+    header .navbar ul {
+        position: fixed;
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+        margin: 0;
+        transform: translateX(-100);
+        transition: transform 0.4s ease-in-out;
+    }
+
+
+
+    .show-menu {
+        display: grid;
+        place-items: center;
+        position: fixed;
+        cursor: pointer;
+        right: 6px;
+        top: 18px;
+        background-color: #ffffff;
+        width: 2.5rem;
+        height: 2.5rem;
+        border-radius: 50%;
+        color: black;
+        z-index: 1;
+        left: 90%;
+        margin-top: 1.5rem;
+    }
+
+    .logo {
+        display: flex;
+        justify-content: center;
+        width: 100%;
+    }
+
+    header.abajo .navbar {
+        box-shadow: none;
+
+    }
+
+    header.abajo #menu a {
+        color: #ffffff;
+    }
+
+    #menu {
+        /* Asegúrate de que inicialmente esté oculto */
+        display: none;
+        background: black;
+        width: 100%; /* Ajusta según sea necesario */
+        position: fixed;
+        top: 0;
+        left: 0;
+    }
 }
 
 /* Sección de búsqueda */
@@ -86,7 +219,6 @@ a{
 .background-image {
     
     background-size: cover;
-    
     position: absolute;
     top: 0;
     bottom: 0;
@@ -96,6 +228,7 @@ a{
 }
 
 .carousel-section {
+    margin-top: 150px;
     background-color: gray;
     padding: 50px;
     height: 700px;
@@ -113,7 +246,7 @@ a{
     padding: 50px;
 }
 
-/* Secciones naranja y marrón */
+ /* Secciones naranja y marrón  */
 
 .orange-section {
     background-color: orange;
@@ -125,14 +258,14 @@ a{
     height: 2cm;
 }
 
-/* Sección de publicaciones */
+ /* Sección de publicaciones  */
 
 .publications-section {
     padding: 50px;
 }
 
-/* Sección de búsqueda con filtros */
+/* Sección de búsqueda con filtros  */
 
 .search-filter-section {
     padding: 50px;
-}
+} 

@@ -1,50 +1,63 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Alquiler de Quinchos</title>
-    <link rel="stylesheet" href="Styles/Styles.css">
+    <link rel="stylesheet" href="../static/Styles/Styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+
 </head>
+
 <body>
- <header>
-    <!-- Barra de navegación -->
-    <nav class="navbar">
-        <ul>
-            <li><a href="#home">Home</a></li>
-            <li><a href="#about">Sobre Nosotros</a></li>
-            <li><a href="#search">Buscar</a></li>
-            <li><a href="#login">Login</a></li>
-        </ul>
-    </nav>
 
-  </header>
+    <header>
+        <nav class="navbar">
 
-  <section class="carousel-section">
-    <div class="carousel">
-        <div class="carousel-container">
-            <div class="carousel">
-                <div class="slide">
-                    <img src="imagenes.jpg/familia-joven-sus-hijos-casa-divirtiendose.jpg" alt="Imagen 1">
-                </div>
-                <div class="slide">
-                    <img src="imagenes.jpg/familia-joven-sus-hijos-casa-divirtiendose.jpg" alt="Imagen 2">
-                </div>
-                <div class="slide">
-                    <img src="imagenes.jpg/familia-joven-sus-hijos-casa-divirtiendose.jpg" alt="Imagen 3">
-                </div>
-                <div class="slide">
-                    <img src="imagenes.jpg/familia-joven-sus-hijos-casa-divirtiendose.jpg" alt="Imagen 4">
-                </div>
-                <div class="slide">
-                    <img src="imagenes.jpg/familia-joven-sus-hijos-casa-divirtiendose.jpg" alt="Imagen 5">
+            <a href="./alquilerquincho.html" class="logo">
+                <img src="../static/imagenes.jpg/elquincho.png" alt="quincho" width="150" height="100">
+            </a>
+
+            <label for="show-menu" class="show-menu"><i style="font-size:25px" class="fa">&#xf0c9;</i></label>
+            <input type="checkbox" id="show-menu" role="button">
+            <ul id="menu">
+                <li><a href="./alquilerquincho.html" id="navLink">HOME</a></li>
+                <li><a href="#about" id="navLink">SOBRE NOSOTROS</a></li>
+                <li><a href="#search" id="navLink">BUSCAR</a></li>
+                <li><a href="#login" id="navLink">LOGIN</a></li>
+            </ul>
+            <img src="./assets/icons/sound-on.png" alt="" id="muteButton" onclick="toggleMute()" class="silent">
+        </nav>
+
+    </header>
+
+    <section class="carousel-section">
+        <div class="carousel">
+            <div class="carousel-container">
+                <div class="carousel">
+                    <div class="slide">
+                        <img src="../static/imagenes.jpg/familia-joven-sus-hijos-casa-divirtiendose.jpg" alt="Imagen 1">
+                    </div>
+                    <div class="slide">
+                        <img src="../static/imagenes.jpg/familia-joven-sus-hijos-casa-divirtiendose.jpg" alt="Imagen 2">
+                    </div>
+                    <div class="slide">
+                        <img src="../static/imagenes.jpg/familia-joven-sus-hijos-casa-divirtiendose.jpg" alt="Imagen 3">
+                    </div>
+                    <div class="slide">
+                        <img src="../static/imagenes.jpg/familia-joven-sus-hijos-casa-divirtiendose.jpg" alt="Imagen 4">
+                    </div>
+                    <div class="slide">
+                        <img src="../static/imagenes.jpg/familia-joven-sus-hijos-casa-divirtiendose.jpg" alt="Imagen 5">
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
-</section>
+    </section>
 
-   
+
     <!-- Carrusel con imágenes -->
     <section class="carousel-section">
         <div class="carousel">
@@ -75,23 +88,23 @@
         <div class="carousel">
             <section class="carousel-section">
                 <div class="carousel">
-                    
-                       <div class="slide">
-                           <img src="imagenes.jpg/familia-joven-sus-hijos-casa-divirtiendose.jpg" alt="Imagen 1">
-                            </div>
-                            <div class="slide">
-                              <img src="imagenes.jpg/familia-joven-sus-hijos-casa-divirtiendose.jpg" alt="Imagen 2">
-                            </div>
-                            <div class="slide">
-                             <img src="imagenes.jpg/familia-joven-sus-hijos-casa-divirtiendose.jpg" alt="Imagen 3">
-                            </div>
-                            <div class="slide">
-                             <img src="imagenes.jpg/familia-joven-sus-hijos-casa-divirtiendose.jpg" alt="Imagen 4">
-                            </div>
-                            <div class="slide">
-                             <img src="imagenes.jpg/familia-joven-sus-hijos-casa-divirtiendose.jpg" alt="Imagen 5">
-                            </div>
-                      
+
+                    <div class="slide">
+                        <img src="imagenes.jpg/familia-joven-sus-hijos-casa-divirtiendose.jpg" alt="Imagen 1">
+                    </div>
+                    <div class="slide">
+                        <img src="imagenes.jpg/familia-joven-sus-hijos-casa-divirtiendose.jpg" alt="Imagen 2">
+                    </div>
+                    <div class="slide">
+                        <img src="imagenes.jpg/familia-joven-sus-hijos-casa-divirtiendose.jpg" alt="Imagen 3">
+                    </div>
+                    <div class="slide">
+                        <img src="imagenes.jpg/familia-joven-sus-hijos-casa-divirtiendose.jpg" alt="Imagen 4">
+                    </div>
+                    <div class="slide">
+                        <img src="imagenes.jpg/familia-joven-sus-hijos-casa-divirtiendose.jpg" alt="Imagen 5">
+                    </div>
+
                 </div>
             </section>
         </div>
@@ -100,7 +113,9 @@
     <!-- Sección de texto -->
     <section class="text-section">
         <div class="content">
-            <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Suscipit adipisci exercitationem, consequuntur consequatur nulla incidunt earum dolore temporibus commodi molestias animi eligendi provident odio quasi, deleniti, dignissimos veritatis magni voluptatem!</p>
+            <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Suscipit adipisci exercitationem, consequuntur
+                consequatur nulla incidunt earum dolore temporibus commodi molestias animi eligendi provident odio
+                quasi, deleniti, dignissimos veritatis magni voluptatem!</p>
         </div>
     </section>
 
@@ -119,5 +134,8 @@
         <!-- Aquí irían los filtros y las publicaciones disponibles -->
     </section>
 
+    <script src="../static/js/scriptNav.js"></script>
+
 </body>
+
 </html>
