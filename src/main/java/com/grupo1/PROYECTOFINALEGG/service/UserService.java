@@ -109,21 +109,22 @@ public class UserService implements UserDetailsService
 	private void validar(String nombre, String apellido, String email, String password, String password2) throws MyException {
 
 		if (nombre.isEmpty() || nombre == null) {
-			throw new MyException("el nombre no puede ser nulo o estar vacío");
+			throw new MyException("El nombre no puede ser nulo o estar vacío");
 		}
-		if (email.isEmpty() || email == null) {
-			throw new MyException("el email no puede ser nulo o estar vacio");
+		if (email.isEmpty() || email == null ) {
+			throw new MyException("El email no puede ser nulo o estar vacio");
+		}
+		if(uRepo.findByEmail(email) != null) {
+			throw new MyException("El email ya existe, Inicia sesion!");
 		}
 		if (password.isEmpty() || password == null || password.length() <= 5) {
 			throw new MyException("La contraseña no puede estar vacía, y debe tener más de 5 dígitos");
 		}
-
 		if (!password.equals(password2)) {
 			throw new MyException("Las contraseñas ingresadas deben ser iguales");
 		}
 		if(apellido.isEmpty() || apellido == null) {
-			throw new MyException("el apellido no puede ser nulo o estar vacío");
-
+			throw new MyException("El apellido no puede ser nulo o estar vacío");
 		}
 
 	}

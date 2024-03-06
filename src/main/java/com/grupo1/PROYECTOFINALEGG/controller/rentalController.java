@@ -38,6 +38,18 @@ public class rentalController {
 		return "login.html";
 	}
 	
+	 @GetMapping("/loginCheck")
+	    public String login(@RequestParam(required = false) String error, ModelMap modelo ) {  //localhost:8080/login
+	        
+	        if (error != null) {
+	            modelo.put("error", "Usuario o Contraseña invalidos!");
+	            return "register.html";
+	        } else {
+	        	return "index.html";
+	        }
+	        
+	    }
+	
 	@GetMapping("/register")
 	public String register() {
 		return "register.html";
