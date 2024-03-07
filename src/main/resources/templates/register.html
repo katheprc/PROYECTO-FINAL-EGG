@@ -1,104 +1,101 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" type="text/css" th:href="@{/css/styles.css}" />
 
-      <!-- Fuentes -->
-      <link rel="preconnect" href="https://fonts.googleapis.com">
-      <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-      <link href="https://fonts.googleapis.com/css2?family=Kanit:ital,wght@0,200;0,400;0,500;0,600;0,700;0,900;1,400&family=Montserrat:wght@400;500;600;700;900&family=Rajdhani:wght@400;500;600;700&family=Roboto:wght@400;500;700;900&display=swap" rel="stylesheet">
-      <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;700;900&display=swap" rel="stylesheet">
-     
-      <!-- Iconos -->
-  
-      <link rel="stylesheet" href="https://unpkg.com/leaflet@1.8.0/dist/leaflet.css" integrity="sha512-hoalWLoI8r4UszCkZ5kL8vayOGVae1oxXe/2A4AO6J9+580uKHDO3JdHb7NzwwzK5xr/Fs0W40kiNHxM9vyTtQ==" crossorigin="" />
-      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.2/css/all.min.css" integrity="sha512-1sCRPdkRXhBV2PBLUdRb4tMg1w2YPf37qatUFeS7zlBy7jJI8Lf4VHwWfZZfpXtYSLy85pkm9GaYVYMfw5BC1A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-      <link rel="stylesheet" href="/build/css/app.css">
-      <script src="https://unpkg.com/leaflet@1.8.0/dist/leaflet.js" integrity="sha512-BB3hKbKWOc9Ez/TAwyWxNXeoV9c1v6FIeYiBieIWkpLjauysF18NzgR1MBNBXf8/KABdlkX68nAhlwcDFLGPCQ==" crossorigin="" defer></script>
-  
+<head>
+	<meta charset="UTF-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<link rel="stylesheet" type="text/css" th:href="@{/css/styles.css}" />
 
-    <title>Registro - registrese para acceder a nuestro mundo!</title>
-  </head>
-  <body>
-    <main class="auth">
-      <h2 class="auth__heading">Bienvenido a nuestro portal de registro</h2>
-      <p class="auth__texto">
-        Regístrate para acceder a todos nuestro beneficios!
-      </p>
+	<!-- Fuentes -->
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link
+		href="https://fonts.googleapis.com/css2?family=Kanit:ital,wght@0,200;0,400;0,500;0,600;0,700;0,900;1,400&family=Montserrat:wght@400;500;600;700;900&family=Rajdhani:wght@400;500;600;700&family=Roboto:wght@400;500;700;900&display=swap"
+		rel="stylesheet">
+	<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;700;900&display=swap" rel="stylesheet">
 
-      <form method="" action="" class="formulario">
-        <div class="formulario__campo">
-          <label for="username" class="formulario__label"></label>
-          <input
-            type="text"
-            class="formulario__input"
-            placeholder="Nombre"
-            id="username"
-            name="username"
-            value=""
-          />
-        </div>
+	<!-- Iconos -->
 
-        <div class="formulario__campo">
-          <label for="apellido" class="formulario__label"></label>
-          <input
-            type="text"
-            class="formulario__input"
-            placeholder="Apellido"
-            id="apellido"
-            name="apellido"
-            value=""
-          />
-        </div>
-
-        <div class="formulario__campo">
-          <label for="email" class="formulario__label"></label>
-          <input
-            type="email"
-            class="formulario__input"
-            placeholder="Email"
-            id="email"
-            name="email"
-            value=""
-          />
-        </div>
-
-        <div class="formulario__campo">
-          <label for="password" class="formulario__label"></label>
-          <input
-            type="password"
-            class="formulario__input"
-            placeholder="Constraseña"
-            id="password"
-            name="password"
-          />
-        </div>
-
-        <div class="formulario__campo">
-          <label for="password2" class="form__label"></label>
-          <input
-            type="password"
-            class="formulario__input"
-            placeholder="Confirmar contraseña"
-            id="password2"
-            name="password2"
-          />
-        </div>
-      </form>
-      <div class="btn-center">
-        <button type="submit" class="formulario__submit bn9-hover bn4">
-          Crear cuenta
-        </button>
-      </div>
-      <div class="acciones">
-        <a href="/login" class="acciones__enlaces">¿Ya tiene una cuenta?</a>
-      </div>
-    </main>
+	<link rel="stylesheet" href="https://unpkg.com/leaflet@1.8.0/dist/leaflet.css"
+		integrity="sha512-hoalWLoI8r4UszCkZ5kL8vayOGVae1oxXe/2A4AO6J9+580uKHDO3JdHb7NzwwzK5xr/Fs0W40kiNHxM9vyTtQ=="
+		crossorigin="" />
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.2/css/all.min.css"
+		integrity="sha512-1sCRPdkRXhBV2PBLUdRb4tMg1w2YPf37qatUFeS7zlBy7jJI8Lf4VHwWfZZfpXtYSLy85pkm9GaYVYMfw5BC1A=="
+		crossorigin="anonymous" referrerpolicy="no-referrer" />
+	<link rel="stylesheet" href="/build/css/app.css">
+	<script src="https://unpkg.com/leaflet@1.8.0/dist/leaflet.js"
+		integrity="sha512-BB3hKbKWOc9Ez/TAwyWxNXeoV9c1v6FIeYiBieIWkpLjauysF18NzgR1MBNBXf8/KABdlkX68nAhlwcDFLGPCQ=="
+		crossorigin="" defer></script>
 
 
-    <footer th:replace="./fragments/footer ::  footer"></footer>
-      
-  </body>
+	<title>Registro - registrese para acceder a nuestro mundo!</title>
+</head>
+
+<body>
+	<div th:if="${error != null}" class="card text-white bg-danger nb-3 mensajeError">
+		<div class="car-body">
+			<h5 class="card-title"> Error :(</h5>
+			<p class="card-text" th:text="${error}"> </p>
+		</div>
+
+	</div>
+
+	<div th:if="${exito != null}" class="card text-white bg-success mb-3 mt-3 mensajeExito">
+		<div class="car-body">
+			<h5 class="card-title"> Exito :)</h5>
+			<p class="card-text" th:text="${exito}"> </p>
+		</div>
+	</div>
+	<main class="auth">
+		<h2 class="auth__heading">Bienvenido a nuestro portal de registro</h2>
+		<p class="auth__texto">
+			Regístrate para acceder a todos nuestro beneficios!
+		</p>
+
+		<form method="POST" action="/registerSuccess" class="formulario">
+			<div class="formulario__campo">
+				<label for="username" class="formulario__label"></label>
+				<input type="text" class="formulario__input" placeholder="Nombre" id="username" name="username"
+					value="" />
+			</div>
+
+			<div class="formulario__campo">
+				<label for="apellido" class="formulario__label"></label>
+				<input type="text" class="formulario__input" placeholder="Apellido" id="apellido" name="apellido"
+					value="" />
+			</div>
+
+			<div class="formulario__campo">
+				<label for="email" class="formulario__label"></label>
+				<input type="email" class="formulario__input" placeholder="Email" id="email" name="email" value="" />
+			</div>
+
+			<div class="formulario__campo">
+				<label for="password" class="formulario__label"></label>
+				<input type="password" class="formulario__input" placeholder="Constraseña" id="password"
+					name="password" />
+			</div>
+
+			<div class="formulario__campo">
+				<label for="password2" class="form__label"></label>
+				<input type="password" class="formulario__input" placeholder="Confirmar contraseña" id="password2"
+					name="password2" />
+			</div>
+			<div class="btn-center">
+				<button type="submit" class="formulario__submit bn9-hover bn4">
+					Crear cuenta
+				</button>
+			</div>
+		</form>
+
+		<div class="acciones">
+			<a href="/login" class="acciones__enlaces">¿Ya tiene una cuenta?</a>
+		</div>
+	</main>
+
+
+	<footer th:replace="./fragments/footer ::  footer"></footer>
+
+</body>
+
 </html>
