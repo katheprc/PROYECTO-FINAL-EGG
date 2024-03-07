@@ -1,22 +1,18 @@
+
+
 body {
     font-family: Arial;
     margin: 0;
     padding: 0;
     background-color: #f2f2f2; 
-
-/* nav { 
-    width: 100%; 
-    background-color: transparent;
-    overflow: hidden;
-    position: fixed;
-    top:0%;
-} */
+}
 
 header {
     width: 100vw;
 }
 
 header .navbar {
+    top: 0;
     width: 100%;
     flex-wrap: wrap;
     display: flex;
@@ -48,7 +44,7 @@ header.abajo #menu a {
 }
 
 header.abajo #menu a:hover {
-    color: gainsboro;
+    color: grey;
 }
 
 
@@ -104,23 +100,7 @@ input[type=checkbox]:checked~#menu {
     display: block;
 
 }
-/*
-#close-menu {
-    text-decoration: none;
-    color: #000000;
-    text-align: center;
-    padding: 2px 0;
-    display: none;
-    width: 30px;
-    height: 30px;
-    cursor: pointer;
-    position: fixed;
-    top: 18px;
-    right: 6px;
-    background-color: #6bc71b;
-    border-radius: 50%;
-    font-size: 20px;
-} */
+
 
 @media screen and (min-width: 150px) and (max-width: 760px) {
     /* Otros estilos existentes */
@@ -186,86 +166,7 @@ input[type=checkbox]:checked~#menu {
         position: fixed;
         top: 0;
         left: 0;
+        color: white;
     }
 }
 
-/* Sección de búsqueda */
-
-.carousel-container {
-    width: 80%; 
-    margin: 0 auto; 
-    overflow: hidden; 
-}
-
-.carousel {
-    display: flex ; 
-    transition:transform 0.5s ease;
-    width: 100%;
-}
-
-.slide {
-    flex: 0 0 40%; 
-}
-
-.slide img {
-    width: 100%; 
-}
-
-.search-section {
-    position: relative;
-    height: 500%; 
-}
-
-.background-image {
-    
-    background-size: cover;
-    position: absolute;
-    top: 0;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    opacity: 0.5; 
-}
-
-.carousel-section {
-    margin-top: 150px;
-    background-color: gray;
-    padding: 50px;
-    height: 700px;
-    width: 100%;
-    display: inline-block;
-}
-
-.image-section {
-    background-color: lightgray;
-    padding: 50px;
-}
-
-.text-section {
-    background-color: darkgray;
-    padding: 50px;
-}
-
- /* Secciones naranja y marrón  */
-
-.orange-section {
-    background-color: orange;
-    height: 3cm;
-}
-
-.brown-section {
-    background-color: brown;
-    height: 2cm;
-}
-
- /* Sección de publicaciones  */
-
-.publications-section {
-    padding: 50px;
-}
-
-/* Sección de búsqueda con filtros  */
-
-.search-filter-section {
-    padding: 50px;
-} 
