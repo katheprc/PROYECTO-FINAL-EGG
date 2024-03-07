@@ -44,7 +44,7 @@ public class rentalController {
 	}
 	
 	@GetMapping("/login")
-	public String loginPage() {
+	public String login() {
 		return "login.html";
 	}
 	

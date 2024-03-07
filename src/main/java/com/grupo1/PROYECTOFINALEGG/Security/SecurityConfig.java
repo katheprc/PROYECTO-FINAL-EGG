@@ -28,13 +28,12 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
 		http.authorizeHttpRequests(requests -> requests.antMatchers("/admin/*").hasRole("ADMIN") // solo ADMINISTRADORES
-				.antMatchers("/css/", "/js/", "/img/", "/*").permitAll().antMatchers("/public/**").permitAll()
-				.anyRequest().authenticated())
+				.antMatchers("/css/", "/js/", "/img/", "/*"))
 				.formLogin(login -> login.loginPage("/login").loginProcessingUrl("/login").usernameParameter("email")
 						.passwordParameter("password").defaultSuccessUrl("/dashboard").permitAll())
 				.logout(logout -> logout.logoutUrl("/logout").logoutSuccessUrl("/login").permitAll())
 				.csrf(csrf -> csrf.disable());
-
+		
 	}
 
 }
