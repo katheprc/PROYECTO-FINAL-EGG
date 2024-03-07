@@ -154,4 +154,30 @@ public class UserService implements UserDetailsService
 	        }
 
 	    } 
+	  
+	  public void updateResetPassword(String token, String email) {
+		  com.grupo1.PROYECTOFINALEGG.Entity.User user = uRepo.findByEmail(email);
+		
+		  if(user != null) {
+			  user.setToken(token);
+			  uRepo.save(user);
+		  } else {
+			  throw new UsernameNotFoundException("Usuario no encontrado con email: " + email);
+		  }
+	  }
+	  
+	  public com.grupo1.PROYECTOFINALEGG.Entity.User get(String token) {
+		  return uRepo.findByToken(token);
+	  }
+	  
+	  public void updatePassword(com.grupo1.PROYECTOFINALEGG.Entity.User user, String newPassword) {
+		  BCryptPasswordEncoder passEnc = new BCryptPasswordEncoder();
+		  String encodePassword = passEnc.encode(newPassword);
+		  
+		  user.setPassword(encodePassword);
+		  
+		  user.setToken(null);
+		  
+		  uRepo.save(user);
+	  }
 }

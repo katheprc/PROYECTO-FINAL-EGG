@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.CollectionTable;
+import javax.persistence.Column;
 import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
@@ -28,6 +29,7 @@ public class User {
     String password;
     @Enumerated(EnumType.STRING) 
     Role role;
+    String token;
     
     @ElementCollection
     @CollectionTable(name="listOfBookings")
