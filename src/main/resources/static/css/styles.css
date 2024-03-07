@@ -405,7 +405,7 @@ body {
 }
 
 
-/************************* REGISTER *************************/
+/************************* REGISTER - Marcos *************************/
 .auth {
   width: min(95%, 60rem);
   margin: 0 auto;
@@ -433,7 +433,7 @@ body {
   color: var(--color-negrp);
 }
 
-/************************* LOGIN *************************/
+/************************* LOGIN - Marcos *************************/
 .login__heading {
   font-family: "Rajdhani", sans-serif;
   font-weight: 900;
@@ -490,10 +490,10 @@ body {
   justify-content: center;
 }
 
-/************************* BUTTON INGRESAR *************************/
+/************************* BUTTON INGRESAR - Marcos*************************/
 
 .bn632-hover {
-  width: 160px;
+  width: 305px;
   font-size: 16px;
   font-weight: 600;
   color: #fff;
@@ -533,9 +533,9 @@ body {
   box-shadow: 0 4px 15px 0 rgba(229, 66, 10, 0.75);
 }
 
-/************************* BUTTON REGISTRO *************************/
+/************************* BUTTON REGISTRO - Marcos*************************/
 .bn6-hover {
-  width: 160px;
+  width: 235px;
   font-size: 16px;
   font-weight: 600;
   color: #fff;
@@ -569,7 +569,7 @@ body {
   );
   box-shadow: 0 4px 15px 0 rgba(229, 66, 10, 0.75);
 }
-/************************* BUTTON CREAR CUENTA *************************/
+/************************* BUTTON CREAR CUENTA - Marcos*************************/
 .btn-center{
   display: flex;
   flex-direction: column;
@@ -577,7 +577,7 @@ body {
 }
 
 .bn9-hover {
-  width: 160px;
+  width: 271px;
   font-size: 16px;
   font-weight: 600;
   color: #fff;
