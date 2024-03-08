@@ -54,6 +54,13 @@
 
 		<form method="POST" action="/registerSuccess" class="formulario">
 			<div class="formulario__campo">
+				<label for="type" class="formulario__label"></label>
+				<select name="type" id="type" class="formulario_input">
+					<option value="OWNER">Propietario</option>
+					<option value="USER">Cliente</option>
+				</select>
+			</div>
+			<div class="formulario__campo">
 				<label for="username" class="formulario__label"></label>
 				<input type="text" class="formulario__input" placeholder="Nombre" id="username" name="username"
 					value="" />

@@ -55,10 +55,10 @@ public class rentalController {
 	
 	@PostMapping("/registerSuccess")
     public String registro(@RequestParam String username, @RequestParam String email, @RequestParam String password,
-            @RequestParam String password2, @RequestParam String apellido, ModelMap modelo){
+            @RequestParam String password2, @RequestParam String apellido, @RequestParam String type, ModelMap modelo){
         
         try {
-            uSrv.registrar(username, apellido, email, password, password2);
+            uSrv.registrar(username, apellido, email, password, password2, type);
             
             modelo.put("exito", "Usuario registrado con Exito! :D");
             return "index.html";

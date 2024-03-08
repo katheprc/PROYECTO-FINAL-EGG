@@ -9,6 +9,7 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -17,38 +18,49 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
-import org.springframework.security.core.userdetails.User;
 
+import com.grupo1.PROYECTOFINALEGG.Entity.Owner;
 import com.grupo1.PROYECTOFINALEGG.Entity.Role;
 import com.grupo1.PROYECTOFINALEGG.Exceptions.MyException;
 import com.grupo1.PROYECTOFINALEGG.Repositories.UserRepository;
 
 @Service
-public class UserService implements UserDetailsService
-	{
+public class UserService implements UserDetailsService {
 
 	@Autowired
 	private UserRepository uRepo;
 
-
-
 	@Transactional
-	public void registrar(String username, String apellido, String email, String password, String password2)
-			throws MyException {
+	public void registrar(String username, String apellido, String email, String password, String password2,
+			String type) throws MyException {
 
 		validar(username, apellido, email, password, password2);
 
-		com.grupo1.PROYECTOFINALEGG.Entity.User user = new com.grupo1.PROYECTOFINALEGG.Entity.User();
+		if (type.equals("OWNER")) {
 
-		user.setUsername(username);
-		user.setLastname(apellido);
-		user.setEmail(email);
+			Owner user = new Owner();
 
-		user.setPassword(new BCryptPasswordEncoder().encode(password)); // codificado
+			user.setUsername(username);
+			user.setLastname(apellido);
+			user.setEmail(email);
+			user.setPassword(new BCryptPasswordEncoder().encode(password)); // codificado
+			user.setRole(Role.USER);
 
-		user.setRole(Role.USER);
+			uRepo.save(user);
 
-		uRepo.save(user);
+		} else {
+
+			com.grupo1.PROYECTOFINALEGG.Entity.User user = new com.grupo1.PROYECTOFINALEGG.Entity.User();
+
+			user.setUsername(username);
+			user.setLastname(apellido);
+			user.setEmail(email);
+			user.setPassword(new BCryptPasswordEncoder().encode(password)); // codificado
+			user.setRole(Role.USER);
+
+			uRepo.save(user);
+		}
+
 	}
 
 	@Transactional
@@ -67,7 +79,6 @@ public class UserService implements UserDetailsService
 			user.setPassword(new BCryptPasswordEncoder().encode(password));
 
 			user.setRole(Role.USER);
-
 
 			uRepo.save(user);
 		}
@@ -107,15 +118,16 @@ public class UserService implements UserDetailsService
 		}
 	}
 
-	private void validar(String nombre, String apellido, String email, String password, String password2) throws MyException {
+	private void validar(String nombre, String apellido, String email, String password, String password2)
+			throws MyException {
 
 		if (nombre.isEmpty() || nombre == null) {
 			throw new MyException("El nombre no puede ser nulo o estar vacío");
 		}
-		if (email.isEmpty() || email == null ) {
+		if (email.isEmpty() || email == null) {
 			throw new MyException("El email no puede ser nulo o estar vacio");
 		}
-		if(uRepo.findByEmail(email) != null) {
+		if (uRepo.findByEmail(email) != null) {
 			throw new MyException("El email ya existe, Inicia sesion!");
 		}
 		if (password.isEmpty() || password == null || password.length() <= 5) {
@@ -124,61 +136,61 @@ public class UserService implements UserDetailsService
 		if (!password.equals(password2)) {
 			throw new MyException("Las contraseñas ingresadas deben ser iguales");
 		}
-		if(apellido.isEmpty() || apellido == null) {
+		if (apellido.isEmpty() || apellido == null) {
 			throw new MyException("El apellido no puede ser nulo o estar vacío");
 		}
 
 	}
 
-	  @Override
-	    public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
-	        
-		  com.grupo1.PROYECTOFINALEGG.Entity.User usuario = uRepo.findByEmail(email);
-	        
-	        if (usuario != null) {
-	            
-	            List<GrantedAuthority> permisos = new ArrayList<>();
-	            
-	            GrantedAuthority p = new SimpleGrantedAuthority("ROLE_"+ usuario.getRole().toString());
-	            
-	            permisos.add(p);
-	   
-	            ServletRequestAttributes attr = (ServletRequestAttributes) RequestContextHolder.currentRequestAttributes(); //casteo
-	            
-	            HttpSession session = attr.getRequest().getSession(true);
-	            
-	            session.setAttribute("usuariosession", usuario); //tipo de usuario
-	            
-	            return new User(usuario.getEmail(), usuario.getPassword(),permisos);
-	        }else{
-	        	throw new UsernameNotFoundException("Usuario no encontrado con email: " + email);
-	        }
+	@Override
+	public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
 
-	    } 
-	  
-	  public void updateResetPassword(String token, String email) {
-		  com.grupo1.PROYECTOFINALEGG.Entity.User user = uRepo.findByEmail(email);
-		
-		  if(user != null) {
-			  user.setToken(token);
-			  uRepo.save(user);
-		  } else {
-			  throw new UsernameNotFoundException("Usuario no encontrado con email: " + email);
-		  }
-	  }
-	  
-	  public com.grupo1.PROYECTOFINALEGG.Entity.User get(String token) {
-		  return uRepo.findByToken(token);
-	  }
-	  
-	  public void updatePassword(com.grupo1.PROYECTOFINALEGG.Entity.User user, String newPassword) {
-		  BCryptPasswordEncoder passEnc = new BCryptPasswordEncoder();
-		  String encodePassword = passEnc.encode(newPassword);
-		  
-		  user.setPassword(encodePassword);
-		  
-		  user.setToken(null);
-		  
-		  uRepo.save(user);
-	  }
+		com.grupo1.PROYECTOFINALEGG.Entity.User usuario = uRepo.findByEmail(email);
+
+		if (usuario != null) {
+
+			List<GrantedAuthority> permisos = new ArrayList<>();
+
+			GrantedAuthority p = new SimpleGrantedAuthority("ROLE_" + usuario.getRole().toString());
+
+			permisos.add(p);
+
+			ServletRequestAttributes attr = (ServletRequestAttributes) RequestContextHolder.currentRequestAttributes(); // casteo
+
+			HttpSession session = attr.getRequest().getSession(true);
+
+			session.setAttribute("usuariosession", usuario); // tipo de usuario
+
+			return new User(usuario.getEmail(), usuario.getPassword(), permisos);
+		} else {
+			throw new UsernameNotFoundException("Usuario no encontrado con email: " + email);
+		}
+
+	}
+
+	public void updateResetPassword(String token, String email) {
+		com.grupo1.PROYECTOFINALEGG.Entity.User user = uRepo.findByEmail(email);
+
+		if (user != null) {
+			user.setToken(token);
+			uRepo.save(user);
+		} else {
+			throw new UsernameNotFoundException("Usuario no encontrado con email: " + email);
+		}
+	}
+
+	public com.grupo1.PROYECTOFINALEGG.Entity.User get(String token) {
+		return uRepo.findByToken(token);
+	}
+
+	public void updatePassword(com.grupo1.PROYECTOFINALEGG.Entity.User user, String newPassword) {
+		BCryptPasswordEncoder passEnc = new BCryptPasswordEncoder();
+		String encodePassword = passEnc.encode(newPassword);
+
+		user.setPassword(encodePassword);
+
+		user.setToken(null);
+
+		uRepo.save(user);
+	}
 }
