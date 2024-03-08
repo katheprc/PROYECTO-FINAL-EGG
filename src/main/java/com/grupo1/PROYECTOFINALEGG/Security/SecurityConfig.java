@@ -19,21 +19,22 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
 	@Autowired
 	public UserService uSrv;
-	
+
 	@Autowired
 	public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
 		auth.userDetailsService(uSrv).passwordEncoder(new BCryptPasswordEncoder());
 	}
 
-	@Override
-	protected void configure(HttpSecurity http) throws Exception {
-		http.authorizeHttpRequests(requests -> requests.antMatchers("/admin/*").hasRole("ADMIN") // solo ADMINISTRADORES
+	protected void configure(HttpSecurity http, AuthenticationManagerBuilder auth) throws Exception {
+		http.authorizeHttpRequests(requests -> requests.antMatchers("/api/admin/*").hasRole("ADMIN") // solo
+																										// ADMINISTRADORES
 				.antMatchers("/css/", "/js/", "/img/", "/*"))
 				.formLogin(login -> login.loginPage("/login").loginProcessingUrl("/login").usernameParameter("email")
 						.passwordParameter("password").defaultSuccessUrl("/dashboard").permitAll())
 				.logout(logout -> logout.logoutUrl("/logout").logoutSuccessUrl("/login").permitAll())
 				.csrf(csrf -> csrf.disable());
-		
+		auth.inMemoryAuthentication().withUser("admin").password("{noop}contraseña").roles("ADMIN");
+
 	}
 
 }
