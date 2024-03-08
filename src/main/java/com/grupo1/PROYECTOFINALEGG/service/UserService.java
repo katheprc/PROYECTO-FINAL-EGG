@@ -74,6 +74,7 @@ public class UserService implements UserDetailsService
 
 	}
 
+	@SuppressWarnings("deprecation")
 	public com.grupo1.PROYECTOFINALEGG.Entity.User getOne(Integer id) {
 		return uRepo.getOne(id);
 	}
