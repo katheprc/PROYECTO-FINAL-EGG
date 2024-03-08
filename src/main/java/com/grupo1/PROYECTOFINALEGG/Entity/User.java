@@ -12,6 +12,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 
 import lombok.Data;
 
@@ -34,6 +35,9 @@ public class User {
     @CollectionTable(name="listOfBookings")
     @OneToMany
     private  List<Booking> bookings = new ArrayList<>();
+    
+    @OneToOne
+    private Imagen image;
     
     public User() {
 	}
