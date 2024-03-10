@@ -27,27 +27,27 @@
     integrity="sha512-BB3hKbKWOc9Ez/TAwyWxNXeoV9c1v6FIeYiBieIWkpLjauysF18NzgR1MBNBXf8/KABdlkX68nAhlwcDFLGPCQ=="
     crossorigin="" defer></script>
 
-
   <title>Registro - registrese para acceder a nuestro mundo!</title>
 </head>
-
 <body>
-
   <header class="primary-header">
     <section class="primary-section">
       <div class="container primary-div group">
-        <a class="logo" href="index.html"><img src="../static/img/logo.png" alt="Logo de la empres"><h1>Quinchos</h1></a>
-            
+        <a class="logo" href="index.html"><img src="../static/img/logo.png" alt="Logo de la empres">
+          <h1>Quinchos</h1>
+        </a>
         <nav class="nav primary-nav">
           <select name="lang" id="">
             <option value="es" selected>ES</option>
-            <option value="in">IN</option>           
-        </select>
-          <li><a href="index.html">home</a></li><!--
+            <option value="in">IN</option>
+          </select><!--
+          --><ul><!--
+          --><li><a href="index.html">home</a></li><!--
           --><li><a href="">buscar</a></li><!--
           --><li><a href="">about us</a></li><!--
           --><li><a href="register.html">registro</a></li><!--
-          --><li><a class="btn btn-alt" href="login.html">Regístrate gratis</a></li>
+          --><li><a class="btn btn-alt" href="login.html">Regístrate gratis</a></li><!--
+          --></ul>
         </nav>
       </div>
     </section>
@@ -61,48 +61,92 @@
     </section>
     <section class="row">
       <div class="grid">
-        <form class="col-1-3" method="post" action="#" class="formulario">
-          <fieldset  class="register-group">
+        <section class="col-2-3">
+          <h2>Descubre miles de espacios en tus eventos</h2>
+          <p>Te abrimos las puertas al inventario de espacios más grande y único para todas tus actividades.</p>
+          <a href="">
+            <figure>
+              <img src="../static/img/imagen-for-register.jpg" alt="">
+              <figcaption>Fiesta privada</figcaption>
+            </figure><!--
+         --><figure>
+              <img src="../static/img/imagen-3.jpg" alt="">
+              <figcaption>Fiesta corporativa</figcaption>
+            </figure><!--
+         --><figure><img src="../static/img/casa-1.jpg" alt="">
+              <figcaption>Fiesta corporativa</figcaption>
+            </figure>
+        </section></a><!--   
+        --><form class="col-1-3" method="post" action="#" class="formulario">
+          <fieldset class="register-group">
             <legend>Datos de contacto</legend>
             <label>
-            <input type="text" name="nombre" placeholder="Nombre completo *" value="" required></label><!--
+              <input type="text" name="nombre" placeholder="Nombre completo *" value="" required></label><!--
             --><label><!--
             --><input type="text" name="apellido" placeholder="Apellido completo *" value="" required>
             </label>
-
             <label>
               <input type="email" name="email" placeholder="@Email *" value="" required>
             </label>
-
             <label>
               <input type="password" name="password" placeholder="Constraseña *" value="" required />
             </label>
-
             <label>
-              <input  type="password" name="password-confirm" placeholder="Confirmar contraseña *" value="" required>
+              <input type="password" name="password-confirm" placeholder="Confirmar contraseña *" value="" required>
             </label>
           </fieldset>
           <fieldset>
-            <input class="btn btn-defaul" type="submit" name="button" value="Refistrarse"></input>
-            <a href="/login" class="acciones__enlaces">¿Ya tiene una cuenta? inicia sesión</a>
+            <input class="btn btn-defaul" type="submit" name="button" value="Registrarse"></input>
+            <a class="acciones_enlaces" href="/login">¿Ya tiene una cuenta? inicia sesión</a>
           </fieldset>
         </form>
       </div>
     </section>
-
   </main>
-
-  <footer class="container primary-footer group" th:replace="./fragments/footer ::  footer">
-    <small>&copy;alquiler de quinchonchos</small>
-    <nav class="nav">
-      <li><a href="index.html">Home</a></li><!--
-      --><li><a href="">Buscar</a></li><!--
-      --><li><a href="">About Us</a></li><!--
-      --><li><a href="register.html">Registro</a></li><!--
-      --><li><a href="login.html">Login</a></li>
-    </nav>
+  <footer class=" container primary-footer group" th:replace="./fragments/footer ::  footer">
+    <div class="row-alt">
+      <div class="grit">        
+        <div class="col-1-3">
+          <ul>
+            <li><a href="index.html">Home</a></li><!--
+            --><li><a href="">Buscar</a></li><!--
+            --><li><a href="">About Us</a></li><!--
+            --><li><a href="register.html">Registro</a></li><!--
+            --><li><a href="login.html">Regístrate</a></li>
+          </ul>   
+        </div><!--
+        --><div class="col-1-3">
+          <ul>
+            <li><a href="index.html">Home</a></li><!--
+            --><li><a href="">Buscar</a></li><!--
+            --><li><a href="">About Us</a></li><!--
+            --><li><a href="register.html">Registro</a></li><!--
+            --><li><a href="login.html">Regístrate</a></li>
+          </ul><!--
+        --></div><!--
+        --><div class="col-1-3">
+          <ul>
+            <li><a href="index.html">Home</a></li><!--
+            --><li><a href="">Buscar</a></li><!--
+            --><li><a href="">About Us</a></li><!--
+            --><li><a href="register.html">Registro</a></li><!--
+            --><li><a href="login.html">Regístrate</a></li>
+          </ul>   
+        </div>       
+      </div>
+    </div>      
+      <small>Copyright &copy; <a href="">Quinchos.</a> Todos los derechos reservados. 2024</small>
+      <nav class="nav">
+        <ul>
+          <li><a href="index.html">Home</a></li><!--
+          --><li><a href="">Buscar</a></li><!--
+          --><li><a href="">About Us</a></li><!--
+          --><li><a href="register.html">Registro</a></li><!--
+          --><li><a href="login.html">Regístrate</a></li>
+        </ul>
+      </nav>    
+  
+    
   </footer>
-
 </body>
-
 </html>
