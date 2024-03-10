@@ -25,6 +25,7 @@ time, mark, audio, video {
 	vertical-align: baseline;
 }
 /* HTML5 display-role reset for older browsers */
+
 article, aside, details, figcaption, figure, 
 footer, header, hgroup, menu, nav, section {
 	display: block;
@@ -94,21 +95,25 @@ body {
   padding-left: 15px;
   padding-right: 15px;
 }
-
-.col-1-3-alt,
 .col-1-3,
 .col-2-3 {
   display: inline-block;
+  vertical-align: middle;
+}
+
+.col-1-3-alt {
+  display: inline-block;
   vertical-align: top;
 }
+
 .col-1-3-alt,
 .col-1-3 {
-  width: 33.33%;  
+  width: 33.33%; 
 }
 
 .col-2-3 {
   width: 66.66%;
-  text-align: center;
+  text-align: center; 
 }
 
 .col-1-3-alt {     
@@ -126,11 +131,9 @@ body {
   font-size: 18px;  
 }
 
-.col-2-3 figure:hover {  
-  opacity: .7;
-  
+.col-2-3 img:hover {  
+  opacity: .7;  
 }
-
 
 /*
   ========================================
@@ -366,12 +369,10 @@ figure:hover {
 .col-1-3-alt li {
   margin-top: 30px;
   margin-bottom: 30px;
-
 }
 
 .icon-redes {
-  margin-top: 80px;
-   
+  margin-top: 80px;   
   float: right;
 }
 
@@ -389,7 +390,6 @@ figure:hover {
 .icon-redes a:last-child {
   margin-right: 0;
 }
-
 
 /*
   ========================================
@@ -427,8 +427,7 @@ nav li {
 }
 
 .nav select:hover {
-  background-color: #efefef; 
- 
+  background-color: #efefef;  
 }
 
 nav .btn:last-of-type {
@@ -442,15 +441,27 @@ nav .btn:last-of-type {
   ========================================
 */
 
-figure {
-  display: inline-block;  
-  margin-right: 10px;
-  font-size: 16px;  
+.carrusel-row  {    
+  overflow: hidden;
+  width: 100%;
+}
 
+.carrusel-row div {  
+  display: flex;
+  animation: slide 10s infinite alternate ease-in-out;  
+  width: 200%;
+}
+
+.carrusel-row figure { 
+  display: inline-block;  
+  font-size: 16px;  
+}
+
+.carrusel-row img {
+  width: 100%;   
 }
 
 .col-2-3 h2 {
-  margin-top: 36px;
   line-height: 33px;
 }
 
@@ -458,14 +469,15 @@ figure {
   margin-bottom: 44px;
 }
 
-.carrusel img {
-  width: 243px;    
-  border-radius: 6px; 
-  
-}
+@keyframes slide {
+  0% { margin-left: 0;}
+  20% { margin-left: 0;}
 
-form {  
-  margin-bottom: 22px; 
+  30% { margin-left: -50%;}
+  45% { margin-left: -50%;}
+
+  50% { margin-left: -100%;}
+  100% { margin-left: -100%;}
 }
 
 fieldset {
