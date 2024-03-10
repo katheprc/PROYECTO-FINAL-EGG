@@ -1,0 +1,242 @@
+/* Restablecimiento básico para evitar márgenes predeterminados */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* Establecer el diseño de la página principal con Grid */
+main {
+  display: grid;
+  grid-template-columns: 70% 30%;
+  min-height: 100vh;
+  grid-gap: 1rem;
+  overflow-x: hidden;
+}
+
+/* Estilos del carrusel */
+.imgCarousel {
+  position: relative;
+  width: 100%;
+  height: 100vh; /* Limitar la altura del carrusel al 70% de la altura de la ventana de visualización */
+  overflow: hidden;
+  border-radius: 1.5ch;
+  margin-left: 1rem;
+  margin-right: 3fr;
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+}
+
+.imgCarousel .item {
+  position: absolute;
+  width: 100%;
+  height: 100%; /* Ajustar la altura de cada ítem al contenedor del carrusel */
+  transition: opacity 0.5s ease-in-out;
+  opacity: 0;
+}
+
+.imgCarousel .item img {
+  width: 100%; /* Esto garantiza que la imagen cubra el ancho */
+  height: 100%; /* La altura se ajusta al contenedor del ítem */
+  object-fit: cover; /* Esto hará que la imagen cubra todo el contenedor sin distorsionarse */
+}
+
+.imgCarousel input[type="radio"] {
+  display: none;
+}
+
+/* Cuando un botón de radio está seleccionado, mostrar la imagen correspondiente */
+.imgCarousel input[type="radio"]:nth-of-type(1):checked ~ .carousel-slides .item:nth-of-type(1),
+.imgCarousel input[type="radio"]:nth-of-type(2):checked ~ .carousel-slides .item:nth-of-type(2),
+.imgCarousel input[type="radio"]:nth-of-type(3):checked ~ .carousel-slides .item:nth-of-type(3),
+.imgCarousel input[type="radio"]:nth-of-type(4):checked ~ .carousel-slides .item:nth-of-type(4),
+.imgCarousel input[type="radio"]:nth-of-type(5):checked ~ .carousel-slides .item:nth-of-type(5) {
+  opacity: 1;
+  position: static;
+}
+
+/* Estilos para los controles del carrusel */
+.carousel-controls {
+  position: absolute;
+  bottom: 10px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+}
+
+.carousel-controls .carousel-dot {
+  cursor: pointer;
+  background: white;
+  margin: 0 5px;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+}
+
+.carousel-controls .carousel-dot:after {
+  content: '';
+  display: block;
+  width: 100%;
+  height: 100%;
+  background: orange;
+  border-radius: 50%;
+  opacity: 0.5;
+}
+
+.imgCarousel input[type="radio"]:nth-of-type(1):checked ~ .carousel-controls .carousel-dot:nth-of-type(1):after,
+.imgCarousel input[type="radio"]:nth-of-type(2):checked ~ .carousel-controls .carousel-dot:nth-of-type(2):after,
+.imgCarousel input[type="radio"]:nth-of-type(3):checked ~ .carousel-controls .carousel-dot:nth-of-type(3):after,
+.imgCarousel input[type="radio"]:nth-of-type(4):checked ~ .carousel-controls .carousel-dot:nth-of-type(4):after,
+.imgCarousel input[type="radio"]:nth-of-type(5):checked ~ .carousel-controls .carousel-dot:nth-of-type(5):after {
+  opacity: 1;
+}
+
+/* Estilos para la sección de información */
+.publication-info {
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center; /* Centrar contenido verticalmente */
+  background-color: #f8f8f8; /* Un fondo claro pero distinto al del cuerpo principal */
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2); 
+  margin-right: 1rem;/* Una sutil sombra para dar profundidad */
+}
+
+.publication-info h1 {
+  color: #333; /* Un color oscuro para el texto del título */
+  font-size: 2em; /* Un tamaño de fuente grande para el título */
+  font-weight: bold; /* Negrita para el título */
+  margin-bottom: 10px; /* Espaciado después del título */
+}
+.publication-info p {
+  color: #666; /* Un color más claro para la descripción */
+  font-size: 1em; /* Tamaño de fuente estándar para la descripción */
+  margin-bottom: 20px; /* Espaciado después de la descripción */
+}
+.publication-info p.price {
+  color: orange; /* Un color llamativo para el precio */
+  font-weight: bold; /* Negrita para el precio */
+  font-size: 1.5em; /* Tamaño de fuente grande para el precio */
+}
+
+/* .publication-info p,
+.publication-info button {
+  margin-bottom: 10px; /* Espaciado entre elementos */
+
+
+/* Estilos para el botón */
+button {
+  padding: 10px 20px;
+  background-color: orange;
+  color: white;
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+button:hover {
+  background-color: darkorange;
+}
+
+/* Estilos para el botón 'Contratar' */
+.publication-info button {
+  padding: 15px 30px; /* Aumentar el relleno para que sea más grande */
+  font-size: 1.2em; /* Aumentar el tamaño de la fuente */
+  font-weight: bold; /* Hacer el texto en negrita */
+  color: #fff; /* Texto blanco */
+  background-color: #ff8c00; /* Un color de fondo llamativo, por ejemplo naranja */
+  border: none; /* Sin borde */
+  border-radius: 5px; /* Bordes redondeados */
+  cursor: pointer; /* Cursor en forma de mano al pasar el ratón sobre el botón */
+  transition: background-color 0.3s, transform 0.3s; /* Transiciones suaves para efectos */
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2); /* Sombra para darle profundidad */
+}
+
+.publication-info button:hover {
+  background-color: #e67e22; /* Oscurecer el botón al pasar el ratón por encima */
+  transform: scale(1.05); /* Aumentar ligeramente el tamaño para dar efecto al pasar el ratón */
+}
+
+.publication-info button:active {
+  transform: scale(0.95); /* Encoger ligeramente el botón al hacer clic */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2); /* Ajustar la sombra al hacer clic */
+}
+
+/* Ajustes para evitar desbordamientos y proporcionar desplazamiento si es necesario */
+html, body {
+  width: 100%;
+  height: 100%;
+  overflow-x: hidden;
+}
+
+/* Ajustes del formulario de comentarios */
+.comments-form {
+  padding: 20px;
+  background-color: #f2f2f2; /* O cualquier color que prefieras */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Opcional: añadir sombra para resaltar la sección */
+}
+
+.comments-form form {
+  max-width: 800px; /* O el ancho máximo que prefieras */
+  margin: 20px auto; /* Reducir el espacio en la parte superior e inferior */
+  display: flex;
+  flex-direction: column;
+}
+
+.comments-form textarea,
+.comments-form select,
+.comments-form button {
+  margin-top: 10px;
+  padding: 10px;
+}
+
+.comments-form textarea {
+  width: 100%; /* Utiliza el 100% del contenedor para el ancho */
+  height: 150px; /* Ajusta la altura a tu preferencia */
+  padding: 12px; /* Espacio interior para que el texto no esté justo en el borde */
+  resize: vertical; /* Permite al usuario ajustar el tamaño verticalmente si lo desea */
+  border: 1px solid #ccc; /* Añade un borde sutil */
+  border-radius: 4px; /* Bordes redondeados para el estilo */
+}
+
+/* Estilos para el área de anuncios */
+.advertisements {
+  padding: 20px;
+  background-color: #f0f0f0; /* Color de fondo para resaltar la sección de anuncios */
+}
+
+
+.comments-display {
+  max-width: 800px;
+  margin: 0 auto; /* Centrar el contenedor */
+  padding: 20px;
+  background: #ffffff; /* Un fondo claro para la sección de comentarios */
+  border-top: 2px solid #eaeaea; /* Una línea en la parte superior para separar del carrusel */
+  border-bottom: 2px solid #eaeaea; /* Una línea en la parte inferior para separar del formulario */
+}
+
+.comments-display h2 {
+  margin-bottom: 20px; /* Espacio debajo del título de la sección */
+}
+
+.comment {
+  margin-bottom: 20px; /* Espacio entre comentarios */
+  padding: 15px;
+  background: #ffffff; /* Fondo para cada comentario */
+  border-radius: 4px; /* Bordes redondeados para los comentarios */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Sombra sutil para los comentarios */
+}
+
+.comment header h3 {
+  margin: 0;
+  font-size: 1.2em; /* Un tamaño de letra más grande para el nombre del usuario */
+}
+
+.comment header time {
+  font-size: 0.9em; /* Un tamaño de letra más pequeño para la fecha */
+  color: #666; /* Un color más claro para la fecha */
+}
+
+.comment p {
+  margin-top: 10px; /* Espacio entre el encabezado y el cuerpo del comentario */
+}
