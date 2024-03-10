@@ -245,8 +245,7 @@ li a {
 }
 
 .col-2-3 a:hover,
-.primary-header a:hover,
-figure:hover {
+.primary-header a:hover {
   color: #E85A19;
 }
 
@@ -455,6 +454,10 @@ nav .btn:last-of-type {
 .carrusel-row figure { 
   display: inline-block;  
   font-size: 16px;  
+}
+
+figcaption {
+
 }
 
 .carrusel-row img {

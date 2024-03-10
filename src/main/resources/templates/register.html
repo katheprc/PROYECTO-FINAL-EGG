@@ -1,87 +1,87 @@
 <!DOCTYPE html>
   <html lang="es" xmlns:th="http://www.thymeleaf.org">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Registro - registrese para acceder a nuestro mundo!</title>
-    <link rel="stylesheet" type="text/css" href="../static/css/styles.css" />
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
-
-    <!-- Iconos -->
-
-    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.8.0/dist/leaflet.css"
-    integrity="sha512-hoalWLoI8r4UszCkZ5kL8vayOGVae1oxXe/2A4AO6J9+580uKHDO3JdHb7NzwwzK5xr/Fs0W40kiNHxM9vyTtQ=="
-    crossorigin="" />
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.2/css/all.min.css"
-    integrity="sha512-1sCRPdkRXhBV2PBLUdRb4tMg1w2YPf37qatUFeS7zlBy7jJI8Lf4VHwWfZZfpXtYSLy85pkm9GaYVYMfw5BC1A=="
-    crossorigin="anonymous" referrerpolicy="no-referrer" />
-    <link rel="stylesheet" href="/build/css/app.css">
-    <script src="https://unpkg.com/leaflet@1.8.0/dist/leaflet.js"
-    integrity="sha512-BB3hKbKWOc9Ez/TAwyWxNXeoV9c1v6FIeYiBieIWkpLjauysF18NzgR1MBNBXf8/KABdlkX68nAhlwcDFLGPCQ=="
-    crossorigin="" defer></script>  
-  </head>
-  <body>
-    <header class="primary-header">
-      <section class="primary-section">
-        <div class="container primary-div group">
-          <a class="logo" href="index.html"><img src="../static/img/logo.png" alt="Logo de la empres">
-            <h1>Quinchos</h1>
-          </a>
-          <nav class="nav primary-nav">
-            <select name="lang" id="">
-              <option value="es" selected>ES</option>
-              <option value="in">IN</option>
-            </select><!--
-            --><ul><!--
-            --><li><a href="index.html">home</a></li><!--
-            --><li><a href="">buscar</a></li><!--
-            --><li><a href="">about us</a></li><!--
-            --><li><a href="register.html">registro</a></li><!--
-            --><li><a class="btn btn-alt" href="login.html">Regístrate gratis</a></li><!--
-            --></ul>
-          </nav>
-        </div>
-      </section>
-    </header>
-    <main>
-      <section class="row-alt">
-        <div class="container lead">
-          <h2>Bienvenido a nuestro portal de registro</h2>
-          <p>Regístrate para acceder a todos nuestro beneficios!</p>
-        </div>
-      </section>
-      <section class="row">
-        <div class="grid">
-          <section class="col-2-3">
-            <h2>Descubre miles de espacios en tus eventos</h2>
-            <p>Te abrimos las puertas al inventario de espacios más grande y único para todas tus actividades.</p>
-            <a href="">
-              <div class="carrusel-box">
-                <div>
-                  <figure>
-                    <img src="../static/img/imagen-for-register.jpg" alt="">
-                    <figcaption>Fiesta privada</figcaption>
-                  </figure><!--
-              --><figure>
-                    <img src="../static/img/imagen-3.jpg" alt="">
-                    <figcaption>Fiesta corporativa</figcaption>
-                  </figure><!--
-              --><figure><img src="../static/img/casa-1.jpg" alt="">
-                    <figcaption>Fiesta corporativa</figcaption>
-                  </figure>
-                </div>
-              </div>
+    <head>
+      <meta charset="UTF-8" />
+      <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      <title>Registro - registrese para acceder a nuestro mundo!</title>
+      <link rel="stylesheet" type="text/css" href="../static/css/styles.css" />
+      <link rel="preconnect" href="https://fonts.googleapis.com">
+      <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+      <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
+      <!-- Iconos 
+      <link rel="stylesheet" href="https://unpkg.com/leaflet@1.8.0/dist/leaflet.css"
+      integrity="sha512-hoalWLoI8r4UszCkZ5kL8vayOGVae1oxXe/2A4AO6J9+580uKHDO3JdHb7NzwwzK5xr/Fs0W40kiNHxM9vyTtQ=="
+      crossorigin="" />
+      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.2/css/all.min.css"
+      integrity="sha512-1sCRPdkRXhBV2PBLUdRb4tMg1w2YPf37qatUFeS7zlBy7jJI8Lf4VHwWfZZfpXtYSLy85pkm9GaYVYMfw5BC1A=="
+      crossorigin="anonymous" referrerpolicy="no-referrer" />
+      <link rel="stylesheet" href="/build/css/app.css">
+      <script src="https://unpkg.com/leaflet@1.8.0/dist/leaflet.js"
+      integrity="sha512-BB3hKbKWOc9Ez/TAwyWxNXeoV9c1v6FIeYiBieIWkpLjauysF18NzgR1MBNBXf8/KABdlkX68nAhlwcDFLGPCQ=="
+      crossorigin="" defer></script>  -->
+    </head>
+    <body>
+      <header class="primary-header">
+        <section class="primary-section">
+          <div class="container primary-div group">
+            <a class="logo" href="index.html"><img src="../static/img/logo.png" alt="Logo de la empres">
+              <h1>Quinchos</h1>
             </a>
+            <nav class="nav primary-nav">
+              <select name="lang" id="">
+                <option value="es" selected>ES</option>
+                <option value="in">IN</option>
+              </select><!--
+           --><ul><!--
+             --><li><a href="index.html">home</a></li><!--
+             --><li><a href="">buscar</a></li><!--
+             --><li><a href="">about us</a></li><!--
+             --><li><a href="register.html">registro</a></li><!--
+             --><li><a class="btn btn-alt" href="login.html">Regístrate gratis</a></li><!--
+             --></ul>
+              </nav>
+          </div>
+        </section>
+      </header>
+      <main>
+        <section class="row-alt">
+          <div class="container lead">
+            <h2>Bienvenido a nuestro portal de registro</h2>
+            <p>Regístrate para acceder a todos nuestro beneficios!</p>
+          </div>
+        </section>
+        <section class="row">
+          <div class="grid">
+            <section class="col-2-3">
+              <h2>Descubre miles de espacios en tus eventos</h2>
+              <p>Te abrimos las puertas al inventario de espacios más grande y único para todas tus actividades.</p>
+              <a href="">
+                <div class="carrusel-row">
+                  <div>
+                    <figure>
+                      <img src="../static/img/imagen-for-register.jpg" alt="">
+                      <figcaption>Fiesta privada</figcaption>
+                    </figure><!--      
+                 --><figure>
+                      <img src="../static/img/imagen-3.jpg" alt="">
+                      <figcaption>Fiesta corporativa</figcaption>
+                    </figure><!--
+                 --><figure>
+                      <img src="../static/img/casa-1.jpg" alt="">
+                      <figcaption>Fiesta corporativa</figcaption>
+                    </figure>
+                  </div>
+                </div> 
+              </a>
             </section><!--   
-        --><form class="col-1-3" method="post" action="#" class="formulario">
+         --><form class="col-1-3" method="post" action="#" class="formulario">
               <fieldset class="register-group">
                 <legend>Datos de contacto</legend>
                 <label>
-                  <input type="text" name="nombre" placeholder="Nombre completo *" value="" required></label><!--
-              --><label><!--
-              --><input type="text" name="apellido" placeholder="Apellido completo *" value="" required>
+                  <input type="text" name="nombre" placeholder="Nombre completo *" value="" required><!--
+             --></label><!--
+             --><label><!--
+               --><input type="text" name="apellido" placeholder="Apellido completo *" value="" required>
                 </label>
                 <label>
                   <input type="email" name="email" placeholder="@Email *" value="" required>
@@ -92,41 +92,41 @@
                 <label>
                   <input type="password" name="password-confirm" placeholder="Confirmar contraseña *" value="" required>
                 </label>
-                </fieldset>
-                <fieldset>
-                  <input class="btn btn-defaul" type="submit" name="button" value="Registrarse"></input>
-                  <a class="acciones_enlaces" href="/login">¿Ya tiene una cuenta? inicia sesión</a>
-                </fieldset>
+              </fieldset>
+              <fieldset>
+                <input class="btn btn-defaul" type="submit" name="button" value="Registrarse"></input>
+                <a class="acciones_enlaces" href="/login">¿Ya tiene una cuenta? inicia sesión</a>
+              </fieldset>
             </form>
-        </div>
-      </section>
-    </main>
-    <footer class=" container primary-footer group" th:replace="./fragments/footer ::  footer">
-      <div class="col-1-3-alt">          
-        <ul>
-          <li><a href="index.html">Home</a></li><!--
-      --><li><a href="">Buscar</a></li><!--
-      --><li><a href="">About Us</a></li><!--
-      --><li><a href="register.html">Registro</a></li><!--
-      --><li><a href="login.html">Regístrate</a></li>
-        </ul>   
+          </div>
+        </section>
+      </main>
+      <footer class=" container primary-footer group" th:replace="./fragments/footer ::  footer">
+        <div class="col-1-3-alt">          
+          <ul>
+            <li><a href="index.html">Home</a></li><!--
+         --><li><a href="">Buscar</a></li><!--
+         --><li><a href="">About Us</a></li><!--
+         --><li><a href="register.html">Registro</a></li><!--
+         --><li><a href="login.html">Regístrate</a></li>
+          </ul>   
         </div><!--
-    --><div class="col-1-3-alt">
+     --><div class="col-1-3-alt">
           <ul>
             <li><a href="index.html">Home</a></li><!--
-        --><li><a href="">Buscar</a></li><!--
-        --><li><a href="">About Us</a></li><!--
-        --><li><a href="register.html">Registro</a></li><!--
-        --><li><a href="login.html">Regístrate</a></li>
+         --><li><a href="">Buscar</a></li><!--
+         --><li><a href="">About Us</a></li><!--
+         --><li><a href="register.html">Registro</a></li><!--
+         --><li><a href="login.html">Regístrate</a></li>
           </ul><!--
-    --></div><!--
-    --><div class="col-1-3-alt">
+     --></div><!--
+     --><div class="col-1-3-alt">
           <ul>
             <li><a href="index.html">Home</a></li><!--
-        --><li><a href="">Buscar</a></li><!--
-        --><li><a href="">About Us</a></li><!--
-        --><li><a href="register.html">Registro</a></li><!--
-        --><li><a href="login.html">Regístrate</a></li>
+         --><li><a href="">Buscar</a></li><!--
+         --><li><a href="">About Us</a></li><!--
+         --><li><a href="register.html">Registro</a></li><!--
+         --><li><a href="login.html">Regístrate</a></li>
           </ul>   
         </div>    
         <h5>support@quinchos.com</h5> 
@@ -134,10 +134,10 @@
         <nav class="nav alt-nav">
           <ul>
             <li><a href="index.html">Home</a></li><!--
-        --><li><a href="">Buscar</a></li><!--
-        --><li><a href="">About Us</a></li><!--
-        --><li><a href="register.html">Registro</a></li><!--
-        --><li><a href="login.html">Regístrate</a></li>
+         --><li><a href="">Buscar</a></li><!--
+         --><li><a href="">About Us</a></li><!--
+         --><li><a href="register.html">Registro</a></li><!--
+         --><li><a href="login.html">Regístrate</a></li>
           </ul>
         </nav>      
         <div class="icon-redes">
@@ -145,7 +145,6 @@
           <a class="icon-instagram" href="https://www.instagram.com/" target="_blank"><img src="../static/img/icon-instagram.png" alt="icon-instagram"></a>
           <a class="icon-youtube" href="https://www.youtube.com/" target="_blank"><img src="../static/img/icon-youtube.png" alt="icon-youtube"></a>
         </div>    
-    </footer>
-    <script src="../static/js/javascript.js"></script>
-  </body>
+      </footer>    
+    </body>
   </html>
