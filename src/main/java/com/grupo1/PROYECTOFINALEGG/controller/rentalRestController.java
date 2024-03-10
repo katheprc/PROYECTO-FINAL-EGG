@@ -32,6 +32,7 @@ public class rentalRestController {
 	}
 	
 	@GetMapping("/properties")
+	@PreAuthorize("hasAnyRole('ADMIN', 'USER')")
 	public List<Property> getProperties(){
 		
 		return rSrv.getProperties();

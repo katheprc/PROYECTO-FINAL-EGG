@@ -53,6 +53,11 @@ public class rentalController {
 		return "register.html";
 	}
 	
+	@GetMapping("/error")
+	public String error() {
+		return "error.html";
+	}
+	
 	@PostMapping("/registerSuccess")
     public String registro(@RequestParam String username, @RequestParam String email, @RequestParam String password,
             @RequestParam String password2, @RequestParam String apellido, @RequestParam String type, ModelMap modelo){
