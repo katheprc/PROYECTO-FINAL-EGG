@@ -56,7 +56,7 @@ table {
 
 body {
   color: #fff;
-  font: 22px "Montserrat", sans-serif;
+  font: 22px "Poppins", sans-serif;
   background-color: rgb(232, 90, 25);  
   background: -webkit-linear-gradient(to left, rgb(232, 25, 84) -50%, rgb(232, 90, 25) 50%, rgb(232, 25, 25) 120%);
   background:    -moz-linear-gradient(to left, rgb(232, 25, 84) -50%, rgb(232, 90, 25) 50%, rgb(232, 25, 25) 120%);
@@ -75,10 +75,6 @@ body {
   -webkit-box-sizing: border-box;
      -moz-box-sizing: border-box;
           box-sizing: border-box;
-}
-
-.grid {
-  background-color: #e61919;
 }
 
 .grid,
@@ -118,7 +114,7 @@ body {
 .col-1-3-alt {     
   padding-left: 152px;
   padding-right: 152px;
-  margin-bottom: 44px;  
+  margin-bottom: 80px;  
 }
 
 .col-2-3 h2 {
@@ -132,7 +128,9 @@ body {
 
 .col-2-3 figure:hover {  
   opacity: .7;
+  
 }
+
 
 /*
   ========================================
@@ -254,7 +252,7 @@ figure:hover {
 }
  
 .alt-nav a:hover {
-  background-color: #d65317;
+  color: #302e2c;
 }
 
 /*
@@ -368,7 +366,30 @@ figure:hover {
 .col-1-3-alt li {
   margin-top: 30px;
   margin-bottom: 30px;
+
 }
+
+.icon-redes {
+  margin-top: 80px;
+   
+  float: right;
+}
+
+.icon-youtube,
+.icon-instagram,
+.icon-linkedin {
+  margin-left: 15px;
+  margin-right: 15px;
+}
+
+.icon-redes a:first-child {
+  margin-left: 0;
+}
+
+.icon-redes a:last-child {
+  margin-right: 0;
+}
+
 
 /*
   ========================================
@@ -437,9 +458,10 @@ figure {
   margin-bottom: 44px;
 }
 
-.col-2-3 img {
+.carrusel img {
   width: 243px;    
   border-radius: 6px; 
+  
 }
 
 form {  
