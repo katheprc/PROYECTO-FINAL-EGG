@@ -19,6 +19,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 
+import com.grupo1.PROYECTOFINALEGG.Entity.Client;
 import com.grupo1.PROYECTOFINALEGG.Entity.Owner;
 import com.grupo1.PROYECTOFINALEGG.Entity.Role;
 import com.grupo1.PROYECTOFINALEGG.Exceptions.MyException;
@@ -29,6 +30,12 @@ public class UserService implements UserDetailsService {
 
 	@Autowired
 	private UserRepository uRepo;
+
+	public com.grupo1.PROYECTOFINALEGG.Entity.User find(String email) {
+
+		com.grupo1.PROYECTOFINALEGG.Entity.User user = uRepo.findByEmail(email);
+		return user;
+	}
 
 	@Transactional
 	public void registrar(String username, String apellido, String email, String password, String password2,
@@ -50,7 +57,7 @@ public class UserService implements UserDetailsService {
 
 		} else {
 
-			com.grupo1.PROYECTOFINALEGG.Entity.User user = new com.grupo1.PROYECTOFINALEGG.Entity.User();
+			Client user = new Client();
 
 			user.setUsername(username);
 			user.setLastname(apellido);
@@ -93,11 +100,29 @@ public class UserService implements UserDetailsService {
 	@Transactional(readOnly = true)
 	public List<com.grupo1.PROYECTOFINALEGG.Entity.User> listarUsuarios() {
 
-		List<com.grupo1.PROYECTOFINALEGG.Entity.User> users = new ArrayList<>();
+		/*
+		 * List<com.grupo1.PROYECTOFINALEGG.Entity.User> users;
+		 * 
+		 * users = uRepo.findAll();
+		 * 
+		 * List<UserDTO> usersDTO = users.stream() .map(UserDTO::new)
+		 * .collect(Collectors.toList());
+		 * 
+		 * return usersDTO;
+		 */
 
+		List<com.grupo1.PROYECTOFINALEGG.Entity.User> users;
 		users = uRepo.findAll();
 
+		for (com.grupo1.PROYECTOFINALEGG.Entity.User user : users) {
+
+			user.setPassword(null);
+			user.setToken(null);
+
+		}
+
 		return users;
+
 	}
 
 	@Transactional
@@ -192,5 +217,19 @@ public class UserService implements UserDetailsService {
 		user.setToken(null);
 
 		uRepo.save(user);
+	}
+
+	public void updateUser(com.grupo1.PROYECTOFINALEGG.Entity.User user) {
+		uRepo.save(user);
+	}
+
+	public void updateUserProperty(Owner user, String prop) {
+		user.addProperty(prop);
+		updateUser(user);
+		
+	}
+
+	public Optional<com.grupo1.PROYECTOFINALEGG.Entity.User> getUserById(Integer id) {
+		return uRepo.findById(id);
 	}
 }

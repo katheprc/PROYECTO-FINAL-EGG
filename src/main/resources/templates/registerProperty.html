@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+	<meta charset="UTF-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+	<title>registrar propiedad</title>
+</head>
+
+<body>
+
+	<form method="post" action="/register-property" enctype="multipart/form-data">
+		<label for="propertyName">Nombre de la propiedad</label>
+		<input type="text" id="propertyName" name="propertyName" required>
+		<br>
+		<label for="pricePerDay">Precio base por día</label>
+		<input type="number" id="pricePerDay" name="pricePerDay" required>
+		<br>
+		<label for="details">Introduce detalles (máximo 255 caracteres): </label>
+		<label for="imagenes">Selecciona imágenes:</label>
+        <input type="file" name="imagenes" id="imagenes" accept="image/*" multiple>
+        <br>
+		<input type="text" id="details" name="details" maxlength="255">
+		<div id="inputContainer">
+			<!-- Aquí se agregarán dinámicamente los inputs -->
+		</div>
+		<button type="button" onclick="agregarInput()">Agregar Servicios</button>
+		<button type="button" onclick="eliminarUltimoInput()">Eliminar Último Servicio</button>
+		<button type="submit">Enviar</button>
+	</form>
+
+	<script>
+		function agregarInput() {
+			var inputContainer = document.getElementById('inputContainer');
+
+			// Crear un nuevo objeto de entrada con nombre y precio
+			var nuevoInput = document.createElement('div');
+			nuevoInput.innerHTML = `
+        <input type="text" name="nombre[]" placeholder="Nombre">
+        <input type="number" name="precio[]" placeholder="Precio">
+      `;
+
+			inputContainer.appendChild(nuevoInput);
+		}
+
+		function eliminarUltimoInput() {
+			var inputContainer = document.getElementById('inputContainer');
+			var inputs = inputContainer.querySelectorAll('div');
+
+			// Verificar si hay inputs antes de intentar eliminar
+			if (inputs.length > 0) {
+				inputContainer.removeChild(inputs[inputs.length - 1]);
+			}
+		}
+
+		document.getElementById('dynamicForm').addEventListener('submit', function (event) {
+			event.preventDefault(); // Evita que el formulario se envíe de forma convencional
+
+			// Obtener los valores de los inputs
+			var nombres = document.getElementsByName('nombre[]');
+			var precios = document.getElementsByName('precio[]');
+
+			var productos = [];
+
+			// Crear objetos con nombre y precio
+			for (var i = 0; i < nombres.length; i++) {
+				var nombre = nombres[i].value;
+				var precio = parseFloat(precios[i].value); // Convertir el precio a número
+				productos.push({nombre: nombre, precio: precio});
+			}
+
+			// Enviar los valores al endpoint (simulado aquí con un mensaje en la consola)
+			console.log('Productos enviados al endpoint:', productos);
+		});
+	</script>
+
+</body>
+
+</html>

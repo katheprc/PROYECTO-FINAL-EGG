@@ -10,7 +10,6 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
 import lombok.Data;
@@ -23,18 +22,12 @@ public class Booking {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 	
-	@ManyToOne
-	private Property property;
-	
-	@ManyToOne
-	private User user;
-	
-	@ManyToOne
-	private Owner owner;
-	
+	private String property;
+	private String user;
+	private String owner;
 	
 	private Date inDate, finDate;
-	private Double pricePerDay, total;
+	private Double total;
 	
 	@ElementCollection
     @CollectionTable(name="listOfHiredServices")

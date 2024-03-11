@@ -29,7 +29,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	}
 
 	protected void configure(HttpSecurity http) throws Exception {
-		http.authorizeHttpRequests().antMatchers("/api/admin/**").hasRole("ADMIN").antMatchers("/api/**")
+		http.authorizeHttpRequests().antMatchers("/api/admin/**", "/admin/**").hasRole("ADMIN").antMatchers("/api/**")
 				.authenticated().antMatchers("/", "/login", "/register").permitAll().and().httpBasic().and()
 				.formLogin(login -> login.loginPage("/login").defaultSuccessUrl("/dashboard").usernameParameter("email")
 						.passwordParameter("password"))

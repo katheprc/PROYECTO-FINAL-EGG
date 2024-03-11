@@ -15,5 +15,5 @@ public interface UserRepository extends JpaRepository<User, Integer>{
 
 	@Query("SELECT u FROM User u where u.token = :token")
 	public User findByToken(@Param("token") String token);
-	
+		
 }
