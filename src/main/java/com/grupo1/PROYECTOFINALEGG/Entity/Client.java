@@ -7,7 +7,7 @@ import lombok.Data;
 
 @Entity
 @Data
-@DiscriminatorValue("ADMIN")
-public class Admin extends Owner {
+@DiscriminatorValue("CLIENT")
+public class Client extends User {
 
 }

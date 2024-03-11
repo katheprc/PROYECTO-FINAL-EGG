@@ -9,7 +9,6 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
 import lombok.Data;
@@ -19,16 +18,32 @@ import lombok.Data;
 public class Property {
 
 	@Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Integer id;
 
-	@ManyToOne
-    private Owner owner;
-    
-    @ElementCollection
-    @CollectionTable(name="listOfServices")
-    @OneToMany
-    private List<Service> services  = new ArrayList<>();
-    
+	private String name;
+
+	private String details;
 	
+	private Double pricePerDay;
+
+	@ElementCollection
+	@CollectionTable(name = "listOfPropertyImages")
+	private List<String> imgs = new ArrayList<>();
+
+	private String owner;
+
+	@ElementCollection
+	@CollectionTable(name = "listOfServices")
+	@OneToMany
+	private List<Service> services = new ArrayList<>();
+
+	public void addImg(String img) {
+		this.imgs.add(img);
+	}
+	
+	public void addSrv(Service srv) {
+		this.services.add(srv);
+	}
+
 }
