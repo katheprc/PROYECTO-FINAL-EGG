@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.crossstore.ChangeSetPersister.NotFoundException;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -16,6 +17,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -42,7 +44,6 @@ public class rentalController {
 
 	@GetMapping("/")
 	public String home() {
-
 		return "index.html";
 	}
 
@@ -51,6 +52,13 @@ public class rentalController {
 
 		model.addAttribute("userType", getUserType());
 		return "index.html";
+	}
+
+	@GetMapping("/profile")
+	public String profile(Model model) {
+		model.addAttribute("user", getUser());
+		model.addAttribute("userType", getUserType());
+		return "profile.html";
 	}
 
 	@GetMapping("/login")
@@ -64,25 +72,28 @@ public class rentalController {
 	}
 
 	@GetMapping("/error")
-	public String error() {
+	public String error(Model model) {
+		model.addAttribute("userType", getUserType());
 		return "error.html";
 	}
 
 	@PostMapping("/registerSuccess")
 	public String registro(@RequestParam String username, @RequestParam String email, @RequestParam String password,
-			@RequestParam String password2, @RequestParam String apellido, @RequestParam String type, ModelMap modelo) {
+			@RequestParam String password2, @RequestParam String apellido, @RequestParam String type,
+			@RequestParam("imagen") MultipartFile imagen, ModelMap model, HttpServletRequest request,
+			HttpServletResponse response) {
 
 		try {
-			uSrv.registrar(username, apellido, email, password, password2, type);
+			uSrv.registrar(username, apellido, email, password, password2, type, imagen, request);
 
-			modelo.put("exito", "Usuario registrado con Exito! :D");
+			model.put("exito", "Usuario registrado con Exito! :D");
 			return "index.html";
 
 		} catch (MyException ex) {
 
-			modelo.put("error", ex.getMessage());
-			modelo.put("nombre", username);
-			modelo.put("email", email);
+			model.put("error", ex.getMessage());
+			model.put("nombre", username);
+			model.put("email", email);
 
 			return "register.html";
 		}
@@ -90,7 +101,8 @@ public class rentalController {
 
 	@GetMapping("/register-property")
 	@PreAuthorize("hasAnyRole('ADMIN', 'USER')")
-	public String registerProperty() {
+	public String registerProperty(Model model) {
+		model.addAttribute("userType", getUserType());
 
 		return "registerProperty.html";
 	}
@@ -98,8 +110,9 @@ public class rentalController {
 	@PostMapping("/register-property")
 	@PreAuthorize("hasAnyRole('ADMIN', 'USER')")
 	public String registerProperty(@RequestParam String propertyName, @RequestParam String details,
-			@RequestParam("imagenes") MultipartFile[] imagenes, @RequestParam Double pricePerDay, HttpServletRequest request,
-			HttpServletResponse response) throws ServletException, IOException {
+			@RequestParam("imagenes") MultipartFile[] imagenes, @RequestParam Double pricePerDay,
+			HttpServletRequest request, HttpServletResponse response, Model model)
+			throws ServletException, IOException {
 
 		String[] names = request.getParameterValues("nombre[]");
 		String[] prices = request.getParameterValues("precio[]");
@@ -119,7 +132,7 @@ public class rentalController {
 
 		property.setDetails(details);
 		property.setName(propertyName);
-		
+
 		property.setPricePerDay(pricePerDay);
 
 		property.setOwner(Utility.getSiteUrl(request) + "/api/user/" + ((Owner) getUser()).getId());
@@ -135,15 +148,14 @@ public class rentalController {
 		}
 
 		rSrv.saveProp(property);
-		
-		
 
-		uSrv.updateUserProperty((Owner) getUser(), Utility.getSiteUrl(request) + "/api/property/" + rSrv.getProp(property).getId());
+		uSrv.updateUserProperty((Owner) getUser(),
+				Utility.getSiteUrl(request) + "/api/property/" + rSrv.getProp(property).getId());
 
+		model.addAttribute("userType", getUserType());
 		return "registerProperty.html";
 	}
 
-	
 	/*
 	 * @GetMapping("/inicio") public String inicio(HttpSession session) { // datos
 	 * de la sesion usuarioservicio User logueado = (User)
@@ -191,7 +203,9 @@ public class rentalController {
 
 		String userDetails = authentication.getName();
 
-		return uSrv.find(userDetails).getType();
+		String userType = uSrv.find(userDetails).getType();
+
+		return userType;
 	}
 
 	private User getUser() {
@@ -202,4 +216,44 @@ public class rentalController {
 		return uSrv.find(userDetails);
 	}
 
+	@GetMapping("/property/{id}")
+	public String propertyPage(@PathVariable Integer id, Model model) throws NotFoundException {
+
+		Property property = rSrv.getPropById(id).get();
+
+		model.addAttribute("propertyDetails", property);
+		model.addAttribute("propertyImgs", property.getImgs());
+		return "sigle-page-arlquileres.html";
+	}
+
+	@GetMapping("/admin/dashboard")
+	public String dashboardAdmin(Model model) {
+		model.addAttribute("listaUsuarios", uSrv.listarUsuarios());
+		model.addAttribute("userType", getUserType());
+
+		return "dashboardAdmin.html";
+	}
+
+	@PostMapping("/admin/dashboard/")
+	public String editRole(@RequestParam("id") String id, @RequestParam("type") String type, Model model) {
+		uSrv.cambiarRol(Integer.parseInt(id), type);
+		model.addAttribute("listaUsuarios", uSrv.listarUsuarios());
+		return "dashboardAdmin.html";
+	}
+
+	@PostMapping("/admin/dashboard/delete")
+	public String deleteUser(@RequestParam("id") String id, Model model) {
+		uSrv.deleteUser(Integer.parseInt(id));
+		model.addAttribute("listaUsuarios", uSrv.listarUsuarios());
+		model.addAttribute("userType", getUserType());
+		return "dashboardAdmin.html";
+	}
+
+	@GetMapping("/admin/dashboard/buscar")
+	public String buscarDashboardAdmin(@RequestParam("type") String type, @RequestParam("order") String order,
+			Model model) {
+		model.addAttribute("userType", getUserType());
+		model.addAttribute("listaUsuarios", uSrv.busquedaPersonalizada(type, order));
+		return "dashboardAdmin.html";
+	}
 }

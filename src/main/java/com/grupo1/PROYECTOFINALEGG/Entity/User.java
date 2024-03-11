@@ -46,9 +46,7 @@ public abstract class User {
 	@OneToMany
 	private List<Booking> bookings = new ArrayList<>();
 
-	@ElementCollection
-	@CollectionTable(name = "listOfUserImgs")
-	private List<String> imgs = new ArrayList<>();
+	private String img;
 
 	public User() {
 	}
@@ -63,7 +61,7 @@ public abstract class User {
 	}
 
 	public void addImg(String img) {
-		this.imgs.add(img);
+		this.img = img;
 	}
-	
+
 }

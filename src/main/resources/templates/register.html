@@ -52,7 +52,7 @@
 			Regístrate para acceder a todos nuestro beneficios!
 		</p>
 
-		<form method="POST" action="/registerSuccess" class="formulario">
+		<form method="POST" action="/registerSuccess" class="formulario" enctype="multipart/form-data">
 			<div class="formulario__campo">
 				<label for="type" class="formulario__label"></label>
 				<select name="type" id="type" class="formulario_input">
@@ -61,32 +61,38 @@
 				</select>
 			</div>
 			<div class="formulario__campo">
+				<label for="imagen">Selecciona imagen de perfil:</label>
+				<input type="file" id="imagen" name="imagen" accept="image/*">
+			</div>
+
+			<div class="formulario__campo">
 				<label for="username" class="formulario__label"></label>
-				<input type="text" class="formulario__input" placeholder="Nombre" id="username" name="username"
-					value="" />
+				<input type="text" class="formulario__input" placeholder="Nombre" id="username" name="username" value=""
+					required />
 			</div>
 
 			<div class="formulario__campo">
 				<label for="apellido" class="formulario__label"></label>
 				<input type="text" class="formulario__input" placeholder="Apellido" id="apellido" name="apellido"
-					value="" />
+					value="" required />
 			</div>
 
 			<div class="formulario__campo">
 				<label for="email" class="formulario__label"></label>
-				<input type="email" class="formulario__input" placeholder="Email" id="email" name="email" value="" />
+				<input type="email" class="formulario__input" placeholder="Email" id="email" name="email" value=""
+					required />
 			</div>
 
 			<div class="formulario__campo">
 				<label for="password" class="formulario__label"></label>
-				<input type="password" class="formulario__input" placeholder="Constraseña" id="password"
-					name="password" />
+				<input type="password" class="formulario__input" placeholder="Constraseña" id="password" name="password"
+					required />
 			</div>
 
 			<div class="formulario__campo">
 				<label for="password2" class="form__label"></label>
 				<input type="password" class="formulario__input" placeholder="Confirmar contraseña" id="password2"
-					name="password2" />
+					name="password2" required />
 			</div>
 			<div class="btn-center">
 				<button type="submit" class="formulario__submit bn9-hover bn4">

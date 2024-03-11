@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,18 +19,23 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.grupo1.PROYECTOFINALEGG.Entity.Client;
 import com.grupo1.PROYECTOFINALEGG.Entity.Owner;
 import com.grupo1.PROYECTOFINALEGG.Entity.Role;
 import com.grupo1.PROYECTOFINALEGG.Exceptions.MyException;
 import com.grupo1.PROYECTOFINALEGG.Repositories.UserRepository;
+import com.grupo1.PROYECTOFINALEGG.Utilities.Utility;
 
 @Service
 public class UserService implements UserDetailsService {
 
 	@Autowired
 	private UserRepository uRepo;
+
+	@Autowired
+	RentalService rSrv;
 
 	public com.grupo1.PROYECTOFINALEGG.Entity.User find(String email) {
 
@@ -39,7 +45,7 @@ public class UserService implements UserDetailsService {
 
 	@Transactional
 	public void registrar(String username, String apellido, String email, String password, String password2,
-			String type) throws MyException {
+			String type, MultipartFile imagen, HttpServletRequest request) throws MyException {
 
 		validar(username, apellido, email, password, password2);
 
@@ -52,6 +58,8 @@ public class UserService implements UserDetailsService {
 			user.setEmail(email);
 			user.setPassword(new BCryptPasswordEncoder().encode(password)); // codificado
 			user.setRole(Role.USER);
+			Integer num = rSrv.subirImagen(imagen);
+			user.addImg(Utility.getSiteUrl(request) + "/api/image/" + num);
 
 			uRepo.save(user);
 
@@ -65,6 +73,8 @@ public class UserService implements UserDetailsService {
 			user.setPassword(new BCryptPasswordEncoder().encode(password)); // codificado
 			user.setRole(Role.USER);
 
+			Integer num = rSrv.subirImagen(imagen);
+			user.addImg(Utility.getSiteUrl(request) + "/api/image/" + num);
 			uRepo.save(user);
 		}
 
@@ -126,18 +136,22 @@ public class UserService implements UserDetailsService {
 	}
 
 	@Transactional
-	public void cambiarRol(Integer id) {
+	public void cambiarRol(Integer id, String type) {
 		Optional<com.grupo1.PROYECTOFINALEGG.Entity.User> respuesta = uRepo.findById(id);
 
 		if (respuesta.isPresent()) {
 
 			com.grupo1.PROYECTOFINALEGG.Entity.User user = respuesta.get();
 
-			if (user.getRole().equals(Role.USER)) {
-
+			if (type.equals("ADMIN")) {
+				user.setType(type);
 				user.setRole(Role.ADMIN);
 
-			} else if (user.getRole().equals(Role.ADMIN)) {
+			} else if (type.equals("OWNER")) {
+				user.setType(type);
+				user.setRole(Role.USER);
+			} else {
+				user.setType(type);
 				user.setRole(Role.USER);
 			}
 		}
@@ -226,10 +240,46 @@ public class UserService implements UserDetailsService {
 	public void updateUserProperty(Owner user, String prop) {
 		user.addProperty(prop);
 		updateUser(user);
-		
+
 	}
 
 	public Optional<com.grupo1.PROYECTOFINALEGG.Entity.User> getUserById(Integer id) {
 		return uRepo.findById(id);
+	}
+
+	public void deleteUser(int id) {
+		try {
+			uRepo.deleteById(id);
+		} catch (Exception e) {
+			e.fillInStackTrace();
+		}
+
+	}
+
+	public List<com.grupo1.PROYECTOFINALEGG.Entity.User> busquedaPersonalizada(String type, String order) {
+		List<com.grupo1.PROYECTOFINALEGG.Entity.User> users = new ArrayList<>();
+
+		if (type.equals("CUALQUIERA")) {
+			if (order.equals("ASC")) {
+				users = uRepo.findAllAsc();
+			} else {
+				users = uRepo.findAllDesc();
+			}
+		} else {
+			if (order.equals("ASC")) {
+				users = uRepo.findByTypeOrderAsc(type);
+			} else {
+				users = uRepo.findByTypeOrderDesc(type);
+			}
+		}
+
+		for (com.grupo1.PROYECTOFINALEGG.Entity.User user : users) {
+
+			user.setPassword(null);
+			user.setToken(null);
+
+		}
+
+		return users;
 	}
 }
