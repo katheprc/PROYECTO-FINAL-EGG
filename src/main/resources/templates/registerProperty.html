@@ -30,13 +30,13 @@
 						className="navegacion__micuenta"><button>Registrarse</button></a>
 					<a th:if="${userType eq 'ADMIN' or userType eq 'OWNER' or userType eq 'CLIENT'}" href="/profile"
 						className="navegacion__micuenta"><button>Mi
-							cuenta</button></a>
+							perfil</button></a>
 
 					<a th:if="${userType eq 'OWNER'}" href="/register-property">
 						<button>Registrar Propiedad</button>
 					</a>
-					<a th:if="${userType eq 'ADMIN'}" href="/admin/dashboard">
-						<button>Dashboard Admin </button>
+					<a th:if="${userType eq 'ADMIN' or userType eq 'OWNER' or userType eq 'CLIENT'}" href="/dashboard">
+						<button>Dashboard</button>
 					</a>
 					<a th:if="${userType eq 'ADMIN' or userType eq 'OWNER' or userType eq 'CLIENT'}" href="/logout">
 						<button>Logout</button>

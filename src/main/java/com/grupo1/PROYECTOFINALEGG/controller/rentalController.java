@@ -48,10 +48,16 @@ public class rentalController {
 	}
 
 	@GetMapping("/dashboard")
-	public String dashboard(Model model) {
+	public RedirectView dashboard(Model model) {
 
-		model.addAttribute("userType", getUserType());
-		return "index.html";
+		String type = getUserType();
+
+		if (type.equals("ADMIN")) {
+			return new RedirectView("/admin/dashboard/users", true);
+		}
+
+		model.addAttribute("userType", type);
+		return new RedirectView("/dashboard", true);
 	}
 
 	@GetMapping("/profile")
@@ -133,12 +139,8 @@ public class rentalController {
 	// ----------------------------------------------------ADMIN----------------------------------------------------------
 
 	@GetMapping("/admin/dashboard")
-	public String dashboardAdmin(Model model) {
-		model.addAttribute("userType", getUserType());
-		model.addAttribute("usersBoolean", false);
-		model.addAttribute("postsBoolean", false);
-		model.addAttribute("propertiesBoolean", false);
-		return "dashboardAdmin.html";
+	public RedirectView dashboardAdmin(Model model) {
+		return new RedirectView("/admin/dashboard/users", true);
 	}
 
 	// -------------MAPPINGS USER-------------
