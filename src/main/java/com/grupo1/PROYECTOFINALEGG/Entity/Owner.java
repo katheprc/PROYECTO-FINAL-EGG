@@ -7,24 +7,22 @@ import javax.persistence.CollectionTable;
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
+import javax.persistence.OneToMany;
+
+import lombok.Data;
 
 @Entity
+@Data
 @DiscriminatorValue("OWNER")
-public class Owner extends Client {
+public class Owner extends User {
 
 	@ElementCollection
-    @CollectionTable(name="listOfProperties")
-    List<String> properties = new ArrayList<>();
+	@CollectionTable(name = "listOfProperties")
+	@OneToMany
+	List<Property> properties = new ArrayList<>();
 
-	public List<String> getProperties() {
-		return properties;
-	}
-
-	public void addProperty(String prop) {
+	public void addProperty(Property prop) {
 		this.properties.add(prop);
 	}
-	
-	
-	
-	
+
 }

@@ -1,12 +1,7 @@
 package com.grupo1.PROYECTOFINALEGG.Entity;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import javax.persistence.CollectionTable;
 import javax.persistence.DiscriminatorColumn;
 import javax.persistence.DiscriminatorType;
-import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
@@ -15,8 +10,6 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
-import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
 
 import org.hibernate.annotations.Formula;
 
@@ -40,11 +33,6 @@ public abstract class User {
 	String token;
 	@Formula("dtype")
 	String type;
-
-	@ElementCollection
-	@CollectionTable(name = "listOfBookings")
-	@OneToMany
-	private List<Booking> bookings = new ArrayList<>();
 
 	private String img;
 

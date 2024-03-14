@@ -20,6 +20,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.grupo1.PROYECTOFINALEGG.Entity.Property;
 import com.grupo1.PROYECTOFINALEGG.Entity.User;
+import com.grupo1.PROYECTOFINALEGG.Entity.DTOS.UserDTO;
 import com.grupo1.PROYECTOFINALEGG.service.RentalService;
 import com.grupo1.PROYECTOFINALEGG.service.UserService;
 
@@ -35,7 +36,7 @@ public class rentalRestController {
 
 	@GetMapping("/admin/users")
 	@PreAuthorize("hasRole('ADMIN')")
-	public List<User> getUsers() {
+	public List<UserDTO> getUsers() {
 
 		return uSrv.listarUsuarios();
 

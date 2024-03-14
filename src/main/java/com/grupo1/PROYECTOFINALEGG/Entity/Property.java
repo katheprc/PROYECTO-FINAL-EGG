@@ -23,27 +23,36 @@ public class Property {
 
 	private String name;
 
+	private String address;
+
 	private String details;
-	
+
 	private Double pricePerDay;
 
 	@ElementCollection
 	@CollectionTable(name = "listOfPropertyImages")
 	private List<String> imgs = new ArrayList<>();
 
-	private String owner;
-
 	@ElementCollection
 	@CollectionTable(name = "listOfServices")
 	@OneToMany
 	private List<Service> services = new ArrayList<>();
 
+	@ElementCollection
+	@CollectionTable(name = "listOfPosts")
+	@OneToMany
+	private List<Post> posts;
+
 	public void addImg(String img) {
 		this.imgs.add(img);
 	}
-	
+
 	public void addSrv(Service srv) {
 		this.services.add(srv);
+	}
+
+	public void addPosts(Post post) {
+		this.posts.add(post);
 	}
 
 }

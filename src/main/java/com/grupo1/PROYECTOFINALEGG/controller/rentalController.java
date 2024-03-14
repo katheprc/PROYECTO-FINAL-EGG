@@ -22,10 +22,10 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.view.RedirectView;
 
 import com.grupo1.PROYECTOFINALEGG.Entity.Owner;
 import com.grupo1.PROYECTOFINALEGG.Entity.Property;
-import com.grupo1.PROYECTOFINALEGG.Entity.Service;
 import com.grupo1.PROYECTOFINALEGG.Entity.User;
 import com.grupo1.PROYECTOFINALEGG.Exceptions.MyException;
 import com.grupo1.PROYECTOFINALEGG.Utilities.Utility;
@@ -87,13 +87,12 @@ public class rentalController {
 			uSrv.registrar(username, apellido, email, password, password2, type, imagen, request);
 
 			model.put("exito", "Usuario registrado con Exito! :D");
-			return "index.html";
+
+			return "login.html";
 
 		} catch (MyException ex) {
 
 			model.put("error", ex.getMessage());
-			model.put("nombre", username);
-			model.put("email", email);
 
 			return "register.html";
 		}
@@ -103,7 +102,6 @@ public class rentalController {
 	@PreAuthorize("hasAnyRole('ADMIN', 'USER')")
 	public String registerProperty(Model model) {
 		model.addAttribute("userType", getUserType());
-
 		return "registerProperty.html";
 	}
 
@@ -111,33 +109,182 @@ public class rentalController {
 	@PreAuthorize("hasAnyRole('ADMIN', 'USER')")
 	public String registerProperty(@RequestParam String propertyName, @RequestParam String details,
 			@RequestParam("imagenes") MultipartFile[] imagenes, @RequestParam Double pricePerDay,
-			HttpServletRequest request, HttpServletResponse response, Model model)
-			throws ServletException, IOException {
+			@RequestParam String propertyAddress, @RequestParam String propertyLocalidad,
+			@RequestParam String propertyProvincia, HttpServletRequest request, HttpServletResponse response,
+			Model model) throws ServletException, IOException {
 
+		String address = propertyAddress + ", " + propertyLocalidad + ", " + propertyProvincia;
+
+		registerProperty(propertyName, address, details, imagenes, pricePerDay, request, response, model);
+
+		model.addAttribute("userType", getUserType());
+		return "registerProperty.html";
+	}
+
+	@GetMapping("/property/{id}")
+	public String propertyPage(@PathVariable Integer id, Model model) throws NotFoundException {
+
+		model.addAttribute("propertyDetails", getProperty(id));
+		model.addAttribute("propertyImgs", getProperty(id).getImgs());
+		return "sigle-page-arlquileres.html";
+
+	}
+
+	// ----------------------------------------------------ADMIN----------------------------------------------------------
+
+	@GetMapping("/admin/dashboard")
+	public String dashboardAdmin(Model model) {
+		model.addAttribute("userType", getUserType());
+		model.addAttribute("usersBoolean", false);
+		model.addAttribute("postsBoolean", false);
+		model.addAttribute("propertiesBoolean", false);
+		return "dashboardAdmin.html";
+	}
+
+	// -------------MAPPINGS USER-------------
+
+	@GetMapping("/admin/dashboard/users")
+	public String users(Model model) {
+		model.addAttribute("listaUsuarios", uSrv.listarUsuarios());
+		model.addAttribute("userType", getUserType());
+		model.addAttribute("usersBoolean", true);
+		model.addAttribute("postsBoolean", false);
+		model.addAttribute("propertiesBoolean", false);
+		return "dashboardAdmin.html";
+	}
+
+	@PostMapping("/admin/dashboard/users/edit")
+	public RedirectView editRoleUsers(@RequestParam("id") String id, @RequestParam("type") String type, Model model) {
+		uSrv.cambiarRol(Integer.parseInt(id), type);
+		return new RedirectView("/admin/dashboard/users", true);
+	}
+
+	@PostMapping("/admin/dashboard/users/delete")
+	public RedirectView deleteUsers(@RequestParam("id") String id, Model model) {
+		uSrv.deleteUser(Integer.parseInt(id));
+		return new RedirectView("/admin/dashboard/users", true);
+	}
+
+	@PostMapping("/admin/dashboard/users")
+	public String buscarUsers(@RequestParam("type") String type, @RequestParam("order") String order, Model model) {
+		model.addAttribute("userType", getUserType());
+		model.addAttribute("listaUsuarios", uSrv.busquedaPersonalizada(type, order));
+		model.addAttribute("usersBoolean", true);
+		model.addAttribute("postsBoolean", false);
+		model.addAttribute("propertiesBoolean", false);
+		return "dashboardAdmin.html";
+	}
+
+	// -------------FIN MAPPINGS USER-------------
+	// ------------------------------------------------
+	// -------------MAPPINGS POSTS-------------
+	@GetMapping("/admin/dashboard/posts")
+	public String posts(Model model) {
+		model.addAttribute("listaUsuarios", uSrv.listarUsuarios());
+		model.addAttribute("userType", getUserType());
+		model.addAttribute("usersBoolean", false);
+		model.addAttribute("postsBoolean", true);
+		model.addAttribute("propertiesBoolean", false);
+		return "dashboardAdmin.html";
+	}
+
+	@PostMapping("/admin/dashboard/posts/delete")
+	public String deletePosts(@RequestParam("id") String id, Model model) {
+		uSrv.deleteUser(Integer.parseInt(id));
+		model.addAttribute("listaUsuarios", uSrv.listarUsuarios());
+		model.addAttribute("userType", getUserType());
+		model.addAttribute("usersBoolean", false);
+		model.addAttribute("postsBoolean", true);
+		model.addAttribute("propertiesBoolean", false);
+		return "dashboardAdmin.html";
+	}
+
+	@GetMapping("/admin/dashboard/posts/buscar")
+	public String buscarPosts(@RequestParam("type") String type, @RequestParam("order") String order, Model model) {
+		model.addAttribute("userType", getUserType());
+		model.addAttribute("listaUsuarios", uSrv.busquedaPersonalizada(type, order));
+		model.addAttribute("usersBoolean", false);
+		model.addAttribute("postsBoolean", true);
+		model.addAttribute("propertiesBoolean", false);
+		return "dashboardAdmin.html";
+	}
+
+	// -------------FIN MAPPINGS POSTS-------------
+	// ------------------------------------------------
+	// -------------MAPPINGS PROPERTIES-------------
+	@GetMapping("/admin/dashboard/properties")
+	public String properties(Model model) {
+		model.addAttribute("listaUsuarios", uSrv.listarUsuarios());
+		model.addAttribute("userType", getUserType());
+		model.addAttribute("usersBoolean", false);
+		model.addAttribute("postsBoolean", false);
+		model.addAttribute("propertiesBoolean", true);
+		return "dashboardAdmin.html";
+	}
+
+	@PostMapping("/admin/dashboard/properties/delete")
+	public String deleteProperties(@RequestParam("id") String id, Model model) {
+		uSrv.deleteUser(Integer.parseInt(id));
+		model.addAttribute("listaUsuarios", uSrv.listarUsuarios());
+		model.addAttribute("userType", getUserType());
+		model.addAttribute("usersBoolean", false);
+		model.addAttribute("postsBoolean", false);
+		model.addAttribute("propertiesBoolean", true);
+		return "dashboardAdmin.html";
+	}
+
+	@GetMapping("/admin/dashboard/properties/buscar")
+	public String buscarProperties(@RequestParam("type") String type, @RequestParam("order") String order,
+			Model model) {
+		model.addAttribute("userType", getUserType());
+		model.addAttribute("listaUsuarios", uSrv.busquedaPersonalizada(type, order));
+		model.addAttribute("usersBoolean", false);
+		model.addAttribute("postsBoolean", false);
+		model.addAttribute("propertiesBoolean", true);
+		return "dashboardAdmin.html";
+	}
+	// -------------FIN MAPPINGS PROPERTIES-------------
+
+	// ----------------------------------------------------FIN
+	// ADMIN----------------------------------------------------------
+
+	public String getUserType() {
+		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+		String userDetails = authentication.getName();
+		String userType = uSrv.find(userDetails).getType();
+		return userType;
+	}
+
+	public User getUser() {
+		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+		String userDetails = authentication.getName();
+		return uSrv.find(userDetails);
+	}
+
+	public void registerProperty(String propertyName, String propertyAddress, String details, MultipartFile[] imagenes,
+			Double pricePerDay, HttpServletRequest request, HttpServletResponse response, Model model)
+			throws ServletException, IOException {
 		String[] names = request.getParameterValues("nombre[]");
 		String[] prices = request.getParameterValues("precio[]");
 
 		Property property = new Property();
 
-		List<Service> services = new ArrayList<>();
+		List<com.grupo1.PROYECTOFINALEGG.Entity.Service> services = new ArrayList<>();
 
 		if (names != null && prices != null && names.length == prices.length) {
 			for (int i = 0; i < names.length; i++) {
 				String name = names[i];
 				double price = Double.parseDouble(prices[i]);
-				services.add(new Service(name, price));
+				services.add(new com.grupo1.PROYECTOFINALEGG.Entity.Service(name, price));
 			}
 
 		}
-
+		property.setAddress(propertyAddress);
 		property.setDetails(details);
 		property.setName(propertyName);
-
 		property.setPricePerDay(pricePerDay);
 
-		property.setOwner(Utility.getSiteUrl(request) + "/api/user/" + ((Owner) getUser()).getId());
-
-		for (Service srv : services) {
+		for (com.grupo1.PROYECTOFINALEGG.Entity.Service srv : services) {
 			rSrv.saveServ(srv);
 			property.addSrv(rSrv.getSrv(srv));
 		}
@@ -149,111 +296,11 @@ public class rentalController {
 
 		rSrv.saveProp(property);
 
-		uSrv.updateUserProperty((Owner) getUser(),
-				Utility.getSiteUrl(request) + "/api/property/" + rSrv.getProp(property).getId());
-
-		model.addAttribute("userType", getUserType());
-		return "registerProperty.html";
+		uSrv.updateUserProperty((Owner) getUser(), rSrv.getProp(property));
 	}
 
-	/*
-	 * @GetMapping("/inicio") public String inicio(HttpSession session) { // datos
-	 * de la sesion usuarioservicio User logueado = (User)
-	 * session.getAttribute("usuariosession");
-	 * 
-	 * // validar sea rol ADMIN if (logueado.getRole().toString().equals("ADMIN")) {
-	 * return "redirect:/admin/dashboard"; }
-	 * 
-	 * return "inicio.html"; }
-	 * 
-	 * @PreAuthorize("hasAnyRole('ROLE_USER','ROLE_ADMIN')")
-	 * 
-	 * @GetMapping("/perfil") public String perfil(ModelMap modelo, HttpSession
-	 * session) { User usuario = (User) session.getAttribute("usuariosession");
-	 * modelo.put("usuario", usuario);
-	 * 
-	 * return "usuario_modificar.html"; }
-	 * 
-	 * @PreAuthorize("hasAnyRole('ROLE_USER','ROLE_ADMIN')")
-	 * 
-	 * @PostMapping("/perfil/{id}")
-	 * 
-	 * public String actualizar(@PathVariable Integer id, @RequestParam String
-	 * username, @RequestParam String apellido,
-	 * 
-	 * @RequestParam String email, @RequestParam String password, @RequestParam
-	 * String password2, ModelMap modelo) { try { uSrv.actualizar(id, username,
-	 * apellido, email, password, password2);
-	 * 
-	 * modelo.put("exito", "Usuario Actualizado correctamente!");
-	 * 
-	 * return "inicio.html"; } catch (MyException ex) {
-	 * 
-	 * modelo.put("error", ex.getMessage()); modelo.put("username", username); //
-	 * modelo.put("email", email);
-	 * 
-	 * return "usuario_modificar.html"; }
-	 * 
-	 * }
-	 * 
-	 */
-
-	private String getUserType() {
-		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-
-		String userDetails = authentication.getName();
-
-		String userType = uSrv.find(userDetails).getType();
-
-		return userType;
+	public Property getProperty(Integer id) {
+		return rSrv.getPropById(id).get();
 	}
 
-	private User getUser() {
-		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-
-		String userDetails = authentication.getName();
-
-		return uSrv.find(userDetails);
-	}
-
-	@GetMapping("/property/{id}")
-	public String propertyPage(@PathVariable Integer id, Model model) throws NotFoundException {
-
-		Property property = rSrv.getPropById(id).get();
-
-		model.addAttribute("propertyDetails", property);
-		model.addAttribute("propertyImgs", property.getImgs());
-		return "sigle-page-arlquileres.html";
-	}
-
-	@GetMapping("/admin/dashboard")
-	public String dashboardAdmin(Model model) {
-		model.addAttribute("listaUsuarios", uSrv.listarUsuarios());
-		model.addAttribute("userType", getUserType());
-
-		return "dashboardAdmin.html";
-	}
-
-	@PostMapping("/admin/dashboard/")
-	public String editRole(@RequestParam("id") String id, @RequestParam("type") String type, Model model) {
-		uSrv.cambiarRol(Integer.parseInt(id), type);
-		model.addAttribute("listaUsuarios", uSrv.listarUsuarios());
-		return "dashboardAdmin.html";
-	}
-
-	@PostMapping("/admin/dashboard/delete")
-	public String deleteUser(@RequestParam("id") String id, Model model) {
-		uSrv.deleteUser(Integer.parseInt(id));
-		model.addAttribute("listaUsuarios", uSrv.listarUsuarios());
-		model.addAttribute("userType", getUserType());
-		return "dashboardAdmin.html";
-	}
-
-	@GetMapping("/admin/dashboard/buscar")
-	public String buscarDashboardAdmin(@RequestParam("type") String type, @RequestParam("order") String order,
-			Model model) {
-		model.addAttribute("userType", getUserType());
-		model.addAttribute("listaUsuarios", uSrv.busquedaPersonalizada(type, order));
-		return "dashboardAdmin.html";
-	}
 }

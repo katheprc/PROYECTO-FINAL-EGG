@@ -8,6 +8,6 @@ import lombok.Data;
 @Entity
 @Data
 @DiscriminatorValue("ADMIN")
-public class Admin extends Owner {
+public class Admin extends User {
 
 }

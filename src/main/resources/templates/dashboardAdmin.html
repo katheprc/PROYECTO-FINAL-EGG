@@ -1,59 +1,183 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 
-<head>
-	<meta charset="UTF-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>TP FINAL</title>
-	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
-		integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
-</head>
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>TP FINAL</title>
+		<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
+			integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+	</head>
 
-<body>
-	<div className="barra">
+	<body>
+		<div className="barra">
 
-		<div className="barra__contenido">
-			<nav className="navegacion">
+			<div className="barra__contenido">
+				<nav className="navegacion">
 
-				<a th:if="${userType ne 'ADMIN' and userType ne 'OWNER' and userType ne 'CLIENT'}" href="/login"
-					className="navegacion__micuenta"><button>Login</button></a>
-				<a th:if="${userType ne 'ADMIN' and userType ne 'OWNER' and userType ne 'CLIENT'}" href="/register"
-					className="navegacion__micuenta"><button>Registrarse</button></a>
-				<a th:if="${userType eq 'ADMIN' or userType eq 'OWNER' or userType eq 'CLIENT'}" href="/profile"
-					className="navegacion__micuenta"><button>Mi
-						cuenta</button></a>
+					<a th:if="${userType ne 'ADMIN' and userType ne 'OWNER' and userType ne 'CLIENT'}" href="/login"
+						className="navegacion__micuenta"><button>Login</button></a>
+					<a th:if="${userType ne 'ADMIN' and userType ne 'OWNER' and userType ne 'CLIENT'}" href="/register"
+						className="navegacion__micuenta"><button>Registrarse</button></a>
+					<a th:if="${userType eq 'ADMIN' or userType eq 'OWNER' or userType eq 'CLIENT'}" href="/profile"
+						className="navegacion__micuenta"><button>Mi
+							cuenta</button></a>
 
-				<a th:if="${userType eq 'OWNER'}" href="/register-property">
-					<button>Registrar Propiedad</button>
-				</a>
-				<a th:if="${userType eq 'ADMIN'}" href="/admin/dashboard">
-					<button>Dashboard Admin </button>
-				</a>
-				<a th:if="${userType eq 'ADMIN' or userType eq 'OWNER' or userType eq 'CLIENT'}" href="/logout">
-					<button>Logout</button>
-				</a>
-			</nav>
+					<a th:if="${userType eq 'OWNER'}" href="/register-property">
+						<button>Registrar Propiedad</button>
+					</a>
+					<a th:if="${userType eq 'ADMIN'}" href="/admin/dashboard">
+						<button>Dashboard Admin </button>
+					</a>
+					<a th:if="${userType eq 'ADMIN' or userType eq 'OWNER' or userType eq 'CLIENT'}" href="/logout">
+						<button>Logout</button>
+					</a>
+				</nav>
+			</div>
 		</div>
-	</div>
-	<center>
-		<br>
-		<h1>Usuarios</h1>
-		<hr width="98%">
+		<center>
+			<br>
+			<div style="display: flex; justify-content: center;">
+				<ul class="pagination">
+					<li class="page-item"><a class="page-link" href="/admin/dashboard/users">Usuarios</a></li>
+					<li class="page-item"><a class="page-link" href="/admin/dashboard/posts">Posteos</a></li>
+					<li class="page-item"><a class="page-link" href="/admin/dashboard/properties">Propiedades</a></li>
+				</ul>
+			</div>
+			<hr width="98%">
+			<button onclick="toggleFiltrado()" style="margin-left: 10px;">Filtrar</button>
 
-		<div class="grupoDiv" style="margin: 30px; display: flex; gap: 10px; height: 400px">
-			<div class="grupoDiv2"
+			<!--TABLA USERS-->
+			<div class="grupoDiv" style="margin: 20px; display: flex; gap: 10px; height: 400px" th:if="${usersBoolean}">
+				<div class=" grupoDiv2"
+					style="display: flex; flex-direction: column; gap: 10px; align-items: center; justify-content: center;">
+					<div class="card" id="filtrar" style="width: 10rem; display: none;">
+						<form class="card-body" action="/admin/dashboard/users" method="post">
+							<h5 class="card-title">Búsqueda personalizada</h5>
+							<br>
+							<div class="form-group">
+								<label for="type">Tipo:</label>
+								<select class="form-control text-center" id="type" name="type">
+									<option value="CUALQUIERA" th:text="CUALQUIERA"></option>
+									<option value="ADMIN" th:text="ADMIN"></option>
+									<option value="OWNER" th:text="OWNER"></option>
+									<option value="CLIENT" th:text="CLIENT"></option>
+								</select>
+							</div>
+							<br>
+							<div class="form-group">
+								<label for="order">Orden:</label>
+								<select class="form-control text-center" id="order" name="order">
+									<option value="ASC">Ascendente</option>
+									<option value="DESC">Descendente</option>
+								</select>
+							</div>
+							<br>
+							<button type="submit" class="btn btn-primary">Buscar</button>
+						</form>
+					</div>
+				</div>
+				<div class="table" style="height: 100%; width: 100%; overflow-y: scroll;">
+					<div class="grupoDiv" style="display: flex; gap: 10px;">
+						<table class="table">
+							<thead>
+								<tr>
+									<th scope="col">
+										ID
+									</th>
+									<th scope="col">
+										Nombre
+									</th>
+									<th scope="col">
+										Apellido
+									</th>
+									<th scope="col">
+										Email
+									</th>
+									<th scope="col">
+										Tipo
+									</th>
+									<th></th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr th:each="usuario : ${listaUsuarios}">
+									<form action="/admin/dashboard/users/edit" method="post">
+										<td scope="row" style="vertical-align: middle;">
+											<input type="text" name="id" class="form-control" readonly="readonly"
+												style="width: 36px; text-align: center;" th:value="${usuario.id}">
+										</td>
+										<td style="vertical-align: middle;">
+											<input type="text" name="username" class="form-control" readOnly=true
+												th:value="${usuario.username}" th:id="${usuario.id}" required>
+										</td>
+										<td style="vertical-align: middle;">
+											<input type="text" name="lastname" class="form-control" readOnly=true
+												th:value="${usuario.lastname}" th:id="${usuario.id}" required>
+										</td>
+										<td style="vertical-align: middle;">
+											<input type="email" name="email" class="form-control" readOnly=true
+												th:value="${usuario.email}" th:id="${usuario.id}"
+												aria-describedby="emailHelp" required>
+										</td>
+										<td style="vertical-align: middle; width: 100px; text-align: center;">
+
+											<input type="text" class="form-control inputUser" readOnly=true
+												th:value="${usuario.type}" th:id="${usuario.id}" required>
+
+											<select class="form-control selectUser custom-select custom-select-sm"
+												id="type" name="type" th:id="${usuario.id}"
+												style="display: none; border-color: black;">
+												<option th:selected="(${usuario.type} eq 'ADMIN')" th:value="ADMIN"
+													th:text="ADMIN"></option>
+												<option th:selected="(${usuario.type} eq 'OWNER')" th:value="OWNER"
+													th:text="OWNER"></option>
+												<option th:selected="(${usuario.type} eq 'CLIENT')" th:value="CLIENT"
+													th:text="CLIENT"></option>
+											</select>
+
+										</td>
+										<td style="vertical-align: middle; text-align: center;">
+											<button type="button" class="btn btn-primary btn-editar"
+												onclick="edicionUsers(this)" style="width: 4rem;">
+												Editar
+											</button>
+											<button type="submit" class="btn btn-success btn-guardar"
+												onclick="guardarCambiosUsers(this)" style="display: none; width: 5rem;">
+												Guardar
+											</button>
+										</td>
+										<td style="vertical-align: middle; text-align: center;">
+											<button type="submit" class="btn btn-danger btn-eliminar"
+												onclick="eliminarFilaUsers(this)" style="width: 5rem;">
+												Eliminar
+											</button>
+										</td>
+									</form>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+				</div>
+			</div>
+
+
+			<!--
+			<div class="grupoDiv" style="margin: 30px; display: flex; gap: 10px; height: 400px" th:if="${postsBoolean}"">
+					<div class=" grupoDiv2"
 				style="display: flex; flex-direction: column; gap: 10px; align-items: center; justify-content: center;">
-				<div class="card" style="width: 18rem;">
-					<form class="card-body" action="/admin/dashboard/buscar" method="get">
+				<div class="card" style="width: 18rem;" th:if="${postsBoolean}">
+					<form class="card-body" action="/admin/dashboard/posts/buscar" method="get">
 						<h5 class="card-title">Búsqueda personalizada</h5>
 						<br>
+
 						<div class="form-group">
 							<label for="type">Tipo:</label>
 							<select class="form-control text-center" id="type" name="type">
-								<option value="CUALQUIERA">CUALQUIERA</option>
-								<option value="ADMIN">ADMIN</option>
-								<option value="OWNER">OWNER</option>
-								<option value="CLIENT">CLIENTE</option>
+								<option value="CUALQUIERA" th:text="CUALQUIERA"></option>
+								<option value="ADMIN" th:text="ADMIN"></option>
+								<option value="OWNER" th:text="OWNER"></option>
+								<option value="CLIENT" th:text="CLIENT"></option>
 							</select>
 						</div>
 						<br>
@@ -69,6 +193,102 @@
 					</form>
 				</div>
 			</div>
+
+			<div class="table" style="height: 100%; width: 100%; overflow-y: scroll;">
+				<div class="grupoDiv" style="display: flex; gap: 10px;">
+					<table class="table">
+						<thead>
+							<tr>
+								<th scope="col">
+									ID
+								</th>
+								<th scope="col">
+									Nombre
+								</th>
+								<th scope="col">
+									Apellido
+								</th>
+								<th scope="col">
+									Email
+								</th>
+								<th scope="col">
+									Tipo
+								</th>
+								<th></th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr th:each="usuario : ${listaUsuarios}">
+								<form action="/admin/dashboard/posts" method="post">
+									<td scope="row">
+										<input type="text" name="id" class="form-control inputPosts" readonly="readonly"
+											style="width: 60px; text-align: center;" th:value="${usuario.id}">
+									</td>
+									<td>
+										<input type="text" name="username" class="form-control inputPosts" readOnly=true
+											th:value="${usuario.username}" th:id="${usuario.id}" required>
+									</td>
+									<td>
+										<input type="text" name="lastname" class="form-control inputPosts" readOnly=true
+											th:value="${usuario.lastname}" th:id="${usuario.id}" required>
+									</td>
+									<td>
+										<input type="email" name="email" class="form-control inputPosts" readOnly=true
+											th:value="${usuario.email}" th:id="${usuario.id}"
+											aria-describedby="emailHelp" required>
+									</td>
+									<td>
+
+										<input type="text" name="type" class="form-control inputPosts" readOnly=true
+											th:value="${usuario.type}" th:id="${usuario.id}" required>
+
+									</td>
+
+
+									<td>
+										<button type="submit" class="btn btn-danger btn-eliminar-posts"
+											onclick="eliminarFilaPosts(this)" style="width: 5rem;">
+											Eliminar
+										</button>
+									</td>
+								</form>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+			</div>
+			<div class="grupoDiv" style="margin: 30px; display: flex; gap: 10px; height: 400px"
+				th:if="${propertiesBoolean}"">
+				<div class=" grupoDiv2"
+				style="display: flex; flex-direction: column; gap: 10px; align-items: center; justify-content: center;">
+				<div class="card" style="width: 18rem;" th:if="${userBoolean} or ${postsBoolean} or ${propertyBoolean}">
+					<form class="card-body" action="/admin/dashboard/properties/buscar" method="get">
+						<h5 class="card-title">Búsqueda personalizada</h5>
+						<br>
+
+						<div class="form-group">
+							<label for="type">Tipo:</label>
+							<select class="form-control text-center" id="type" name="type" th:if="${userBoolean}">
+								<option value="CUALQUIERA" th:text="CUALQUIERA"></option>
+								<option value="ADMIN" th:text="ADMIN"></option>
+								<option value="OWNER" th:text="OWNER"></option>
+								<option value="CLIENT" th:text="CLIENT"></option>
+							</select>
+						</div>
+						<br>
+						<div class="form-group">
+							<label for="order">Orden:</label>
+							<select class="form-control text-center" id="order" name="order">
+								<option value="ASC">Ascendente</option>
+								<option value="DESC">Descendente</option>
+							</select>
+						</div>
+						<br>
+						<button type="submit" class="btn btn-primary">Buscar</button>
+					</form>
+				</div>
+			</div>
+
 			<div class="table" style="height: 100%; width: 100%; overflow-y: scroll;">
 				<div class="grupoDiv" style="display: flex; gap: 10px;">
 					<table class="table">
@@ -121,16 +341,8 @@
 
 
 									<td>
-										<!--<button type="button" class="btn btn-primary btn-editar" onclick="edicion(this)"
-											style="width: 5rem;">
-											Editar
-										</button>
-										<button type="submit" class="btn btn-success btn-guardar"
-											onclick="guardarCambios(this)" style="display: none; width: 5rem;">
-											Guardar
-										</button>-->
 										<button type="submit" class="btn btn-danger btn-eliminar"
-											onclick="eliminarFila(this)" style="width: 5rem;">
+											onclick="eliminarFilaProperties(this)" style="width: 5rem;">
 											Eliminar
 										</button>
 									</td>
@@ -139,37 +351,39 @@
 						</tbody>
 					</table>
 				</div>
-			</div>
+			
 
-			<script>
-				function edicion(boton) {
+			</div>-->
+
+			<script> //EDICION Y ELIMINACION TABLA USERS
+				function edicionUsers(boton) {
 					var fila = boton.closest('tr');
-					var inputs = fila.getElementsByTagName('input');
+					var input = fila.querySelector('.inputUser');
+					var select = fila.querySelector('.selectUser');
 					var botonEditar = fila.querySelector('.btn-editar');
 					var botonGuardar = fila.querySelector('.btn-guardar');
 					var botonEliminar = fila.querySelector('.btn-eliminar');
 
-					document.querySelectorAll('.fila-editando').forEach(function (otraFila) {
+					document.querySelectorAll('fila-editando').forEach(function (otraFila) {
 						if (otraFila !== fila) {
-							desactivarEdicion(otraFila);
+							desactivarEdicionUsers(otraFila);
 						}
 					});
-
-					for (var i = 0; i < inputs.length; i++) {
-						inputs[i].readOnly = !inputs[i].readOnly;
-					}
 
 					fila.classList.toggle('fila-editando');
 					botonEditar.style.display = 'none';
 					botonGuardar.style.display = 'inline';
+					input.style.display = 'none';
+					select.style.display = 'inline';
 					botonEliminar.disabled = fila.classList.contains('fila-editando');
 
 					var form = fila.querySelector('form');
 					form.action = '';
 				}
 
-				function desactivarEdicion(fila) {
-					var inputs = fila.getElementsByTagName('input');
+				function desactivarEdicionUsers(fila) {
+					var input = fila.querySelector('.inputUser');
+					var select = fila.querySelector('.selectUser');
 					var botonEditar = fila.querySelector('.btn-editar');
 					var botonGuardar = fila.querySelector('.btn-guardar');
 					var botonEliminar = fila.querySelector('.btn-eliminar');
@@ -179,32 +393,65 @@
 					}
 
 					fila.classList.remove('fila-editando');
-					botonEditar.style.display = 'inline';
+					botonEditar.style.display = 'none';
 					botonGuardar.style.display = 'none';
-					botonEliminar.disabled = false;
+					input.style.display = 'inline';
+					select.style.display = 'none';
+					botonEditar.style.display = 'inline';
+					botonEliminar.disabled = true;
 				}
 
-				function guardarCambios(boton) {
+				function guardarCambiosUsers(boton) {
 					var fila = boton.closest('tr');
 					var form = fila.querySelector('form');
-					form.action = '/admin/dashboard';
+					form.action = '/admin/dashboard/users/edit';
 				}
 
-				function eliminarFila(boton) {
+				function eliminarFilaUsers(boton) {
 					var fila = boton.closest('tr');
 					var form = fila.querySelector('form');
-					form.action = '/admin/dashboard/delete';
+					form.action = '/admin/dashboard/users/delete';
+				}
+
+				function toggleFiltrado() {
+					var div = document.getElementById("filtrar");
+					if (div.style.display === "none") {
+						div.style.display = "inline";
+					} else {
+						div.style.display = "none";
+					}
+				}
+
+
+
+			</script>
+
+			<!-- <script> //ELIMINACION TABLA POSTS
+
+				function eliminarFilaPosts(boton) {
+					var fila = boton.closest('tr');
+					var form = fila.querySelector('form');
+					form.action = '/admin/dashboard/posts/delete';
 				}
 
 			</script>
+
+			<script> //ELIMINACION TABLA PROPERTIES
+
+				function eliminarFilaProperties(boton) {
+					var fila = boton.closest('tr');
+					var form = fila.querySelector('form');
+					form.action = '/admin/dashboard/properties/delete';
+				}
+
+			</script>-->
 
 			<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
 				integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
 				crossorigin="anonymous">
 				</script>
+		</center>
 
-	</center>
-
-</body>
+	</body>
 
 </html>

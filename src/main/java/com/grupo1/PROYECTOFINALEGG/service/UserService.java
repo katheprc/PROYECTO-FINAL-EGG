@@ -21,9 +21,15 @@ import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.grupo1.PROYECTOFINALEGG.Entity.Admin;
 import com.grupo1.PROYECTOFINALEGG.Entity.Client;
 import com.grupo1.PROYECTOFINALEGG.Entity.Owner;
+import com.grupo1.PROYECTOFINALEGG.Entity.Property;
 import com.grupo1.PROYECTOFINALEGG.Entity.Role;
+import com.grupo1.PROYECTOFINALEGG.Entity.DTOS.AdminDTO;
+import com.grupo1.PROYECTOFINALEGG.Entity.DTOS.ClientDTO;
+import com.grupo1.PROYECTOFINALEGG.Entity.DTOS.OwnerDTO;
+import com.grupo1.PROYECTOFINALEGG.Entity.DTOS.UserDTO;
 import com.grupo1.PROYECTOFINALEGG.Exceptions.MyException;
 import com.grupo1.PROYECTOFINALEGG.Repositories.UserRepository;
 import com.grupo1.PROYECTOFINALEGG.Utilities.Utility;
@@ -63,7 +69,7 @@ public class UserService implements UserDetailsService {
 
 			uRepo.save(user);
 
-		} else {
+		} else if (type.equals("CLIENT")) {
 
 			Client user = new Client();
 
@@ -76,6 +82,21 @@ public class UserService implements UserDetailsService {
 			Integer num = rSrv.subirImagen(imagen);
 			user.addImg(Utility.getSiteUrl(request) + "/api/image/" + num);
 			uRepo.save(user);
+			/*
+			 * } else if (type.equals("ADMIN")) {
+			 * 
+			 * Admin user = new Admin();
+			 * 
+			 * user.setUsername(username); user.setLastname(apellido); user.setEmail(email);
+			 * user.setPassword(new BCryptPasswordEncoder().encode(password)); // codificado
+			 * user.setRole(Role.ADMIN);
+			 * 
+			 * Integer num = rSrv.subirImagen(imagen);
+			 * user.addImg(Utility.getSiteUrl(request) + "/api/image/" + num);
+			 * uRepo.save(user);
+			 */
+		} else {
+			throw new MyException("ERROR EN SISTEMA, INTENTA NUEVAMENTE");
 		}
 
 	}
@@ -103,35 +124,15 @@ public class UserService implements UserDetailsService {
 	}
 
 	@SuppressWarnings("deprecation")
-	public com.grupo1.PROYECTOFINALEGG.Entity.User getOne(Integer id) {
-		return uRepo.getOne(id);
+	public UserDTO getOne(Integer id) {
+		return convertirUserDTO(uRepo.getOne(id));
 	}
 
-	@Transactional(readOnly = true)
-	public List<com.grupo1.PROYECTOFINALEGG.Entity.User> listarUsuarios() {
+	public List<UserDTO> listarUsuarios() {
 
-		/*
-		 * List<com.grupo1.PROYECTOFINALEGG.Entity.User> users;
-		 * 
-		 * users = uRepo.findAll();
-		 * 
-		 * List<UserDTO> usersDTO = users.stream() .map(UserDTO::new)
-		 * .collect(Collectors.toList());
-		 * 
-		 * return usersDTO;
-		 */
+		List<UserDTO> usersdto = convertirListaDTO(uRepo.findAll());
 
-		List<com.grupo1.PROYECTOFINALEGG.Entity.User> users;
-		users = uRepo.findAll();
-
-		for (com.grupo1.PROYECTOFINALEGG.Entity.User user : users) {
-
-			user.setPassword(null);
-			user.setToken(null);
-
-		}
-
-		return users;
+		return usersdto;
 
 	}
 
@@ -143,17 +144,51 @@ public class UserService implements UserDetailsService {
 
 			com.grupo1.PROYECTOFINALEGG.Entity.User user = respuesta.get();
 
+			Admin admin = new Admin();
+			Owner owner = new Owner();
+			Client client = new Client();
+
 			if (type.equals("ADMIN")) {
-				user.setType(type);
-				user.setRole(Role.ADMIN);
+				if ((user instanceof Owner) || (user instanceof Client)) {
+					admin.setEmail(user.getEmail());
+					admin.setImg(user.getImg());
+					admin.setLastname(user.getLastname());
+					admin.setPassword(user.getPassword());
+					admin.setUsername(user.getUsername());
+					admin.setToken(user.getToken());
+					admin.setRole(Role.ADMIN);
+					deleteUser(user.getId());
+					uRepo.save(admin);
+				}
 
 			} else if (type.equals("OWNER")) {
-				user.setType(type);
-				user.setRole(Role.USER);
-			} else {
-				user.setType(type);
-				user.setRole(Role.USER);
+				if ((user instanceof Admin) || (user instanceof Client)) {
+					owner.setEmail(user.getEmail());
+					owner.setImg(user.getImg());
+					owner.setLastname(user.getLastname());
+					owner.setPassword(user.getPassword());
+					owner.setUsername(user.getUsername());
+					owner.setToken(user.getToken());
+					owner.setRole(Role.USER);
+					deleteUser(user.getId());
+					uRepo.save(owner);
+				}
+
+			} else if (type.equals("CLIENT")) {
+				if ((user instanceof Admin) || (user instanceof Owner)) {
+					client.setEmail(user.getEmail());
+					client.setImg(user.getImg());
+					client.setLastname(user.getLastname());
+					client.setPassword(user.getPassword());
+					client.setUsername(user.getUsername());
+					client.setToken(user.getToken());
+					client.setRole(Role.USER);
+					deleteUser(user.getId());
+					uRepo.save(client);
+				}
+
 			}
+
 		}
 	}
 
@@ -237,7 +272,7 @@ public class UserService implements UserDetailsService {
 		uRepo.save(user);
 	}
 
-	public void updateUserProperty(Owner user, String prop) {
+	public void updateUserProperty(Owner user, Property prop) {
 		user.addProperty(prop);
 		updateUser(user);
 
@@ -256,7 +291,7 @@ public class UserService implements UserDetailsService {
 
 	}
 
-	public List<com.grupo1.PROYECTOFINALEGG.Entity.User> busquedaPersonalizada(String type, String order) {
+	public List<UserDTO> busquedaPersonalizada(String type, String order) {
 		List<com.grupo1.PROYECTOFINALEGG.Entity.User> users = new ArrayList<>();
 
 		if (type.equals("CUALQUIERA")) {
@@ -273,13 +308,55 @@ public class UserService implements UserDetailsService {
 			}
 		}
 
+		List<UserDTO> usersdto = convertirListaDTO(users);
+
+		return usersdto;
+	}
+
+	public List<UserDTO> convertirListaDTO(List<com.grupo1.PROYECTOFINALEGG.Entity.User> users) {
+
+		List<UserDTO> usersDTO = new ArrayList<>();
+
 		for (com.grupo1.PROYECTOFINALEGG.Entity.User user : users) {
 
-			user.setPassword(null);
-			user.setToken(null);
+			if (user instanceof Client) {
+				ClientDTO userdto = new ClientDTO(user.getId(), user.getUsername(), user.getLastname(), user.getEmail(),
+						user.getType(), user.getImg(), ((Client) user).getBookings(), ((Client) user).getPosts());
+				usersDTO.add(userdto);
+			} else if (user instanceof Owner) {
+				OwnerDTO userdto = new OwnerDTO(user.getId(), user.getUsername(), user.getLastname(), user.getEmail(),
+						user.getType(), user.getImg(), ((Owner) user).getProperties());
+				usersDTO.add(userdto);
+			} else if (user instanceof Admin) {
+				AdminDTO userdto = new AdminDTO(user.getId(), user.getUsername(), user.getLastname(), user.getEmail(),
+						user.getType(), user.getImg());
+				usersDTO.add(userdto);
+			}
 
 		}
 
-		return users;
+		return usersDTO;
+
 	}
+
+	public UserDTO convertirUserDTO(com.grupo1.PROYECTOFINALEGG.Entity.User user) {
+
+		if (user instanceof Client) {
+			ClientDTO userdto = new ClientDTO(user.getId(), user.getUsername(), user.getLastname(), user.getEmail(),
+					user.getType(), user.getImg(), ((Client) user).getBookings(), ((Client) user).getPosts());
+			return userdto;
+		} else if (user instanceof Owner) {
+			OwnerDTO userdto = new OwnerDTO(user.getId(), user.getUsername(), user.getLastname(), user.getEmail(),
+					user.getType(), user.getImg(), ((Owner) user).getProperties());
+			return userdto;
+		} else if (user instanceof Admin) {
+			AdminDTO userdto = new AdminDTO(user.getId(), user.getUsername(), user.getLastname(), user.getEmail(),
+					user.getType(), user.getImg());
+			return userdto;
+		}
+
+		return null;
+
+	}
+
 }
