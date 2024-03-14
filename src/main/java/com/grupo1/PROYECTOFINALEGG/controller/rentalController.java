@@ -182,7 +182,7 @@ public class rentalController {
 	// -------------MAPPINGS POSTS-------------
 	@GetMapping("/admin/dashboard/posts")
 	public String posts(Model model) {
-		model.addAttribute("listaUsuarios", uSrv.listarUsuarios());
+		model.addAttribute("listaPosts", rSrv.getAllPosts());
 		model.addAttribute("userType", getUserType());
 		model.addAttribute("usersBoolean", false);
 		model.addAttribute("postsBoolean", true);
@@ -191,20 +191,15 @@ public class rentalController {
 	}
 
 	@PostMapping("/admin/dashboard/posts/delete")
-	public String deletePosts(@RequestParam("id") String id, Model model) {
-		uSrv.deleteUser(Integer.parseInt(id));
-		model.addAttribute("listaUsuarios", uSrv.listarUsuarios());
-		model.addAttribute("userType", getUserType());
-		model.addAttribute("usersBoolean", false);
-		model.addAttribute("postsBoolean", true);
-		model.addAttribute("propertiesBoolean", false);
-		return "dashboardAdmin.html";
+	public RedirectView deletePosts(@RequestParam("id") String id, Model model) {
+		rSrv.deletePost(Integer.parseInt(id));
+		return new RedirectView("/admin/dashboard/posts", true);
 	}
 
-	@GetMapping("/admin/dashboard/posts/buscar")
-	public String buscarPosts(@RequestParam("type") String type, @RequestParam("order") String order, Model model) {
+	@PostMapping("/admin/dashboard/posts")
+	public String buscarPosts(@RequestParam("rating") String rating, @RequestParam("order") String order, Model model) {
 		model.addAttribute("userType", getUserType());
-		model.addAttribute("listaUsuarios", uSrv.busquedaPersonalizada(type, order));
+		model.addAttribute("listaPosts", rSrv.getPosts(order, rating));
 		model.addAttribute("usersBoolean", false);
 		model.addAttribute("postsBoolean", true);
 		model.addAttribute("propertiesBoolean", false);
@@ -225,21 +220,16 @@ public class rentalController {
 	}
 
 	@PostMapping("/admin/dashboard/properties/delete")
-	public String deleteProperties(@RequestParam("id") String id, Model model) {
-		uSrv.deleteUser(Integer.parseInt(id));
-		model.addAttribute("listaUsuarios", uSrv.listarUsuarios());
-		model.addAttribute("userType", getUserType());
-		model.addAttribute("usersBoolean", false);
-		model.addAttribute("postsBoolean", false);
-		model.addAttribute("propertiesBoolean", true);
-		return "dashboardAdmin.html";
+	public RedirectView deleteProperties(@RequestParam("id") String id, Model model) {
+		rSrv.deleteProperty(Integer.parseInt(id));
+		return new RedirectView("/admin/dashboard/properties", true);
 	}
 
-	@GetMapping("/admin/dashboard/properties/buscar")
+	@PostMapping("/admin/dashboard/properties")
 	public String buscarProperties(@RequestParam("type") String type, @RequestParam("order") String order,
 			Model model) {
 		model.addAttribute("userType", getUserType());
-		model.addAttribute("listaUsuarios", uSrv.busquedaPersonalizada(type, order));
+		model.addAttribute("listaProperties", rSrv.getProperties(type, order));
 		model.addAttribute("usersBoolean", false);
 		model.addAttribute("postsBoolean", false);
 		model.addAttribute("propertiesBoolean", true);

@@ -10,8 +10,10 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.grupo1.PROYECTOFINALEGG.Entity.Imagen;
+import com.grupo1.PROYECTOFINALEGG.Entity.Post;
 import com.grupo1.PROYECTOFINALEGG.Entity.Property;
 import com.grupo1.PROYECTOFINALEGG.Repositories.ImagenRepository;
+import com.grupo1.PROYECTOFINALEGG.Repositories.PostRepository;
 import com.grupo1.PROYECTOFINALEGG.Repositories.PropertyRepository;
 import com.grupo1.PROYECTOFINALEGG.Repositories.ServiceRepository;
 
@@ -26,6 +28,9 @@ public class RentalService {
 
 	@Autowired
 	ImagenRepository iRepo;
+
+	@Autowired
+	PostRepository postRepo;
 
 	public List<Property> getProperties() {
 
@@ -74,6 +79,73 @@ public class RentalService {
 
 	public Optional<com.grupo1.PROYECTOFINALEGG.Entity.Service> getSrvById(Integer id) {
 		return sRepo.findById(id);
+	}
+
+	public List<Post> getPosts(String order, String rating) {
+
+		List<Post> listaPosts;
+
+		if (rating.equals("0")) {
+
+			if (order.equals("DESC")) {
+				listaPosts = postRepo.findAllDesc();
+			} else {
+				listaPosts = postRepo.findAllAsc();
+			}
+
+		} else {
+			listaPosts = postRepo.findByRating(Integer.valueOf(rating));
+		}
+
+		return listaPosts;
+
+	}
+
+	public List<Post> getAllPosts() {
+		return postRepo.findAll();
+	}
+
+	public void deletePost(int id) {
+		postRepo.deleteById(id);
+	}
+
+	public List<Property> getProperties(String type, String order) {
+
+		List<Property> listaProperties;
+
+		if (order.equals("DESC")) {
+
+			if (type.equals("name")) {
+				listaProperties = pRepo.findByNameDesc();
+			} else if (type.equals("price")) {
+				listaProperties = pRepo.findByPriceDesc();
+			} else if (type.equals("rating")) {
+				listaProperties = pRepo.findByRatingDesc();
+			} else {
+				listaProperties = pRepo.findAllDesc();
+			}
+
+		} else {
+
+			if (type.equals("name")) {
+				listaProperties = pRepo.findByNameAsc();
+			} else if (type.equals("price")) {
+				listaProperties = pRepo.findByPriceAsc();
+			} else if (type.equals("rating")) {
+				listaProperties = pRepo.findByRatingAsc();
+			} else {
+				listaProperties = pRepo.findAllAsc();
+			}
+
+		}
+
+		return listaProperties;
+
+	}
+
+	public void deleteProperty(int id) {
+		pRepo.deleteById(id);
+
 	}
 
 }

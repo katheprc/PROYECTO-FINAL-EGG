@@ -167,12 +167,208 @@
 
 			<!--TABLA POSTS-->
 
+			<div class="grupoDiv" style="margin: 20px; display: flex; gap: 10px; height: 400px" th:if="${postsBoolean}">
+				<div class=" grupoDiv2"
+					style="display: flex; flex-direction: column; gap: 10px; align-items: center; justify-content: center;">
+					<div class="card" id="filtrar" style="width: 10rem; display: none;">
+						<form class="card-body" action="/admin/dashboard/posts" method="post">
+							<h5 class="card-title">Búsqueda personalizada</h5>
+							<br>
+							<div class="form-group">
+								<label for="rating">Rating:</label>
+								<select class="form-control text-center" id="rating" name="rating">
+									<option value="0" th:text="CUALQUIERA"></option>
+									<option value="5" th:text="5"></option>
+									<option value="4" th:text="4"></option>
+									<option value="3" th:text="3"></option>
+									<option value="2" th:text="2"></option>
+									<option value="1" th:text="1"></option>
+								</select>
+							</div>
+							<br>
+							<div class="form-group">
+								<label for="order">Orden:</label>
+								<select class="form-control text-center" id="order" name="order">
+									<option value="ASC">Ascendente</option>
+									<option value="DESC">Descendente</option>
+								</select>
+							</div>
+							<br>
+							<button type="submit" class="btn btn-primary">Buscar</button>
+						</form>
+					</div>
+				</div>
+				<div class="table" style="height: 100%; width: 100%; overflow-y: scroll;">
+					<div class="grupoDiv" style="display: flex; gap: 10px;">
+						<table class="table">
+							<thead>
+								<tr>
+									<th scope="col">
+										ID
+									</th>
+									<th scope="col">
+										Rating
+									</th>
+									<th scope="col">
+										Comentario
+									</th>
+									<th scope="col">
+										Cliente
+									</th>
+									<th scope="col">
+										Propiedad
+									</th>
+									<th></th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr th:each="post : ${listaPosts}">
+									<form action="/admin/dashboard/posts/delete" method="post">
+										<td scope="row" style="vertical-align: middle;">
+											<input type="text" name="id" class="form-control" readonly="readonly"
+												style="width: 36px; text-align: center;" th:value="${post.id}">
+										</td>
+										<td style="vertical-align: middle;">
+											<input type="text" class="form-control" readOnly=true
+												th:value="${post.rating}" th:id="${post.id}" required>
+										</td>
+										<td style="vertical-align: middle;">
+											<input type="text" class="form-control" readOnly=true
+												th:value="${post.commentary}" th:id="${post.id}" required>
+										</td>
+										<td style="vertical-align: middle;">
+											<a href="/profile/${post.client.id}"> <input type="text"
+													class="form-control" readOnly=true th:value="${post.client.id}"
+													th:id="${post.id}" required>
+											</a>
+										</td>
+										<td style="vertical-align: middle;">
+											<a href="/profile/${post.property.id}"> <input type="text"
+													class="form-control" readOnly=true th:value="${post.property.id}"
+													th:id="${post.id}" required></a>
+										</td>
+										<td style="vertical-align: middle; text-align: center;">
+											<button type="submit" class="btn btn-danger btn-eliminar"
+												style="width: 5rem;">
+												Eliminar
+											</button>
+										</td>
+									</form>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+				</div>
+			</div>
+
 			<!--FIN TABLA POSTS-->
 
 			<!--______________________________________________________________________-->
 
 			<!--TABLA PROPERTIES-->
-
+			<div class="grupoDiv" style="margin: 20px; display: flex; gap: 10px; height: 400px"
+				th:if="${propertiesBoolean}">
+				<div class=" grupoDiv2"
+					style="display: flex; flex-direction: column; gap: 10px; align-items: center; justify-content: center;">
+					<div class="card" id="filtrar" style="width: 10rem; display: none;">
+						<form class="card-body" action="/admin/dashboard/properties" method="post">
+							<h5 class="card-title">Búsqueda personalizada</h5>
+							<br>
+							<div class="form-group">
+								<label for="type">Ordenar por:</label>
+								<select class="form-control text-center" id="type" name="type">
+									<option value="id">ID</option>
+									<option value="name">NOMBRE</option>
+									<option value="price">PRECIO</option>
+									<option value="rating">RATING GENERAL</option>
+								</select>
+							</div>
+							<br>
+							<div class="form-group">
+								<label for="order">Orden:</label>
+								<select class="form-control text-center" id="order" name="order">
+									<option value="ASC">Ascendente</option>
+									<option value="DESC">Descendente</option>
+								</select>
+							</div>
+							<br>
+							<button type="submit" class="btn btn-primary">Buscar</button>
+						</form>
+					</div>
+				</div>
+				<div class="table" style="height: 100%; width: 100%; overflow-y: scroll;">
+					<div class="grupoDiv" style="display: flex; gap: 10px;">
+						<table class="table">
+							<thead>
+								<tr>
+									<th scope="col">
+										ID
+									</th>
+									<th scope="col">
+										Nombre
+									</th>
+									<th scope="col">
+										Dirección
+									</th>
+									<th scope="col">
+										Detalles
+									</th>
+									<th scope="col">
+										Precio por día
+									</th>
+									<th scope="col">
+										Cant. servicios
+									</th>
+									<th scope="col">
+										Rating general
+									</th>
+									<th></th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr th:each="property : ${listaProperties}">
+									<form action="/admin/dashboard/properties/delete" method="post">
+										<td scope="row" style="vertical-align: middle;">
+											<input type="text" name="id" class="form-control" readonly="readonly"
+												style="width: 36px; text-align: center;" th:value="${property.id}">
+										</td>
+										<td style="vertical-align: middle;">
+											<input type="text" class="form-control" readOnly=true
+												th:value="${property.name}" th:id="${property.id}" required>
+										</td>
+										<td style="vertical-align: middle;">
+											<input type="text" class="form-control" readOnly=true
+												th:value="${property.address}" th:id="${property.id}" required>
+										</td>
+										<td style="vertical-align: middle;">
+											<input type="text" class="form-control" readOnly=true
+												th:value="${property.details}" th:id="${property.id}" required>
+										</td>
+										<td style="vertical-align: middle;">
+											<input type="text" class="form-control" readOnly=true
+												th:value="${property.pricePerDay}" th:id="${property.id}" required>
+										</td>
+										<td style="vertical-align: middle;">
+											<input type="text" class="form-control" readOnly=true
+												th:value="${property.services.length}" th:id="${property.id}" required>
+										</td>
+										<td style="vertical-align: middle;">
+											<input type="text" class="form-control" readOnly=true
+												th:value="${property.rating}" th:id="${property.id}" required>
+										</td>
+										<td style="vertical-align: middle; text-align: center;">
+											<button type="submit" class="btn btn-danger btn-eliminar"
+												style="width: 5rem;">
+												Eliminar
+											</button>
+										</td>
+									</form>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+				</div>
+			</div>
 			<!--FIN TABLA PROPERTIES-->
 
 			<!--______________________________________________________________________-->
@@ -247,30 +443,6 @@
 					var fila = boton.closest('tr');
 					var form = fila.querySelector('form');
 					form.action = '/admin/dashboard/users/delete';
-				}
-
-			</script>
-
-			<!--______________________________________________________________________-->
-
-			<script> //ELIMINACION TABLA POSTS
-
-				function eliminarFilaPosts(boton) {
-					var fila = boton.closest('tr');
-					var form = fila.querySelector('form');
-					form.action = '/admin/dashboard/posts/delete';
-				}
-
-			</script>
-
-			<!--______________________________________________________________________-->
-
-			<script> //ELIMINACION TABLA PROPERTIES
-
-				function eliminarFilaProperties(boton) {
-					var fila = boton.closest('tr');
-					var form = fila.querySelector('form');
-					form.action = '/admin/dashboard/properties/delete';
 				}
 
 			</script>
