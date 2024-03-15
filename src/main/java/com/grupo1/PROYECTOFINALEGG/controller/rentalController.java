@@ -40,7 +40,7 @@ public class rentalController {
 	
 	@GetMapping("/dashboard")
 	public String dashboard() {
-		return "index.html";
+		return "dashboard.html";
 	}
 	
 	@GetMapping("/login")

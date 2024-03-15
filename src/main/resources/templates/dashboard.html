@@ -1,11 +1,10 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
-
+<html lang="en">
 <head>
-	<meta charset="UTF-8" />
-	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-	<link rel="stylesheet" type="text/css" href="/css/styles.css" />
+    <link rel="stylesheet" type="text/css" href="/css/styles.css" />
 
 	<!-- Fuentes -->
 	<link rel="preconnect" href="https://fonts.googleapis.com">
@@ -34,30 +33,20 @@
 
 
 
-	<title>Recuperar contraseña</title>
+    <title>Dashboard - cuenta</title>
 </head>
+<body class="dashboard">
 
-<body>
-	
-	<main class="login">
-		<h2 class="login__heading">Recupere su contraseña</h2>
-		<p class="login__heading">
-			Ingrese su correo registrado en la cuenta.
-		</p>
+    <header th:replace="./fragments/header-dashboard ::  header"></header>
 
-		<form method="post" action="/forgot-password" class="formulario">
-			<div class="formulario__campo">
-				<label for="email" class="formulario__label"></label>
-				<input type="email" class="formulario__input" placeholder="email" id="email" name="email" value="" />
-			</div>
+        <div class="dashboard__grid">
 
+        <aside th:replace="./fragments/aside-dashboard ::  aside"></aside>
 
-			<a type="button" class="formulario__submit bn6-hover bn1" href="/resert-password">Verificar</a>
-
-		</form>
-		<div class="acciones">
-			<a href="/login" class="acciones__enlaces">¿Ya tiene una cuenta?</a>
-		</div>
-	</main>
+            <main class="dashboard__contenido">
+            <div th:replace="./fragments/main-dashboard ::  div"></div>
+            </main>
+        </div>
+    
 </body>
 </html>
