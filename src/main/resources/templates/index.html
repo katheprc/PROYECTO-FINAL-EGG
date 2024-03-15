@@ -1,40 +1,64 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" type="text/css" th:href="@{/css/styles.css}" />
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<link rel="stylesheet" type="text/css" th:href="@{/css/styles.css}" />
 
-      <!-- Fuentes -->
-      <link rel="preconnect" href="https://fonts.googleapis.com">
-      <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-      <link href="https://fonts.googleapis.com/css2?family=Kanit:ital,wght@0,200;0,400;0,500;0,600;0,700;0,900;1,400&family=Montserrat:wght@400;500;600;700;900&family=Rajdhani:wght@400;500;600;700&family=Roboto:wght@400;500;700;900&display=swap" rel="stylesheet">
-      <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;700;900&display=swap" rel="stylesheet">
-     
-      <!-- Iconos -->
-  
-      <link rel="stylesheet" href="https://unpkg.com/leaflet@1.8.0/dist/leaflet.css" integrity="sha512-hoalWLoI8r4UszCkZ5kL8vayOGVae1oxXe/2A4AO6J9+580uKHDO3JdHb7NzwwzK5xr/Fs0W40kiNHxM9vyTtQ==" crossorigin="" />
-      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.2/css/all.min.css" integrity="sha512-1sCRPdkRXhBV2PBLUdRb4tMg1w2YPf37qatUFeS7zlBy7jJI8Lf4VHwWfZZfpXtYSLy85pkm9GaYVYMfw5BC1A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-      <script src="https://unpkg.com/leaflet@1.8.0/dist/leaflet.js" integrity="sha512-BB3hKbKWOc9Ez/TAwyWxNXeoV9c1v6FIeYiBieIWkpLjauysF18NzgR1MBNBXf8/KABdlkX68nAhlwcDFLGPCQ==" crossorigin="" defer></script>
-  
+		<!-- Fuentes -->
+		<link rel="preconnect" href="https://fonts.googleapis.com">
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+		<link
+			href="https://fonts.googleapis.com/css2?family=Kanit:ital,wght@0,200;0,400;0,500;0,600;0,700;0,900;1,400&family=Montserrat:wght@400;500;600;700;900&family=Rajdhani:wght@400;500;600;700&family=Roboto:wght@400;500;700;900&display=swap"
+			rel="stylesheet">
+		<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;700;900&display=swap" rel="stylesheet">
+
+		<!-- Iconos -->
+
+		<link rel="stylesheet" href="https://unpkg.com/leaflet@1.8.0/dist/leaflet.css"
+			integrity="sha512-hoalWLoI8r4UszCkZ5kL8vayOGVae1oxXe/2A4AO6J9+580uKHDO3JdHb7NzwwzK5xr/Fs0W40kiNHxM9vyTtQ=="
+			crossorigin="" />
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.2/css/all.min.css"
+			integrity="sha512-1sCRPdkRXhBV2PBLUdRb4tMg1w2YPf37qatUFeS7zlBy7jJI8Lf4VHwWfZZfpXtYSLy85pkm9GaYVYMfw5BC1A=="
+			crossorigin="anonymous" referrerpolicy="no-referrer" />
+		<link rel="stylesheet" href="/build/css/app.css">
+		<script src="https://unpkg.com/leaflet@1.8.0/dist/leaflet.js"
+			integrity="sha512-BB3hKbKWOc9Ez/TAwyWxNXeoV9c1v6FIeYiBieIWkpLjauysF18NzgR1MBNBXf8/KABdlkX68nAhlwcDFLGPCQ=="
+			crossorigin="" defer></script>
 
 
+		<title>Home - Alquiler de fiestas</title>
+	</head>
 
-    <title>Home - Alquiler de fiestas</title>
-</head>
-<body>
-    <div className="barra">
+	<body>
+		<div className="barra">
 
-        <div className="barra__contenido">
-            <nav className="navegacion">
-                <a href="/login" className="navegacion__micuenta">Mi cuenta</a>
-                <a href="/register" className="navegacion__micuenta">Registrarse</a>
-                
-            </nav>
-        </div>
-    </div>
+			<div className="barra__contenido">
+				<nav className="navegacion">
 
-    <footer th:replace="./fragments/footer ::  footer"></footer>
-    
-</body>
+					<a th:if="${userType ne 'ADMIN' and userType ne 'OWNER' and userType ne 'CLIENT'}" href="/login"
+						className="navegacion__micuenta"><button>Login</button></a>
+					<a th:if="${userType ne 'ADMIN' and userType ne 'OWNER' and userType ne 'CLIENT'}" href="/register"
+						className="navegacion__micuenta"><button>Registrarse</button></a>
+					<a th:if="${userType eq 'ADMIN' or userType eq 'OWNER' or userType eq 'CLIENT'}" href="/profile"
+						className="navegacion__micuenta"><button>Mi
+							perfil</button></a>
+
+					<a th:if="${userType eq 'OWNER'}" href="/register-property">
+						<button>Registrar Propiedad</button>
+					</a>
+					<a th:if="${userType eq 'ADMIN' or userType eq 'OWNER' or userType eq 'CLIENT'}" href="/dashboard">
+						<button>Dashboard</button>
+					</a>
+					<a th:if="${userType eq 'ADMIN' or userType eq 'OWNER' or userType eq 'CLIENT'}" href="/logout">
+						<button>Logout</button>
+					</a>
+				</nav>
+			</div>
+		</div>
+
+		<footer th:replace="./fragments/footer ::  footer"></footer>
+
+	</body>
+
 </html>

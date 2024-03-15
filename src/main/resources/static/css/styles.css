@@ -1,8 +1,8 @@
 :root {
-  --color-primario: #E85A19;
-  --color-secundario: #ff694f;
-  --color-blanco: #fff;
-  --color-negrp:  #302e2c;
+	--color-primario: #E85A19;
+	--color-secundario: #ff694f;
+	--color-blanco: #fff;
+	--color-negrp: #302e2c;
 }
 
 
@@ -11,8 +11,10 @@
 
 
 html {
-  line-height: 1.15; /* 1 */
-  -webkit-text-size-adjust: 100%; /* 2 */
+	line-height: 1.15;
+	/* 1 */
+	-webkit-text-size-adjust: 100%;
+	/* 2 */
 }
 
 /* Sections
@@ -23,7 +25,7 @@ html {
  */
 
 body {
-  margin: 0;
+	margin: 0;
 }
 
 /**
@@ -31,7 +33,7 @@ body {
  */
 
 main {
-  display: block;
+	display: block;
 }
 
 /**
@@ -40,8 +42,8 @@ main {
  */
 
 h1 {
-  font-size: 2em;
-  margin: 0.67em 0;
+	font-size: 2em;
+	margin: 0.67em 0;
 }
 
 /* Grouping content
@@ -53,9 +55,12 @@ h1 {
  */
 
 hr {
-  box-sizing: content-box; /* 1 */
-  height: 0; /* 1 */
-  overflow: visible; /* 2 */
+	box-sizing: content-box;
+	/* 1 */
+	height: 0;
+	/* 1 */
+	overflow: visible;
+	/* 2 */
 }
 
 /**
@@ -64,8 +69,10 @@ hr {
  */
 
 pre {
-  font-family: monospace, monospace; /* 1 */
-  font-size: 1em; /* 2 */
+	font-family: monospace, monospace;
+	/* 1 */
+	font-size: 1em;
+	/* 2 */
 }
 
 /* Text-level semantics
@@ -76,7 +83,7 @@ pre {
  */
 
 a {
-  background-color: transparent;
+	background-color: transparent;
 }
 
 /**
@@ -85,9 +92,12 @@ a {
  */
 
 abbr[title] {
-  border-bottom: none; /* 1 */
-  text-decoration: underline; /* 2 */
-  text-decoration: underline dotted; /* 2 */
+	border-bottom: none;
+	/* 1 */
+	text-decoration: underline;
+	/* 2 */
+	text-decoration: underline dotted;
+	/* 2 */
 }
 
 /**
@@ -96,7 +106,7 @@ abbr[title] {
 
 b,
 strong {
-  font-weight: bolder;
+	font-weight: bolder;
 }
 
 /**
@@ -107,8 +117,10 @@ strong {
 code,
 kbd,
 samp {
-  font-family: monospace, monospace; /* 1 */
-  font-size: 1em; /* 2 */
+	font-family: monospace, monospace;
+	/* 1 */
+	font-size: 1em;
+	/* 2 */
 }
 
 /**
@@ -116,7 +128,7 @@ samp {
  */
 
 small {
-  font-size: 80%;
+	font-size: 80%;
 }
 
 /**
@@ -126,18 +138,18 @@ small {
 
 sub,
 sup {
-  font-size: 75%;
-  line-height: 0;
-  position: relative;
-  vertical-align: baseline;
+	font-size: 75%;
+	line-height: 0;
+	position: relative;
+	vertical-align: baseline;
 }
 
 sub {
-  bottom: -0.25em;
+	bottom: -0.25em;
 }
 
 sup {
-  top: -0.5em;
+	top: -0.5em;
 }
 
 /* Embedded content
@@ -148,7 +160,7 @@ sup {
  */
 
 img {
-  border-style: none;
+	border-style: none;
 }
 
 /* Forms
@@ -164,10 +176,14 @@ input,
 optgroup,
 select,
 textarea {
-  font-family: inherit; /* 1 */
-  font-size: 100%; /* 1 */
-  line-height: 1.15; /* 1 */
-  margin: 0; /* 2 */
+	font-family: inherit;
+	/* 1 */
+	font-size: 100%;
+	/* 1 */
+	line-height: 1.15;
+	/* 1 */
+	margin: 0;
+	/* 2 */
 }
 
 /**
@@ -176,8 +192,9 @@ textarea {
  */
 
 button,
-input { /* 1 */
-  overflow: visible;
+input {
+	/* 1 */
+	overflow: visible;
 }
 
 /**
@@ -186,8 +203,9 @@ input { /* 1 */
  */
 
 button,
-select { /* 1 */
-  text-transform: none;
+select {
+	/* 1 */
+	text-transform: none;
 }
 
 /**
@@ -198,7 +216,7 @@ button,
 [type="button"],
 [type="reset"],
 [type="submit"] {
-  -webkit-appearance: button;
+	-webkit-appearance: button;
 }
 
 /**
@@ -209,8 +227,8 @@ button::-moz-focus-inner,
 [type="button"]::-moz-focus-inner,
 [type="reset"]::-moz-focus-inner,
 [type="submit"]::-moz-focus-inner {
-  border-style: none;
-  padding: 0;
+	border-style: none;
+	padding: 0;
 }
 
 /**
@@ -221,7 +239,7 @@ button:-moz-focusring,
 [type="button"]:-moz-focusring,
 [type="reset"]:-moz-focusring,
 [type="submit"]:-moz-focusring {
-  outline: 1px dotted ButtonText;
+	outline: 1px dotted ButtonText;
 }
 
 /**
@@ -229,7 +247,7 @@ button:-moz-focusring,
  */
 
 fieldset {
-  padding: 0.35em 0.75em 0.625em;
+	padding: 0.35em 0.75em 0.625em;
 }
 
 /**
@@ -240,12 +258,18 @@ fieldset {
  */
 
 legend {
-  box-sizing: border-box; /* 1 */
-  color: inherit; /* 2 */
-  display: table; /* 1 */
-  max-width: 100%; /* 1 */
-  padding: 0; /* 3 */
-  white-space: normal; /* 1 */
+	box-sizing: border-box;
+	/* 1 */
+	color: inherit;
+	/* 2 */
+	display: table;
+	/* 1 */
+	max-width: 100%;
+	/* 1 */
+	padding: 0;
+	/* 3 */
+	white-space: normal;
+	/* 1 */
 }
 
 /**
@@ -253,7 +277,7 @@ legend {
  */
 
 progress {
-  vertical-align: baseline;
+	vertical-align: baseline;
 }
 
 /**
@@ -261,7 +285,7 @@ progress {
  */
 
 textarea {
-  overflow: auto;
+	overflow: auto;
 }
 
 /**
@@ -271,8 +295,10 @@ textarea {
 
 [type="checkbox"],
 [type="radio"] {
-  box-sizing: border-box; /* 1 */
-  padding: 0; /* 2 */
+	box-sizing: border-box;
+	/* 1 */
+	padding: 0;
+	/* 2 */
 }
 
 /**
@@ -281,7 +307,7 @@ textarea {
 
 [type="number"]::-webkit-inner-spin-button,
 [type="number"]::-webkit-outer-spin-button {
-  height: auto;
+	height: auto;
 }
 
 /**
@@ -290,8 +316,10 @@ textarea {
  */
 
 [type="search"] {
-  -webkit-appearance: textfield; /* 1 */
-  outline-offset: -2px; /* 2 */
+	-webkit-appearance: textfield;
+	/* 1 */
+	outline-offset: -2px;
+	/* 2 */
 }
 
 /**
@@ -299,7 +327,7 @@ textarea {
  */
 
 [type="search"]::-webkit-search-decoration {
-  -webkit-appearance: none;
+	-webkit-appearance: none;
 }
 
 /**
@@ -308,8 +336,10 @@ textarea {
  */
 
 ::-webkit-file-upload-button {
-  -webkit-appearance: button; /* 1 */
-  font: inherit; /* 2 */
+	-webkit-appearance: button;
+	/* 1 */
+	font: inherit;
+	/* 2 */
 }
 
 /* Interactive
@@ -320,7 +350,7 @@ textarea {
  */
 
 details {
-  display: block;
+	display: block;
 }
 
 /*
@@ -328,7 +358,7 @@ details {
  */
 
 summary {
-  display: list-item;
+	display: list-item;
 }
 
 /* Misc
@@ -339,7 +369,7 @@ summary {
  */
 
 template {
-  display: none;
+	display: none;
 }
 
 /**
@@ -347,395 +377,421 @@ template {
  */
 
 [hidden] {
-  display: none;
+	display: none;
 }
 
 
 /************************* MEDIA QUERYS *************************/
 html {
-  font-size: 62.5%;
-  box-sizing: border-box;
+	font-size: 62.5%;
+	box-sizing: border-box;
 }
 
-*, *:before, *:after {
-  box-sizing: inherit;
+*,
+*:before,
+*:after {
+	box-sizing: inherit;
 }
 
 body {
-  font-family: "Montserrat", sans-serif;
-  font-size: 1.8rem;
+	font-family: "Montserrat", sans-serif;
+	font-size: 1.8rem;
 }
 
 a {
-  text-decoration: none;
+	text-decoration: none;
 }
 
 img {
-  width: 100%;
-  height: auto;
+	width: 100%;
+	height: auto;
 }
 
-h1, h2, h3 {
-  font-family: "Rajdhani", sans-serif;
-  font-weight: 900;
-  margin: 2rem 0;
-  border-radius: 2rem;
-  color: #FFFFFF;
+h1,
+h2,
+h3 {
+	font-family: "Rajdhani", sans-serif;
+	font-weight: 900;
+	margin: 2rem 0;
+	border-radius: 2rem;
+	color: #FFFFFF;
 }
 
 h1 {
-  font-size: 4rem;
+	font-size: 4rem;
 }
 
 h2 {
-  font-size: 3.6rem;
+	font-size: 3.6rem;
 }
 
 h3 {
-  font-size: 3rem;
+	font-size: 3rem;
 }
 
 .text-center {
-  text-align: center;
+	text-align: center;
 }
 
 
 body {
-  background-color: #fffbfb;
+	background-color: #fffbfb;
 }
 
 
 /************************* REGISTER - Marcos *************************/
 .auth {
-  width: min(95%, 60rem);
-  margin: 0 auto;
-  padding: 0 2rem 2rem;
-  border-radius: 3rem;
-  background-color: #e4e4e4;
-  -webkit-box-shadow: 0px 0px 21px 10px rgba(232, 90, 25, 0.29);
-  -moz-box-shadow: 0px 0px 21px 10px rgba(232, 90, 25, 0.29);
-  box-shadow: 0px 0px 21px 10px rgba(232, 90, 25, 0.29);
+	width: min(95%, 60rem);
+	margin: 0 auto;
+	padding: 0 2rem 2rem;
+	border-radius: 3rem;
+	background-color: #e4e4e4;
+	-webkit-box-shadow: 0px 0px 21px 10px rgba(232, 90, 25, 0.29);
+	-moz-box-shadow: 0px 0px 21px 10px rgba(232, 90, 25, 0.29);
+	box-shadow: 0px 0px 21px 10px rgba(232, 90, 25, 0.29);
 }
+
 .auth__heading {
-  font-family: "Rajdhani", sans-serif;
-  font-weight: 900;
-  margin: 2rem 0;
-  border-radius: 2rem;
-  color: #222;
-  margin: 6rem 0 3rem 0;
-  text-align: center;
-  padding: 1rem;
+	font-family: "Rajdhani", sans-serif;
+	font-weight: 900;
+	margin: 2rem 0;
+	border-radius: 2rem;
+	color: #222;
+	margin: 6rem 0 3rem 0;
+	text-align: center;
+	padding: 1rem;
 }
 
 .auth__texto {
-  font-size: 2rem;
-  text-align: center;
-  color: var(--color-negrp);
+	font-size: 2rem;
+	text-align: center;
+	color: var(--color-negrp);
 }
 
 /************************* LOGIN - Marcos *************************/
 .login__heading {
-  font-family: "Rajdhani", sans-serif;
-  font-weight: 900;
-  margin: 2rem 0;
-  border-radius: 2rem;
-  color: #131313;
-  margin: 6rem 0 3rem 0;
-  text-align: center;
+	font-family: "Rajdhani", sans-serif;
+	font-weight: 900;
+	margin: 2rem 0;
+	border-radius: 2rem;
+	color: #131313;
+	margin: 6rem 0 3rem 0;
+	text-align: center;
 }
 
 .formulario {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
 }
 
 .formulario__campo {
-  display: flex;
-  flex-direction: column;
-  gap: 1rem;
-  margin: 1.5rem 0;
+	display: flex;
+	flex-direction: column;
+	gap: 1rem;
+	margin: 1.5rem 0;
 }
+
 .formulario__label {
-  display: block;
-  font-size: 2rem;
-  font-weight: 600;
-  color: #FFFFFF;
+	display: block;
+	font-size: 2rem;
+	font-weight: 600;
+	color: #FFFFFF;
 }
-.formulario__input{
-  padding: 1rem;
-  border: 1px solid var(--color-primario);
-  border-radius: 0.5rem;
-  width: 35rem;
-  max-width: 35rem;
-  background: #ececec;
+
+.formulario__input {
+	padding: 1rem;
+	border: 1px solid var(--color-primario);
+	border-radius: 0.5rem;
+	width: 35rem;
+	max-width: 35rem;
+	background: #ececec;
 }
 
 
 .formulario__input:focus {
-  outline: none;
-  -webkit-box-shadow: 0px 0px 21px 10px rgba(232, 90, 25, 0.29);
-  -moz-box-shadow: 0px 0px 21px 10px rgba(232, 90, 25, 0.29);
-  box-shadow: 0px 0px 21px 10px rgba(232, 90, 25, 0.29);
+	outline: none;
+	-webkit-box-shadow: 0px 0px 21px 10px rgba(232, 90, 25, 0.29);
+	-moz-box-shadow: 0px 0px 21px 10px rgba(232, 90, 25, 0.29);
+	box-shadow: 0px 0px 21px 10px rgba(232, 90, 25, 0.29);
 }
 
 
 .formulario__input::placeholder {
-  color: #222;
+	color: #222;
 }
 
 .acciones__enlaces {
-  display: flex;
-  color: var(--color-primario);
-  justify-content: center;
+	display: flex;
+	color: var(--color-primario);
+	justify-content: center;
 }
 
 /************************* BUTTON INGRESAR - Marcos*************************/
 
 .bn632-hover {
-  width: 305px;
-  font-size: 16px;
-  font-weight: 600;
-  color: #fff;
-  cursor: pointer;
-  margin: 20px;
-  height: 55px;
-  text-align:center;
-  border: none;
-  background-size: 300% 100%;
-  border-radius: 50px;
-  moz-transition: all .4s ease-in-out;
-  -o-transition: all .4s ease-in-out;
-  -webkit-transition: all .4s ease-in-out;
-  transition: all .4s ease-in-out;
+	width: 305px;
+	font-size: 16px;
+	font-weight: 600;
+	color: #fff;
+	cursor: pointer;
+	margin: 20px;
+	height: 55px;
+	text-align: center;
+	border: none;
+	background-size: 300% 100%;
+	border-radius: 50px;
+	moz-transition: all .4s ease-in-out;
+	-o-transition: all .4s ease-in-out;
+	-webkit-transition: all .4s ease-in-out;
+	transition: all .4s ease-in-out;
 }
 
 .bn632-hover:hover {
-  background-position: 100% 0;
-  moz-transition: all .4s ease-in-out;
-  -o-transition: all .4s ease-in-out;
-  -webkit-transition: all .4s ease-in-out;
-  transition: all .4s ease-in-out;
+	background-position: 100% 0;
+	moz-transition: all .4s ease-in-out;
+	-o-transition: all .4s ease-in-out;
+	-webkit-transition: all .4s ease-in-out;
+	transition: all .4s ease-in-out;
 }
 
 .bn632-hover:focus {
-  outline: none;
+	outline: none;
 }
 
 .bn632-hover.bn19 {
-  background-image: linear-gradient(
-    to right,
-    #f5ce62,
-    #e43603,
-    #fa7199,
-    #e85a19
-  );
-  box-shadow: 0 4px 15px 0 rgba(229, 66, 10, 0.75);
+	background-image: linear-gradient(to right,
+			#f5ce62,
+			#e43603,
+			#fa7199,
+			#e85a19);
+	box-shadow: 0 4px 15px 0 rgba(229, 66, 10, 0.75);
 }
 
 /************************* BUTTON REGISTRO - Marcos*************************/
 .bn6-hover {
-  width: 235px;
-  font-size: 16px;
-  font-weight: 600;
-  color: #fff;
-  cursor: pointer;
-  margin: 20px;
-  height: 55px;
-  text-align: center;
-  border: none;
-  background-size: 300% 100%;
-  border-radius: 50px;
-  transition: all .4s ease-in-out;
-  line-height: 55px; /* Añade esta línea para centrar el texto verticalmente */
+	width: 235px;
+	font-size: 16px;
+	font-weight: 600;
+	color: #fff;
+	cursor: pointer;
+	margin: 20px;
+	height: 55px;
+	text-align: center;
+	border: none;
+	background-size: 300% 100%;
+	border-radius: 50px;
+	transition: all .4s ease-in-out;
+	line-height: 55px;
+	/* Añade esta línea para centrar el texto verticalmente */
 }
 
 .bn6-hover:hover {
-  background-position: 100% 0;
-  transition: all .4s ease-in-out;
+	background-position: 100% 0;
+	transition: all .4s ease-in-out;
 }
 
 .bn6-hover:focus {
-  outline: none;
+	outline: none;
 }
 
 .bn6-hover.bn1 {
-  background-image: linear-gradient(
-    to right,
-    #f5ce62,
-    #e43603,
-    #fa7199,
-    #e85a19
-  );
-  box-shadow: 0 4px 15px 0 rgba(229, 66, 10, 0.75);
+	background-image: linear-gradient(to right,
+			#f5ce62,
+			#e43603,
+			#fa7199,
+			#e85a19);
+	box-shadow: 0 4px 15px 0 rgba(229, 66, 10, 0.75);
 }
+
 /************************* BUTTON CREAR CUENTA - Marcos*************************/
-.btn-center{
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+.btn-center {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
 }
 
 .bn9-hover {
-  width: 271px;
-  font-size: 16px;
-  font-weight: 600;
-  color: #fff;
-  cursor: pointer;
-  margin: 20px;
-  height: 55px;
-  text-align: center;
-  border: none;
-  background-size: 300% 100%;
-  border-radius: 50px;
-  transition: all .4s ease-in-out;
-  line-height: 55px; /* Añade esta línea para centrar el texto verticalmente */
+	width: 271px;
+	font-size: 16px;
+	font-weight: 600;
+	color: #fff;
+	cursor: pointer;
+	margin: 20px;
+	height: 55px;
+	text-align: center;
+	border: none;
+	background-size: 300% 100%;
+	border-radius: 50px;
+	transition: all .4s ease-in-out;
+	line-height: 55px;
+	/* Añade esta línea para centrar el texto verticalmente */
 }
 
 .bn9-hover:hover {
-  background-position: 100% 0;
-  transition: all .4s ease-in-out;
+	background-position: 100% 0;
+	transition: all .4s ease-in-out;
 }
 
 .bn9-hover:focus {
-  outline: none;
+	outline: none;
 }
 
 .bn9-hover.bn4 {
-  background-image: linear-gradient(
-    to right,
-    #f5ce62,
-    #e43603,
-    #fa7199,
-    #e85a19
-  );
-  box-shadow: 0 4px 15px 0 rgba(229, 66, 10, 0.75);
+	background-image: linear-gradient(to right,
+			#f5ce62,
+			#e43603,
+			#fa7199,
+			#e85a19);
+	box-shadow: 0 4px 15px 0 rgba(229, 66, 10, 0.75);
 }
+
 /************************* FOOTER *************************/
 
 .footer {
-  background-color: #e6e6e6;
-  margin-top: 16rem;
-  padding-top: 1rem;
-  border-top: 3px solid var(--color-secundario);
-  -webkit-box-shadow: 0px 1px 20px 5px #E85A19;
-  -moz-box-shadow: 0px 1px 20px 5px #E85A19;
-  box-shadow: 0px 1px 20px 5px #E85A19;
+	background-color: #e6e6e6;
+	margin-top: 16rem;
+	padding-top: 1rem;
+	border-top: 3px solid var(--color-secundario);
+	-webkit-box-shadow: 0px 1px 20px 5px #E85A19;
+	-moz-box-shadow: 0px 1px 20px 5px #E85A19;
+	box-shadow: 0px 1px 20px 5px #E85A19;
 }
+
 .footer__grid {
-  width: min(95%, 120rem);
-  margin: 0 auto;
+	width: min(95%, 120rem);
+	margin: 0 auto;
 }
+
 @media (min-width: 768px) {
-  .footer__grid {
-    display: grid;
-    gap: 3rem;
-    grid-template-columns: repeat(2, 1fr);
-  }
+	.footer__grid {
+		display: grid;
+		gap: 3rem;
+		grid-template-columns: repeat(2, 1fr);
+	}
 }
+
 .footer__logo {
-  text-align: center;
-  margin-bottom: 2rem;
-  margin: 0 5rem;
-  font-size: 3rem;
-  color: var(--color-primario)
+	text-align: center;
+	margin-bottom: 2rem;
+	margin: 0 5rem;
+	font-size: 3rem;
+	color: var(--color-primario)
 }
+
 @media (min-width: 1024px) {
-  .footer__logo {
-    text-align: left;
-    margin: 1rem 2rem 1rem 0;
-  }
+	.footer__logo {
+		text-align: left;
+		margin: 1rem 2rem 1rem 0;
+	}
 }
+
 .footer__logo .barra__copy {
-  font-family: "Kanit", sans-serif;
-  font-size: 1.9rem;
-  font-weight: 500;
-  color: #007df4;
+	font-family: "Kanit", sans-serif;
+	font-size: 1.9rem;
+	font-weight: 500;
+	color: #007df4;
 }
+
 .footer__logo .barra__rp {
-  color: #007df4;
+	color: #007df4;
 }
+
 .footer__texto {
-  line-height: 2;
-  color: var(--color-negrp);
-  font-size: 1.5rem;
-  text-align: center;
-  font-weight: 500;
+	line-height: 2;
+	color: var(--color-negrp);
+	font-size: 1.5rem;
+	text-align: center;
+	font-weight: 500;
 }
+
 @media (min-width: 768px) {
-  .footer__texto {
-    text-align: left;
-  }
+	.footer__texto {
+		text-align: left;
+	}
 }
+
 .footer__copyright {
-  background-color: var(--color-primario);
-  margin: 3rem 0 0 0;
-  padding: 5px 0;
-  text-align: center;
-  font-family: "Montserrat", sans-serif;
-  font-size: 1.4rem;
-  font-weight: 700;
-  color: #fff;
+	background-color: var(--color-primario);
+	margin: 3rem 0 0 0;
+	padding: 5px 0;
+	text-align: center;
+	font-family: "Montserrat", sans-serif;
+	font-size: 1.4rem;
+	font-weight: 700;
+	color: #fff;
 }
+
 .footer__copyright--regular {
-  font-weight: 400;
+	font-weight: 400;
 }
 
 .menu-redes {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 3rem;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	gap: 3rem;
 }
+
 .menu-redes__enlace::before {
-  color: var(--color-primario);
-  font-size: 2rem;
-  display: inline-block;
-  font-style: normal;
-  text-rendering: auto;
-  -webkit-font-smoothing: antialiased;
-  font-family: "Font Awesome 6 Brands";
+	color: var(--color-primario);
+	font-size: 2rem;
+	display: inline-block;
+	font-style: normal;
+	text-rendering: auto;
+	-webkit-font-smoothing: antialiased;
+	font-family: "Font Awesome 6 Brands";
 }
+
 .menu-redes__enlace[href*="https://discord.gg"]::before {
-  content: "\f392";
+	content: "\f392";
 }
+
 .menu-redes__enlace[href*="https://facebook.com"]::before {
-  content: "\f39e";
+	content: "\f39e";
 }
+
 .menu-redes__enlace[href*="https://github.com"]::before {
-  content: "\f09b";
+	content: "\f09b";
 }
+
 .menu-redes__enlace[href*="https://tiktok.com"]::before {
-  content: "\e07b";
+	content: "\e07b";
 }
+
 .menu-redes__enlace[href*="https://instagram.com"]::before {
-  content: "\f16d";
+	content: "\f16d";
 }
+
 .menu-redes__enlace[href*="https://youtube.com"]::before {
-  content: "\f167";
+	content: "\f167";
 }
+
 .menu-redes__enlace[href*="https://twitter.com"]::before {
-  content: "\f099";
+	content: "\f099";
 }
+
 .menu-redes__ocultar {
-  display: none;
+	display: none;
 }
+
 @media (min-width: 768px) {
-  .menu-redes {
-    justify-content: flex-end;
-  }
+	.menu-redes {
+		justify-content: flex-end;
+	}
 }
 
 .menu-border {
-  display: flex;
-  gap: 1rem;
-  border-left: 1px solid #fffcfc;
-  padding-left: 1rem;
+	display: flex;
+	gap: 1rem;
+	border-left: 1px solid #fffcfc;
+	padding-left: 1rem;
 }
+
 @media (min-width: 768px) {
-  .menu-border {
-    justify-content: center;
-  }
+	.menu-border {
+		justify-content: center;
+	}
 }
 
 /***************** ESTILOS DASHBOARD ****************/
@@ -1149,5 +1205,3 @@ body {
 }
 
 
-  
-  
