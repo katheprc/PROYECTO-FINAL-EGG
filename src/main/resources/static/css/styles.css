@@ -1,546 +1,797 @@
-/*
-  ========================================
-  Reinicio === Carlos Morillo ===
-  ========================================
-*/
-
-html, body, div, span, applet, object, iframe,
-h1, h2, h3, h4, h5, h6, p, blockquote, pre,
-a, abbr, acronym, address, big, cite, code,
-del, dfn, em, img, ins, kbd, q, s, samp,
-small, strike, strong, sub, sup, tt, var,
-b, u, i, center,
-dl, dt, dd, ol, ul, li,
-fieldset, form, label, legend,
-table, caption, tbody, tfoot, thead, tr, th, td,
-article, aside, canvas, details, embed, 
-figure, figcaption, footer, header, hgroup, 
-menu, nav, output, ruby, section, summary,
-time, mark, audio, video {
-	margin: 0;
-	padding: 0;
-	border: 0;
-	font-size: 100%;
-	font: inherit;
-	vertical-align: baseline;
+:root {
+	--color-primario: #E85A19;
+	--color-secundario: #ff694f;
+	--color-blanco: #fff;
+	--color-negrp: #302e2c;
 }
-/* HTML5 display-role reset for older browsers */
 
-article, aside, details, figcaption, figure, 
-footer, header, hgroup, menu, nav, section {
+
+/******************* NORMALIZE ********************/
+
+
+
+html {
+	line-height: 1.15;
+	/* 1 */
+	-webkit-text-size-adjust: 100%;
+	/* 2 */
+}
+
+/* Sections
+   ========================================================================== */
+
+/**
+ * Remove the margin in all browsers.
+ */
+
+body {
+	margin: 0;
+}
+
+/**
+ * Render the `main` element consistently in IE.
+ */
+
+main {
 	display: block;
 }
-body {
-	line-height: 1;
+
+/**
+ * Correct the font size and margin on `h1` elements within `section` and
+ * `article` contexts in Chrome, Firefox, and Safari.
+ */
+
+h1 {
+	font-size: 2em;
+	margin: 0.67em 0;
 }
-ol, ul {
-	list-style: none;
+
+/* Grouping content
+   ========================================================================== */
+
+/**
+ * 1. Add the correct box sizing in Firefox.
+ * 2. Show the overflow in Edge and IE.
+ */
+
+hr {
+	box-sizing: content-box;
+	/* 1 */
+	height: 0;
+	/* 1 */
+	overflow: visible;
+	/* 2 */
 }
-blockquote, q {
-	quotes: none;
+
+/**
+ * 1. Correct the inheritance and scaling of font size in all browsers.
+ * 2. Correct the odd `em` font sizing in all browsers.
+ */
+
+pre {
+	font-family: monospace, monospace;
+	/* 1 */
+	font-size: 1em;
+	/* 2 */
 }
-blockquote:before, blockquote:after,
-q:before, q:after {
-	content: '';
-	content: none;
+
+/* Text-level semantics
+   ========================================================================== */
+
+/**
+ * Remove the gray background on active links in IE 10.
+ */
+
+a {
+	background-color: transparent;
 }
-table {
-	border-collapse: collapse;
-	border-spacing: 0;
+
+/**
+ * 1. Remove the bottom border in Chrome 57-
+ * 2. Add the correct text decoration in Chrome, Edge, IE, Opera, and Safari.
+ */
+
+abbr[title] {
+	border-bottom: none;
+	/* 1 */
+	text-decoration: underline;
+	/* 2 */
+	text-decoration: underline dotted;
+	/* 2 */
+}
+
+/**
+ * Add the correct font weight in Chrome, Edge, and Safari.
+ */
+
+b,
+strong {
+	font-weight: bolder;
+}
+
+/**
+ * 1. Correct the inheritance and scaling of font size in all browsers.
+ * 2. Correct the odd `em` font sizing in all browsers.
+ */
+
+code,
+kbd,
+samp {
+	font-family: monospace, monospace;
+	/* 1 */
+	font-size: 1em;
+	/* 2 */
+}
+
+/**
+ * Add the correct font size in all browsers.
+ */
+
+small {
+	font-size: 80%;
+}
+
+/**
+ * Prevent `sub` and `sup` elements from affecting the line height in
+ * all browsers.
+ */
+
+sub,
+sup {
+	font-size: 75%;
+	line-height: 0;
+	position: relative;
+	vertical-align: baseline;
+}
+
+sub {
+	bottom: -0.25em;
+}
+
+sup {
+	top: -0.5em;
+}
+
+/* Embedded content
+   ========================================================================== */
+
+/**
+ * Remove the border on images inside links in IE 10.
+ */
+
+img {
+	border-style: none;
+}
+
+/* Forms
+   ========================================================================== */
+
+/**
+ * 1. Change the font styles in all browsers.
+ * 2. Remove the margin in Firefox and Safari.
+ */
+
+button,
+input,
+optgroup,
+select,
+textarea {
+	font-family: inherit;
+	/* 1 */
+	font-size: 100%;
+	/* 1 */
+	line-height: 1.15;
+	/* 1 */
+	margin: 0;
+	/* 2 */
+}
+
+/**
+ * Show the overflow in IE.
+ * 1. Show the overflow in Edge.
+ */
+
+button,
+input {
+	/* 1 */
+	overflow: visible;
+}
+
+/**
+ * Remove the inheritance of text transform in Edge, Firefox, and IE.
+ * 1. Remove the inheritance of text transform in Firefox.
+ */
+
+button,
+select {
+	/* 1 */
+	text-transform: none;
+}
+
+/**
+ * Correct the inability to style clickable types in iOS and Safari.
+ */
+
+button,
+[type="button"],
+[type="reset"],
+[type="submit"] {
+	-webkit-appearance: button;
+}
+
+/**
+ * Remove the inner border and padding in Firefox.
+ */
+
+button::-moz-focus-inner,
+[type="button"]::-moz-focus-inner,
+[type="reset"]::-moz-focus-inner,
+[type="submit"]::-moz-focus-inner {
+	border-style: none;
+	padding: 0;
+}
+
+/**
+ * Restore the focus styles unset by the previous rule.
+ */
+
+button:-moz-focusring,
+[type="button"]:-moz-focusring,
+[type="reset"]:-moz-focusring,
+[type="submit"]:-moz-focusring {
+	outline: 1px dotted ButtonText;
+}
+
+/**
+ * Correct the padding in Firefox.
+ */
+
+fieldset {
+	padding: 0.35em 0.75em 0.625em;
+}
+
+/**
+ * 1. Correct the text wrapping in Edge and IE.
+ * 2. Correct the color inheritance from `fieldset` elements in IE.
+ * 3. Remove the padding so developers are not caught out when they zero out
+ *    `fieldset` elements in all browsers.
+ */
+
+legend {
+	box-sizing: border-box;
+	/* 1 */
+	color: inherit;
+	/* 2 */
+	display: table;
+	/* 1 */
+	max-width: 100%;
+	/* 1 */
+	padding: 0;
+	/* 3 */
+	white-space: normal;
+	/* 1 */
+}
+
+/**
+ * Add the correct vertical alignment in Chrome, Firefox, and Opera.
+ */
+
+progress {
+	vertical-align: baseline;
+}
+
+/**
+ * Remove the default vertical scrollbar in IE 10+.
+ */
+
+textarea {
+	overflow: auto;
+}
+
+/**
+ * 1. Add the correct box sizing in IE 10.
+ * 2. Remove the padding in IE 10.
+ */
+
+[type="checkbox"],
+[type="radio"] {
+	box-sizing: border-box;
+	/* 1 */
+	padding: 0;
+	/* 2 */
+}
+
+/**
+ * Correct the cursor style of increment and decrement buttons in Chrome.
+ */
+
+[type="number"]::-webkit-inner-spin-button,
+[type="number"]::-webkit-outer-spin-button {
+	height: auto;
+}
+
+/**
+ * 1. Correct the odd appearance in Chrome and Safari.
+ * 2. Correct the outline style in Safari.
+ */
+
+[type="search"] {
+	-webkit-appearance: textfield;
+	/* 1 */
+	outline-offset: -2px;
+	/* 2 */
+}
+
+/**
+ * Remove the inner padding in Chrome and Safari on macOS.
+ */
+
+[type="search"]::-webkit-search-decoration {
+	-webkit-appearance: none;
+}
+
+/**
+ * 1. Correct the inability to style clickable types in iOS and Safari.
+ * 2. Change font properties to `inherit` in Safari.
+ */
+
+::-webkit-file-upload-button {
+	-webkit-appearance: button;
+	/* 1 */
+	font: inherit;
+	/* 2 */
+}
+
+/* Interactive
+   ========================================================================== */
+
+/*
+ * Add the correct display in Edge, IE 10+, and Firefox.
+ */
+
+details {
+	display: block;
 }
 
 /*
-  ========================================
-  Custom styles === Carlos Morillo ===
-  ========================================
-*/
+ * Add the correct display in all browsers.
+ */
 
-body {
-  color: #fff;
-  font: 22px "Poppins", sans-serif;
-  background-color: rgb(232, 90, 25);  
-  background: -webkit-linear-gradient(to left, rgb(232, 25, 84) -50%, rgb(232, 90, 25) 50%, rgb(232, 25, 25) 120%);
-  background:    -moz-linear-gradient(to left, rgb(232, 25, 84) -50%, rgb(232, 90, 25) 50%, rgb(232, 25, 25) 120%);
-  background:         linear-gradient(to left, rgb(232, 25, 84) -50%, rgb(232, 90, 25) 50%, rgb(232, 25, 25) 120%);
+summary {
+	display: list-item;
 }
 
-/*
-  ========================================
-  Grid === Carlos Morillo ===
-  ========================================
-*/
+/* Misc
+   ========================================================================== */
+
+/**
+ * Add the correct display in IE 10+.
+ */
+
+template {
+	display: none;
+}
+
+/**
+ * Add the correct display in IE 10.
+ */
+
+[hidden] {
+	display: none;
+}
+
+
+/************************* MEDIA QUERYS *************************/
+html {
+	font-size: 62.5%;
+	box-sizing: border-box;
+}
 
 *,
 *:before,
 *:after {
-  -webkit-box-sizing: border-box;
-     -moz-box-sizing: border-box;
-          box-sizing: border-box;
+	box-sizing: inherit;
 }
 
-.grid,
-.container {
-  width: 95%;
-  margin: 0 auto;
-}
-
-.container {
-  padding-left: 30px;
-  padding-right: 30px; 
-}
-
-.grid,
-.col-1-3,
-.col-2-3 {
-  padding-left: 15px;
-  padding-right: 15px;
-}
-.col-1-3,
-.col-2-3 {  
-  vertical-align: middle;
-}
-
-.col-1-3,
-.col-2-3,
-.col-1-3-alt {
-  display: inline-block;
-}
-
-.col-1-3-alt {  
-  vertical-align: top;
-  padding-left: 152px;
-  padding-right: 152px;
-  margin-bottom: 60px;  
-}
-
-.col-1-3-alt,
-.col-1-3 {
-  width: 33.33%; 
-}
-
-.col-2-3 {
-  width: 66.66%;
-  text-align: center; 
-}
-
-.col-2-3 h2 {
-  color: #cf5117; 
-}
-
-.col-2-3 p {
-  color: #888;
-  font-size: 18px;  
-}
-
-.col-2-3 img:hover {  
-  opacity: .7;  
-}
-
-/*
-  ========================================
-  Clearfix === Carlos Morillo ===
-  ========================================
-*/
-
-.group:before,
-.group:after {
-  content: "";
-  display: table;
-}
-
-.group:before {
-  z-index: 1;
-}
-
-.group:after {
-  clear: both;
-}
-
-.group {
-  clear: both;
-  zoom: 1;
-}
-
-/*
-  ========================================
-  Root === Carlos Morillo ===
-  ========================================
-*/
-
-:root {
-  --color-secundario: #ff694f;
-    --color-primario: #E85A19;
-       --color-negro: #302e2c;
-         --color-blanco: #fff;
-}
-
-/*
-  ========================================
-  Rows === Carlos Morillo ===
-  ========================================
-*/
-
-.row {
-  background-color: #f4f4f4;  
-}
-
-.row,
-.row-alt {
-  padding-top: 44px;
-  padding-bottom: 44px;
-}
-
-/*
-  ========================================
-  Tipografía === Carlos Morillo ===
-  ========================================
-*/
-
-h1 {
-  font-size: 16px;
-}
-
-h2 {
-  margin-bottom: 10px;
-  font-size: 28px;
-  line-height: 33px;
-  font-weight: 700;
-}
-
-.icon-correo h5 {
-  margin-bottom: 70px;
-  font-weight: 600; 
-  margin-left: 35px; 
-}
-
-/*
-  ========================================
-  Leads === Carlos Morillo ===
-  ========================================
-*/
-
-.lead {
-  text-align: center;
-}
-
-.lead p {
-  font-size: 18px;
-  line-height: 33px;
-}
-
-/*
-  ========================================
-  Links === Carlos Morillo ===
-  ========================================
-*/
-
-a:hover {
-  color: #888;
+body {
+	font-family: "Montserrat", sans-serif;
+	font-size: 1.8rem;
 }
 
 a {
-  color: #E85A19;
-  text-decoration: none;
+	text-decoration: none;
 }
 
-small a:hover,
-.col-1-3-alt a:hover,
-.alt-nav a:hover,
-li a {
-  color: #302e2c;  
+img {
+	width: 100%;
+	height: auto;
 }
 
-li a { 
-  padding: 8px 15px;
+h1,
+h2,
+h3 {
+	font-family: "Rajdhani", sans-serif;
+	font-weight: 900;
+	margin: 2rem 0;
+	border-radius: 2rem;
+	color: #FFFFFF;
 }
 
-.col-2-3 a:hover,
-.primary-header a:hover {
-  color: #E85A19;
+h1 {
+	font-size: 4rem;
 }
 
-.primary-footer a {
-  color: #fff;
+h2 {
+	font-size: 3.6rem;
 }
 
-/*
-  ========================================
-  Botones === Carlos Morillo ===
-  ========================================
-*/
-
-.btn {
-  border-radius: 4px;  
-  color: #fff;
-  cursor: pointer;  
-  letter-spacing: .5px;  
+h3 {
+	font-size: 3rem;
 }
 
-.btn-alt {
-  background-color: #E85A19;
-  padding: 15px 30px;
+.text-center {
+	text-align: center;
 }
 
-.primary-header .btn-alt:hover {
-  color: #fff;
+
+body {
+	background-color: #fffbfb;
 }
 
-.btn-alt:hover,
-.btn-defaul:hover {
-  opacity: .8;
+
+/************************* REGISTER - Marcos *************************/
+.auth {
+	width: min(95%, 60rem);
+	margin: 0 auto;
+	padding: 0 2rem 2rem;
+	border-radius: 3rem;
+	background-color: #e4e4e4;
+	-webkit-box-shadow: 0px 0px 21px 10px rgba(232, 90, 25, 0.29);
+	-moz-box-shadow: 0px 0px 21px 10px rgba(232, 90, 25, 0.29);
+	box-shadow: 0px 0px 21px 10px rgba(232, 90, 25, 0.29);
 }
 
-.btn-defaul {
-  border: 0;
-  background-color: #E85A19;
-  padding: 8px 8px;
-  font-size: 14px;
-  width: 100%;
-  margin-top: 10px;
-  font-weight: 700;  
-  margin-bottom: 10px;
+.auth__heading {
+	font-family: "Rajdhani", sans-serif;
+	font-weight: 900;
+	margin: 2rem 0;
+	border-radius: 2rem;
+	color: #222;
+	margin: 6rem 0 3rem 0;
+	text-align: center;
+	padding: 1rem;
 }
 
-/*
-  ============================================
-  Encabezado principal === Carlos Morillo ===
-  ============================================
-*/
-
-.logo h1 { 
-  color: #302e2c; 
+.auth__texto {
+	font-size: 2rem;
+	text-align: center;
+	color: var(--color-negrp);
 }
 
-.logo {   
-  float: left;
-  display: flex;
-  justify-content: center;
-  align-items: center;  
-  margin-left: 10px;
-  font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: .5px;
+/************************* LOGIN - Marcos *************************/
+.login__heading {
+	font-family: "Rajdhani", sans-serif;
+	font-weight: 900;
+	margin: 2rem 0;
+	border-radius: 2rem;
+	color: #131313;
+	margin: 6rem 0 3rem 0;
+	text-align: center;
 }
 
-.logo:hover {
-  opacity: .8;
+.formulario {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
 }
 
-.logo img {
-  width: 50px;
+.formulario__campo {
+	display: flex;
+	flex-direction: column;
+	gap: 1rem;
+	margin: 1.5rem 0;
 }
 
-.primary-header {
-  background-image: url(../img/imagen-header.jpg);
-  background-repeat: no-repeat;
-  background-size: cover;
-  background-position: top;
-  min-height: 90vh;
+.formulario__label {
+	display: block;
+	font-size: 2rem;
+	font-weight: 600;
+	color: #FFFFFF;
 }
 
-.primary-section {  
-  background-color: #fff; 
-  box-shadow: rgba(0, 0, 0, 0.25) 0px 4px 4px; 
-  padding-top: 5px;
-  padding-bottom: 5px;
+.formulario__input {
+	padding: 1rem;
+	border: 1px solid var(--color-primario);
+	border-radius: 0.5rem;
+	width: 35rem;
+	max-width: 35rem;
+	background: #ececec;
 }
 
-.primary-nav {
-  font-size: 14px;
-  font-weight: 400;
-  letter-spacing: .5px;
-  margin-top: 16px;
-  text-transform: uppercase;  
+
+.formulario__input:focus {
+	outline: none;
+	-webkit-box-shadow: 0px 0px 21px 10px rgba(232, 90, 25, 0.29);
+	-moz-box-shadow: 0px 0px 21px 10px rgba(232, 90, 25, 0.29);
+	box-shadow: 0px 0px 21px 10px rgba(232, 90, 25, 0.29);
 }
 
-/*
-  ===============================================
-  Pie de página principal === Carlos Morillo ===
-  ===============================================
-*/
 
-.primary-footer {
-  padding-bottom: 44px;
-  padding-top: 44px;
-  color: #fff;
-  font-size: 14px;
+.formulario__input::placeholder {
+	color: #222;
 }
 
-.primary-footer small {
-  float: left;
-  font-weight: 400;
-  line-height: 25px;
+.acciones__enlaces {
+	display: flex;
+	color: var(--color-primario);
+	justify-content: center;
 }
 
-.icon-correo {
-  background-image: url(../icon/icon-correo.png);
-  background-repeat: no-repeat;  
-  background-position: left; 
+/************************* BUTTON INGRESAR - Marcos*************************/
+
+.bn632-hover {
+	width: 305px;
+	font-size: 16px;
+	font-weight: 600;
+	color: #fff;
+	cursor: pointer;
+	margin: 20px;
+	height: 55px;
+	text-align: center;
+	border: none;
+	background-size: 300% 100%;
+	border-radius: 50px;
+	moz-transition: all .4s ease-in-out;
+	-o-transition: all .4s ease-in-out;
+	-webkit-transition: all .4s ease-in-out;
+	transition: all .4s ease-in-out;
 }
 
-.col-1-3-alt li {
-  margin-top: 30px;
-  margin-bottom: 30px;
+.bn632-hover:hover {
+	background-position: 100% 0;
+	moz-transition: all .4s ease-in-out;
+	-o-transition: all .4s ease-in-out;
+	-webkit-transition: all .4s ease-in-out;
+	transition: all .4s ease-in-out;
 }
 
-.icon-redes {
-  margin-top: 70px;   
-  float: right;
-}
-.icon-twitter,
-.icon-facebook,
-.icon-instagram,
-.icon-tiktok,
-.icon-github,
-.icon-discord,
-.icon-linkedin, 
-.icon-youtube {
-  margin-left: 8px;
-  margin-right: 8px;
-}
-.icon-redes a:first-child {
-  margin-left: 0;
+.bn632-hover:focus {
+	outline: none;
 }
 
-.icon-redes a:last-child {
-  margin-right: 0;
+.bn632-hover.bn19 {
+	background-image: linear-gradient(to right,
+			#f5ce62,
+			#e43603,
+			#fa7199,
+			#e85a19);
+	box-shadow: 0 4px 15px 0 rgba(229, 66, 10, 0.75);
 }
 
-/*
-  ========================================
-  Navigation === Carlos Morillo ===
-  ========================================
-*/
-
-.nav {  
-  text-align: right;  
+/************************* BUTTON REGISTRO - Marcos*************************/
+.bn6-hover {
+	width: 235px;
+	font-size: 16px;
+	font-weight: 600;
+	color: #fff;
+	cursor: pointer;
+	margin: 20px;
+	height: 55px;
+	text-align: center;
+	border: none;
+	background-size: 300% 100%;
+	border-radius: 50px;
+	transition: all .4s ease-in-out;
+	line-height: 55px;
+	/* Añade esta línea para centrar el texto verticalmente */
 }
 
-ul,
-nav li {
-  display: inline-block;  
+.bn6-hover:hover {
+	background-position: 100% 0;
+	transition: all .4s ease-in-out;
 }
 
-nav li {
-  vertical-align: top;
-  font-weight: 700;
+.bn6-hover:focus {
+	outline: none;
 }
 
-.nav select {
-  border: none;
-  margin-right: 15px;
-  cursor: pointer;
-  text-align: center;
-  font-weight: 700;  
-  color: #302e2c;    
+.bn6-hover.bn1 {
+	background-image: linear-gradient(to right,
+			#f5ce62,
+			#e43603,
+			#fa7199,
+			#e85a19);
+	box-shadow: 0 4px 15px 0 rgba(229, 66, 10, 0.75);
 }
 
-.nav select:focus {
-  border-color: #dee2e6;
-  outline: 0;
-  box-shadow: none; 
+/************************* BUTTON CREAR CUENTA - Marcos*************************/
+.btn-center {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
 }
 
-.nav select:hover {
-  background-color: #efefef;  
+.bn9-hover {
+	width: 271px;
+	font-size: 16px;
+	font-weight: 600;
+	color: #fff;
+	cursor: pointer;
+	margin: 20px;
+	height: 55px;
+	text-align: center;
+	border: none;
+	background-size: 300% 100%;
+	border-radius: 50px;
+	transition: all .4s ease-in-out;
+	line-height: 55px;
+	/* Añade esta línea para centrar el texto verticalmente */
 }
 
-nav .btn:last-of-type {
-  margin-right: 0;
-  margin-left: 15px;
+.bn9-hover:hover {
+	background-position: 100% 0;
+	transition: all .4s ease-in-out;
 }
 
-/*
-  ========================================
-  register === Carlos Morillo ===
-  ========================================
-*/
-
-.carrusel-row  {    
-  overflow: hidden;
-  width: 100%;
-  background-color: #ebebeb;
+.bn9-hover:focus {
+	outline: none;
 }
 
-.carrusel-row div {  
-  display: flex;
-  animation: slide 10s infinite alternate ease-in-out;  
-  width: 200%;
+.bn9-hover.bn4 {
+	background-image: linear-gradient(to right,
+			#f5ce62,
+			#e43603,
+			#fa7199,
+			#e85a19);
+	box-shadow: 0 4px 15px 0 rgba(229, 66, 10, 0.75);
 }
 
-.carrusel-row figure { 
-  display: inline-block;  
-  font-size: 16px;  
+/************************* FOOTER *************************/
+
+.footer {
+	background-color: #e6e6e6;
+	margin-top: 16rem;
+	padding-top: 1rem;
+	border-top: 3px solid var(--color-secundario);
+	-webkit-box-shadow: 0px 1px 20px 5px #E85A19;
+	-moz-box-shadow: 0px 1px 20px 5px #E85A19;
+	box-shadow: 0px 1px 20px 5px #E85A19;
 }
 
-figcaption {
-
+.footer__grid {
+	width: min(95%, 120rem);
+	margin: 0 auto;
 }
 
-.carrusel-row img {
-  width: 100%;   
+@media (min-width: 768px) {
+	.footer__grid {
+		display: grid;
+		gap: 3rem;
+		grid-template-columns: repeat(2, 1fr);
+	}
 }
 
-.col-2-3 h2 {
-  line-height: 33px;
+.footer__logo {
+	text-align: center;
+	margin-bottom: 2rem;
+	margin: 0 5rem;
+	font-size: 3rem;
+	color: var(--color-primario)
 }
 
-.col-2-3 p {
-  margin-bottom: 44px;
+@media (min-width: 1024px) {
+	.footer__logo {
+		text-align: left;
+		margin: 1rem 2rem 1rem 0;
+	}
 }
 
-@keyframes slide {
-  0% { margin-left: 0;}
-  20% { margin-left: 0;}
-
-  30% { margin-left: -50%;}
-  45% { margin-left: -50%;}
-
-  50% { margin-left: -100%;}
-  100% { margin-left: -100%;}
+.footer__logo .barra__copy {
+	font-family: "Kanit", sans-serif;
+	font-size: 1.9rem;
+	font-weight: 500;
+	color: #007df4;
 }
 
-fieldset {
-  text-align: center;
-  margin: 0 auto;
-  width: 85%;
+.footer__logo .barra__rp {
+	color: #007df4;
 }
 
-legend {
-  color: #888;
-  font-size: 13px;
-  font-weight: 700;
-  margin-bottom: 10px; 
-  text-align: left; 
+.footer__texto {
+	line-height: 2;
+	color: var(--color-negrp);
+	font-size: 1.5rem;
+	text-align: center;
+	font-weight: 500;
 }
 
-input {
-  border: 1px solid #c6c9cc;
-  border-radius: 5px;
-  color: #888;
-  display: inline-block;
-  margin-top: 5px;
-  margin-bottom: 12px;
-  padding: 18px 8px; 
-  font: 13px "Montserrat", sans-serif;
-  width:48.3%;
+@media (min-width: 768px) {
+	.footer__texto {
+		text-align: left;
+	}
 }
 
-.register-group input[type="email"],
-.register-group input[type="password"]{
-  width: 100%;
+.footer__copyright {
+	background-color: var(--color-primario);
+	margin: 3rem 0 0 0;
+	padding: 5px 0;
+	text-align: center;
+	font-family: "Montserrat", sans-serif;
+	font-size: 1.4rem;
+	font-weight: 700;
+	color: #fff;
 }
 
-.register-group input:focus {
-  border-color: #dee2e6;
-  outline: 0;
-  box-shadow: 0px 0px 0px 1px rgba(232, 90, 25, .9); 
+.footer__copyright--regular {
+	font-weight: 400;
 }
 
-.register-group label:first-of-type {  
-    margin-right: 3.2%;
+.menu-redes {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	gap: 3rem;
 }
 
-.acciones_enlaces {  
-  font-size: 12px;
+.menu-redes__enlace::before {
+	color: var(--color-primario);
+	font-size: 2rem;
+	display: inline-block;
+	font-style: normal;
+	text-rendering: auto;
+	-webkit-font-smoothing: antialiased;
+	font-family: "Font Awesome 6 Brands";
 }
+
+.menu-redes__enlace[href*="https://discord.gg"]::before {
+	content: "\f392";
+}
+
+.menu-redes__enlace[href*="https://facebook.com"]::before {
+	content: "\f39e";
+}
+
+.menu-redes__enlace[href*="https://github.com"]::before {
+	content: "\f09b";
+}
+
+.menu-redes__enlace[href*="https://tiktok.com"]::before {
+	content: "\e07b";
+}
+
+.menu-redes__enlace[href*="https://instagram.com"]::before {
+	content: "\f16d";
+}
+
+.menu-redes__enlace[href*="https://youtube.com"]::before {
+	content: "\f167";
+}
+
+.menu-redes__enlace[href*="https://twitter.com"]::before {
+	content: "\f099";
+}
+
+.menu-redes__ocultar {
+	display: none;
+}
+
+@media (min-width: 768px) {
+	.menu-redes {
+		justify-content: flex-end;
+	}
+}
+
+.menu-border {
+	display: flex;
+	gap: 1rem;
+	border-left: 1px solid #fffcfc;
+	padding-left: 1rem;
+}
+
+@media (min-width: 768px) {
+	.menu-border {
+		justify-content: center;
+	}
+}
+
+

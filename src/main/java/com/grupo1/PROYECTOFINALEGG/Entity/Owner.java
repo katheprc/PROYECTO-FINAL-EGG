@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.CollectionTable;
+import javax.persistence.DiscriminatorValue;
 import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.OneToMany;
@@ -12,12 +13,16 @@ import lombok.Data;
 
 @Entity
 @Data
+@DiscriminatorValue("OWNER")
 public class Owner extends User {
 
 	@ElementCollection
-    @CollectionTable(name="listOfProperties")
+	@CollectionTable(name = "listOfProperties")
 	@OneToMany
-    private  List<Property> properties = new ArrayList<>();
-	
-	
+	List<Property> properties = new ArrayList<>();
+
+	public void addProperty(Property prop) {
+		this.properties.add(prop);
+	}
+
 }
