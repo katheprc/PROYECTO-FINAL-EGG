@@ -57,7 +57,14 @@ public class rentalController {
 		}
 
 		model.addAttribute("userType", type);
-		return new RedirectView("/dashboard", true);
+		return new RedirectView("/dashboard/owner", true);
+	}
+
+	@GetMapping("/dashboard/owner")
+	public String dashboardOwner(Model model) {
+		model.addAttribute("userType", getUserType());
+
+		return "index.html";
 	}
 
 	@GetMapping("/profile")
@@ -129,8 +136,8 @@ public class rentalController {
 
 	@GetMapping("/property/{id}")
 	public String propertyPage(@PathVariable Integer id, Model model) throws NotFoundException {
-
-		model.addAttribute("propertyDetails", getProperty(id));
+		model.addAttribute("userType", getUserType());
+		model.addAttribute("property", getProperty(id));
 		model.addAttribute("propertyImgs", getProperty(id).getImgs());
 		return "sigle-page-arlquileres.html";
 
