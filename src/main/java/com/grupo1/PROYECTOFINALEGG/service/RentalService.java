@@ -147,5 +147,5 @@ public class RentalService {
 		pRepo.deleteById(id);
 
 	}
-
+	
 }

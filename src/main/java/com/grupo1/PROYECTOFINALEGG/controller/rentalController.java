@@ -155,11 +155,19 @@ public class rentalController {
 	public String stats(Model model) {
 		model.addAttribute("listaUsuarios", uSrv.listarUsuarios());
 		model.addAttribute("userType", getUserType());
+<<<<<<< Updated upstream
+=======
+		model.addAttribute("buttonBoolean", false);
+>>>>>>> Stashed changes
 		model.addAttribute("statsBoolean", true);
 		model.addAttribute("usersBoolean", false);
 		model.addAttribute("postsBoolean", false);
 		model.addAttribute("propertiesBoolean", false);
+<<<<<<< Updated upstream
 		return "dashboardAdmin.html";
+=======
+		return "dashboard.html";
+>>>>>>> Stashed changes
 	}
 	// -------------FIN MAPPINGS STATS-------------
 	// ------------------------------------------------
@@ -169,6 +177,10 @@ public class rentalController {
 	public String users(Model model) {
 		model.addAttribute("listaUsuarios", uSrv.listarUsuarios());
 		model.addAttribute("userType", getUserType());
+<<<<<<< Updated upstream
+=======
+		model.addAttribute("buttonBoolean", true);
+>>>>>>> Stashed changes
 		model.addAttribute("statsBoolean", false);
 		model.addAttribute("usersBoolean", true);
 		model.addAttribute("postsBoolean", false);
@@ -192,6 +204,10 @@ public class rentalController {
 	public String buscarUsers(@RequestParam("type") String type, @RequestParam("order") String order, Model model) {
 		model.addAttribute("userType", getUserType());
 		model.addAttribute("listaUsuarios", uSrv.busquedaPersonalizada(type, order));
+<<<<<<< Updated upstream
+=======
+		model.addAttribute("buttonBoolean", true);
+>>>>>>> Stashed changes
 		model.addAttribute("statsBoolean", false);
 		model.addAttribute("usersBoolean", true);
 		model.addAttribute("postsBoolean", false);
@@ -206,6 +222,10 @@ public class rentalController {
 	public String posts(Model model) {
 		model.addAttribute("listaPosts", rSrv.getAllPosts());
 		model.addAttribute("userType", getUserType());
+<<<<<<< Updated upstream
+=======
+		model.addAttribute("buttonBoolean", true);
+>>>>>>> Stashed changes
 		model.addAttribute("statsBoolean", false);
 		model.addAttribute("usersBoolean", false);
 		model.addAttribute("postsBoolean", true);
@@ -223,6 +243,10 @@ public class rentalController {
 	public String buscarPosts(@RequestParam("rating") String rating, @RequestParam("order") String order, Model model) {
 		model.addAttribute("userType", getUserType());
 		model.addAttribute("listaPosts", rSrv.getPosts(order, rating));
+<<<<<<< Updated upstream
+=======
+		model.addAttribute("buttonBoolean", true);
+>>>>>>> Stashed changes
 		model.addAttribute("statsBoolean", false);
 		model.addAttribute("usersBoolean", false);
 		model.addAttribute("postsBoolean", true);
@@ -235,8 +259,12 @@ public class rentalController {
 	// -------------MAPPINGS PROPERTIES-------------
 	@GetMapping("/admin/dashboard/properties")
 	public String properties(Model model) {
-		model.addAttribute("listaUsuarios", uSrv.listarUsuarios());
+		model.addAttribute("listaProperties", rSrv.getProperties());
 		model.addAttribute("userType", getUserType());
+<<<<<<< Updated upstream
+=======
+		model.addAttribute("buttonBoolean", true);
+>>>>>>> Stashed changes
 		model.addAttribute("statsBoolean", false);
 		model.addAttribute("usersBoolean", false);
 		model.addAttribute("postsBoolean", false);
@@ -255,6 +283,10 @@ public class rentalController {
 			Model model) {
 		model.addAttribute("userType", getUserType());
 		model.addAttribute("listaProperties", rSrv.getProperties(type, order));
+<<<<<<< Updated upstream
+=======
+		model.addAttribute("buttonBoolean", true);
+>>>>>>> Stashed changes
 		model.addAttribute("statsBoolean", false);
 		model.addAttribute("usersBoolean", false);
 		model.addAttribute("postsBoolean", false);
