@@ -150,12 +150,26 @@ public class rentalController {
 		return new RedirectView("/admin/dashboard/users", true);
 	}
 
+	// -------------MAPPINGS STATS-------------
+	@GetMapping("/admin/dashboard/stats")
+	public String stats(Model model) {
+		model.addAttribute("listaUsuarios", uSrv.listarUsuarios());
+		model.addAttribute("userType", getUserType());
+		model.addAttribute("statsBoolean", true);
+		model.addAttribute("usersBoolean", false);
+		model.addAttribute("postsBoolean", false);
+		model.addAttribute("propertiesBoolean", false);
+		return "dashboardAdmin.html";
+	}
+	// -------------FIN MAPPINGS STATS-------------
+	// ------------------------------------------------
 	// -------------MAPPINGS USER-------------
 
 	@GetMapping("/admin/dashboard/users")
 	public String users(Model model) {
 		model.addAttribute("listaUsuarios", uSrv.listarUsuarios());
 		model.addAttribute("userType", getUserType());
+		model.addAttribute("statsBoolean", false);
 		model.addAttribute("usersBoolean", true);
 		model.addAttribute("postsBoolean", false);
 		model.addAttribute("propertiesBoolean", false);
@@ -178,6 +192,7 @@ public class rentalController {
 	public String buscarUsers(@RequestParam("type") String type, @RequestParam("order") String order, Model model) {
 		model.addAttribute("userType", getUserType());
 		model.addAttribute("listaUsuarios", uSrv.busquedaPersonalizada(type, order));
+		model.addAttribute("statsBoolean", false);
 		model.addAttribute("usersBoolean", true);
 		model.addAttribute("postsBoolean", false);
 		model.addAttribute("propertiesBoolean", false);
@@ -191,6 +206,7 @@ public class rentalController {
 	public String posts(Model model) {
 		model.addAttribute("listaPosts", rSrv.getAllPosts());
 		model.addAttribute("userType", getUserType());
+		model.addAttribute("statsBoolean", false);
 		model.addAttribute("usersBoolean", false);
 		model.addAttribute("postsBoolean", true);
 		model.addAttribute("propertiesBoolean", false);
@@ -207,6 +223,7 @@ public class rentalController {
 	public String buscarPosts(@RequestParam("rating") String rating, @RequestParam("order") String order, Model model) {
 		model.addAttribute("userType", getUserType());
 		model.addAttribute("listaPosts", rSrv.getPosts(order, rating));
+		model.addAttribute("statsBoolean", false);
 		model.addAttribute("usersBoolean", false);
 		model.addAttribute("postsBoolean", true);
 		model.addAttribute("propertiesBoolean", false);
@@ -220,6 +237,7 @@ public class rentalController {
 	public String properties(Model model) {
 		model.addAttribute("listaUsuarios", uSrv.listarUsuarios());
 		model.addAttribute("userType", getUserType());
+		model.addAttribute("statsBoolean", false);
 		model.addAttribute("usersBoolean", false);
 		model.addAttribute("postsBoolean", false);
 		model.addAttribute("propertiesBoolean", true);
@@ -237,6 +255,7 @@ public class rentalController {
 			Model model) {
 		model.addAttribute("userType", getUserType());
 		model.addAttribute("listaProperties", rSrv.getProperties(type, order));
+		model.addAttribute("statsBoolean", false);
 		model.addAttribute("usersBoolean", false);
 		model.addAttribute("postsBoolean", false);
 		model.addAttribute("propertiesBoolean", true);
