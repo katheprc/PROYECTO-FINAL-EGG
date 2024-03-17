@@ -47,21 +47,26 @@ public class rentalController {
 		return "index.html";
 	}
 
+	
 	@GetMapping("/dashboard")
-	public String dashboard() {
-		return "dashboard.html";
+    public RedirectView dashboard(Model model) {
 
-	public RedirectView dashboard(Model model) {
+        String type = getUserType();
 
-		String type = getUserType();
+        if (type.equals("ADMIN")) {
+            return new RedirectView("/admin/dashboard/users", true);
+        }
 
-		if (type.equals("ADMIN")) {
-			return new RedirectView("/admin/dashboard/users", true);
-		}
+        model.addAttribute("userType", type);
+        return new RedirectView("/dashboard/owner", true);
+    }
 
-		model.addAttribute("userType", type);
-		return new RedirectView("/dashboard", true);
-	}
+    @GetMapping("/dashboard/owner")
+    public String dashboardOwner(Model model) {
+        model.addAttribute("userType", getUserType());
+
+        return "index.html";
+    }
 
 	@GetMapping("/profile")
 	public String profile(Model model) {
@@ -145,7 +150,6 @@ public class rentalController {
 	public RedirectView dashboardAdmin(Model model) {
 		return new RedirectView("/admin/dashboard/users", true);
 	}
-
 	// -------------MAPPINGS USER-------------
 
 	@GetMapping("/admin/dashboard/users")
@@ -155,7 +159,7 @@ public class rentalController {
 		model.addAttribute("usersBoolean", true);
 		model.addAttribute("postsBoolean", false);
 		model.addAttribute("propertiesBoolean", false);
-		return "dashboardAdmin.html";
+		return "dashboard.html";
 	}
 
 	@PostMapping("/admin/dashboard/users/edit")
@@ -177,7 +181,7 @@ public class rentalController {
 		model.addAttribute("usersBoolean", true);
 		model.addAttribute("postsBoolean", false);
 		model.addAttribute("propertiesBoolean", false);
-		return "dashboardAdmin.html";
+		return "dashboard.html";
 	}
 
 	// -------------FIN MAPPINGS USER-------------
@@ -190,7 +194,7 @@ public class rentalController {
 		model.addAttribute("usersBoolean", false);
 		model.addAttribute("postsBoolean", true);
 		model.addAttribute("propertiesBoolean", false);
-		return "dashboardAdmin.html";
+		return "dashboard.html";
 	}
 
 	@PostMapping("/admin/dashboard/posts/delete")
@@ -206,7 +210,7 @@ public class rentalController {
 		model.addAttribute("usersBoolean", false);
 		model.addAttribute("postsBoolean", true);
 		model.addAttribute("propertiesBoolean", false);
-		return "dashboardAdmin.html";
+		return "dashboard.html";
 	}
 
 	// -------------FIN MAPPINGS POSTS-------------
@@ -219,7 +223,7 @@ public class rentalController {
 		model.addAttribute("usersBoolean", false);
 		model.addAttribute("postsBoolean", false);
 		model.addAttribute("propertiesBoolean", true);
-		return "dashboardAdmin.html";
+		return "dashboard.html";
 	}
 
 	@PostMapping("/admin/dashboard/properties/delete")
@@ -236,7 +240,7 @@ public class rentalController {
 		model.addAttribute("usersBoolean", false);
 		model.addAttribute("postsBoolean", false);
 		model.addAttribute("propertiesBoolean", true);
-		return "dashboardAdmin.html";
+		return "dashboard.html";
 	}
 	// -------------FIN MAPPINGS PROPERTIES-------------
 
@@ -297,7 +301,5 @@ public class rentalController {
 	public Property getProperty(Integer id) {
 		return rSrv.getPropById(id).get();
 	}
-
-}
 
 }

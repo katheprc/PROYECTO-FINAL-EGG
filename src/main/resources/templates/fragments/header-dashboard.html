@@ -10,7 +10,10 @@
         <nav class="dashboard__nav">
             <form method="POST" action="/logout" class="dashboard__form">
                 <input type="submit" value="Cerrar Sesión" class="dashboard__submit--logout">
+                <a th:if="${userType eq 'ADMIN' or userType eq 'OWNER' or userType eq 'CLIENT'}" href="/profile"
+                class="dashboard__submit--logout">Mi perfil</a>
             </form>
+            
         </nav>
     </div>
 </header>
