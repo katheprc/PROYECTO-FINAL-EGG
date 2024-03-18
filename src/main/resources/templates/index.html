@@ -1,41 +1,121 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" type="text/css" href="../static/css/styles.css">
+    <html lang="es" xmlns:th="http://www.thymeleaf.org">
+        <head>
+            <meta charset="UTF-8">
+            <meta name="viewport" content="width=device-width, initial-scale=1.0">
+            <link rel="icon" type="image/x-icon" href="../static/x-icon/logo.ico">
+            <title>Home - Alquiler de fiestas</title>
+            <link rel="stylesheet" type="text/css" href="../static/css/styles.css">            
+        </head>
+        <body>
 
-      <!-- Fuentes -->
-      <link rel="preconnect" href="https://fonts.googleapis.com">
-      <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-      <link href="https://fonts.googleapis.com/css2?family=Kanit:ital,wght@0,200;0,400;0,500;0,600;0,700;0,900;1,400&family=Montserrat:wght@400;500;600;700;900&family=Rajdhani:wght@400;500;600;700&family=Roboto:wght@400;500;700;900&display=swap" rel="stylesheet">
-      <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;700;900&display=swap" rel="stylesheet">
-     
-      <!-- Iconos -->
-  
-      <link rel="stylesheet" href="https://unpkg.com/leaflet@1.8.0/dist/leaflet.css" integrity="sha512-hoalWLoI8r4UszCkZ5kL8vayOGVae1oxXe/2A4AO6J9+580uKHDO3JdHb7NzwwzK5xr/Fs0W40kiNHxM9vyTtQ==" crossorigin="" />
-      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.2/css/all.min.css" integrity="sha512-1sCRPdkRXhBV2PBLUdRb4tMg1w2YPf37qatUFeS7zlBy7jJI8Lf4VHwWfZZfpXtYSLy85pkm9GaYVYMfw5BC1A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-      <link rel="stylesheet" href="/build/css/app.css">
-      <script src="https://unpkg.com/leaflet@1.8.0/dist/leaflet.js" integrity="sha512-BB3hKbKWOc9Ez/TAwyWxNXeoV9c1v6FIeYiBieIWkpLjauysF18NzgR1MBNBXf8/KABdlkX68nAhlwcDFLGPCQ==" crossorigin="" defer></script>
-  
+            <!-- Header -->
 
+            <header class="primary-header">               
+                <section class="primary-section">
+                    <div class="container menu group">                      
+                            <a class="logo" href="index.html">
+                                <div></div><!--
+                             --><h1>Quinchos</h1>
+                            </a>
+                            <input id="menu" class="menu-alt" type="checkbox" name="menu" value="menu">
+                            <label for="menu">
+                                <img class="icon-menu" src="../static/icon-nav-menu/icon-hamburguesa.png" alt="menu">
+                            </label>                        
+                            <nav class="nav primary-nav">
+                                <select name="lang" id="">
+                                    <option value="es" selected>ES</option>
+                                    <option value="in">IN</option>
+                                </select>
+                                <ul>
+                                   <li><a href="index.html">Home</a></li><!--
+                                --><li><a href="">Buscar</a></li><!--
+                                --><li><a href="">About us</a></li><!--
+                                --><li><a href="register.html">Registro</a></li><!--
+                                --><li><a class="btn btn-alt" href="register.html">Regístrate</a></li><!--
+                                --><li><a class="btn btn-alt" href="login.html">Ingresar</a></li>
+                                </ul>
+                            </nav>                         
+                    </div>
+                </section> 
+                <section class="secondary-section">
+                    <div class="container buscar-row">
+                        <div class="buscar">
+                            <h2>Aquí empieza tu <span id="palabras">evento</spa></h2>
+                            <p>¿Bucamos tu próximno espacio?</p>
+                            <div class="buscar-alt">
+                                <input type="text" name="buscar" placeholder="Buscar" value="">
+                                <button type="submit" name="button" value="">
+                                <div></div>
+                                Buscar</button>
+                            </div>
+                        </div>   
+                    </div>
+                </section>                         
+            </header>
+            <section class="carrusel-logos">
+                <div class="container-item">
+                    <div class="carrusel-item"></div>     
+                    <div class="carrusel-item"></div>     
+                    <div class="carrusel-item"></div>     
+                    <div class="carrusel-item"></div>     
+                    <div class="carrusel-item"></div>  
+                </div>                          
+            </section>
 
-
-    <title>Home - Alquiler de fiestas</title>
-</head>
-<body>
-    <div className="barra">
-
-        <div className="barra__contenido">
-            <nav className="navegacion">
-                <a href="login.html" className="navegacion__micuenta">Mi cuenta</a>
-                <a href="register.html" className="navegacion__micuenta">Registrarse</a>
-                
-            </nav>
-        </div>
-    </div>
-
-    <footer th:replace="./fragments/footer ::  footer"></footer>
-    
-</body>
-</html>
+           
+            <footer class=" container primary-footer group">
+                <div class="col-1-3 col-1-3-alt">          
+                    <ul>
+                      <li><a href="index.html">Home</a></li><!--
+                   --><li><a href="">Buscar</a></li><!--
+                   --><li><a href="">About Us</a></li><!--
+                   --><li><a href="register.html">Registro</a></li><!--
+                   --><li><a href="login.html">Regístrate</a></li>
+                    </ul>   
+                  </div><!--
+               --><div class="col-1-3 col-1-3-alt">
+                    <ul>
+                      <li><a href="index.html">Home</a></li><!--
+                   --><li><a href="">Buscar</a></li><!--
+                   --><li><a href="">About Us</a></li><!--
+                   --><li><a href="register.html">Registro</a></li><!--
+                   --><li><a href="login.html">Regístrate</a></li>
+                    </ul><!--
+               --></div><!--
+               --><div class="col-1-3 col-1-3-alt">
+                    <ul>
+                      <li><a href="index.html">Home</a></li><!--
+                   --><li><a href="">Buscar</a></li><!--
+                   --><li><a href="">About Us</a></li><!--
+                   --><li><a href="register.html">Registro</a></li><!--
+                   --><li><a href="login.html">Regístrate</a></li>
+                    </ul>   
+                  </div>    
+                  <div class="icon-correo">
+                  <h5>support@quinchos.com</h5> 
+                </div>
+                  <small>Copyright &copy; <a href="index.html">Quinchos.</a> Todos los derechos reservados. 2024<br>Equipo 1 - Proyecto final - EGG</small>
+                  <nav class="nav alt-nav">
+                    <ul>
+                      <li><a href="index.html">Home</a></li><!--
+                   --><li><a href="">Buscar</a></li><!--
+                   --><li><a href="">About Us</a></li><!--
+                   --><li><a href="register.html">Registro</a></li><!--
+                   --><li><a href="login.html">Regístrate</a></li>
+                    </ul>
+                  </nav>      
+                  <div class="icon-redes">
+                    <a class="icon icon-twitter" href="https://twitter.com/?lang=es" target="_blank"><img src="../static/icon/icon-X.png" alt="icon-twitter"></a>
+                    <a class="icon icon-facebook" href="https://www.facebook.com/" target="_blank"><img src="../static/icon/icon-facebook.png" alt="icon-facebook"></a>
+                    <a class="icon icon-instagram" href="https://www.instagram.com/" target="_blank"><img src="../static/icon/icon-instagram.png" alt="icon-instagram"></a>
+                    <a class="icon icon-tiktok" href="https://www.tictok.com/" target="_blank"><img src="../static/icon/icon-tiktok.png" alt="icon-tiktok"></a>
+                    <a class="icon icon-github" href="https://github.com/" target="_blank"><img src="../static/icon/icon-github.png" alt="icon-github"></a>
+                    <a class="icon icon-dsicord" href="https://discord.com/" target="_blank"><img src="../static/icon/icon-discord.png" alt="icon-discord"></a>
+                    <a class="icon icon-linkedin" href="https://www.linkedin.com/" target="_blank"><img src="../static/icon/icon-linkedin.png" alt="icon-linkedin"></a>
+                    <a class="icon icon-youtube" href="https://www.youtube.com/" target="_blank"><img src="../static/icon/icon-youtube.png" alt="icon-youtube"></a>
+                  </div>
+            </footer>
+            <script src="../static/js/javascript.js"></script>
+        </body>
+    </html>

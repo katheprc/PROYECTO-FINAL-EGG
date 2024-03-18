@@ -24,6 +24,7 @@ time, mark, audio, video {
 	font: inherit;
 	vertical-align: baseline;
 }
+
 /* HTML5 display-role reset for older browsers */
 
 article, aside, details, figcaption, figure, 
@@ -59,6 +60,19 @@ table {
 
 /*
   ========================================
+  Root === Carlos Morillo ===
+  ========================================
+*/
+
+:root {
+  --color-secundario: #ff694f;
+    --color-primario: #E85A19;
+       --color-negro: #302e2c;
+         --color-blanco: #fff;
+}
+
+/*
+  ========================================
   Custom styles === Carlos Morillo ===
   ========================================
 */
@@ -70,6 +84,10 @@ body {
   background: -webkit-linear-gradient(to left, rgb(232, 25, 84) -50%, rgb(232, 90, 25) 50%, rgb(232, 25, 25) 120%);
   background:    -moz-linear-gradient(to left, rgb(232, 25, 84) -50%, rgb(232, 90, 25) 50%, rgb(232, 25, 25) 120%);
   background:         linear-gradient(to left, rgb(232, 25, 84) -50%, rgb(232, 90, 25) 50%, rgb(232, 25, 25) 120%);
+}
+
+img {
+  max-width: 100%;
 }
 
 /*
@@ -87,14 +105,14 @@ body {
 }
 
 .grid,
-.container {
+.container { 
   width: 95%;
-  margin: 0 auto;
+  margin: 0 auto;    
 }
 
 .container {
-  padding-left: 30px;
-  padding-right: 30px; 
+  padding-left: 2.24192037470726%; /*30px*/
+  padding-right: 2.24192037470726%;
 }
 
 .grid,
@@ -103,45 +121,32 @@ body {
   padding-left: 15px;
   padding-right: 15px;
 }
+
 .col-1-3,
 .col-2-3 {  
   vertical-align: middle;
 }
 
 .col-1-3,
-.col-2-3,
-.col-1-3-alt {
+.col-2-3 {
   display: inline-block;
 }
 
-.col-1-3-alt {  
-  vertical-align: top;
-  padding-left: 152px;
-  padding-right: 152px;
-  margin-bottom: 70px;  
+.col-1-3-alt {     
+  margin-bottom: 70px;    
 }
 
-.col-1-3-alt,
 .col-1-3 {
   width: 33.33%; 
 }
 
+.col-1-3-alt,
 .col-2-3 {
-  width: 66.66%;
   text-align: center; 
 }
 
-.col-2-3 h2 {
-  color: #cf5117; 
-}
-
-.col-2-3 p {
-  color: #888;
-  font-size: 18px;  
-}
-
-.col-2-3 img:hover {  
-  opacity: .7;  
+.col-2-3 {
+  width: 66.66%;
 }
 
 /*
@@ -171,19 +176,6 @@ body {
 
 /*
   ========================================
-  Root === Carlos Morillo ===
-  ========================================
-*/
-
-:root {
-  --color-secundario: #ff694f;
-    --color-primario: #E85A19;
-       --color-negro: #302e2c;
-         --color-blanco: #fff;
-}
-
-/*
-  ========================================
   Rows === Carlos Morillo ===
   ========================================
 */
@@ -195,7 +187,12 @@ body {
 .row,
 .row-alt {
   padding-top: 44px;
-  padding-bottom: 44px;
+  padding-bottom: 44px;  
+}
+
+.row-alt-buscar {
+  padding-top: 125px;
+  padding-bottom: 125px;  
 }
 
 /*
@@ -208,17 +205,45 @@ h1 {
   font-size: 16px;
 }
 
+.col-buscar h1,
 h2 {
   margin-bottom: 10px;
-  font-size: 28px;
-  line-height: 33px;
   font-weight: 700;
+}
+
+h2 {  
+  font-size: 28px;
+  line-height: 33px;  
 }
 
 .icon-correo h5 {
   margin-bottom: 70px;
   font-weight: 600; 
   margin-left: 35px; 
+}
+
+.col-2-3 h2,
+.col-buscar p {
+  color: #cf5117; 
+}
+
+.col-2-3 p {
+  color: #888; 
+}
+
+.col-2-3 p,
+.col-buscar p {  
+  font-size: 18px;  
+}
+
+.col-buscar h1{
+  color: #302e2c;
+  font-size: 30px;
+}
+.col-buscar p {
+  font-family: "Montserrat", sans-serif;
+  font-weight: 100;
+  margin-bottom: 20px;
 }
 
 /*
@@ -251,24 +276,22 @@ a {
   text-decoration: none;
 }
 
-small a:hover,
-.col-1-3-alt a:hover,
-.alt-nav a:hover,
-li a {
-  color: #302e2c;  
-}
-
 li a { 
   padding: 8px 15px;
 }
 
+.primary-footer a:hover,
+.primary-nav a {
+  color: #5a5a5a;  
+}
+
 .col-2-3 a:hover,
-.primary-header a:hover {
+.primary-nav a:hover {
   color: #E85A19;
 }
 
 .primary-footer a {
-  color: #fff;
+  color: inherit;
 }
 
 /*
@@ -279,18 +302,20 @@ li a {
 
 .btn {
   border-radius: 4px;  
-  color: #fff;
+  color: inherit;
   cursor: pointer;  
   letter-spacing: .5px;  
 }
 
-.btn-alt {
-  background-color: #E85A19;
-  padding: 15px 30px;
+.nav-btns {
+  position: absolute;
+  top: 0;
+  right: 0;
 }
 
-.primary-header .btn-alt:hover {
-  color: #fff;
+.primary-nav .btn-alt:hover,
+.primary-nav .btn-alt {
+  color: inherit;
 }
 
 .btn-alt:hover,
@@ -298,15 +323,63 @@ li a {
   opacity: .8;
 }
 
+.btn-alt,
 .btn-defaul {
-  border: 0;
-  background-color: #E85A19;
-  padding: 8px 8px;
+  background-color: rgb(232, 90, 25);  
+  background: -webkit-linear-gradient(to left, rgb(232, 25, 84) -50%, rgb(232, 90, 25) 50%, rgb(232, 25, 25) 120%);
+  background:    -moz-linear-gradient(to left, rgb(232, 25, 84) -50%, rgb(232, 90, 25) 50%, rgb(232, 25, 25) 120%);
+  background:         linear-gradient(to left, rgb(232, 25, 84) -50%, rgb(232, 90, 25) 50%, rgb(232, 25, 25) 120%);
+  padding: 15px 22px;
+}
+
+.btn-defaul {
+  border: 0;   
   font-size: 14px;
+  font-weight: 700;  
   width: 100%;
   margin-top: 10px;
-  font-weight: 700;  
-  margin-bottom: 10px;
+  margin-bottom: 10px;   
+}
+
+.primary-nav .btn-alt {
+  margin-right: 0;
+  margin-left: 15px; 
+}
+
+.buscar button {  
+  background-color: rgb(232, 90, 25);  
+  background: url("../icon/icon-lupa.png") 20px 50% no-repeat, -webkit-linear-gradient(to left, rgb(232, 25, 84) -50%, rgb(232, 90, 25) 50%, rgb(232, 25, 25) 120%);
+  background:    url("../icon/icon-lupa.png") 20px 50% no-repeat, -moz-linear-gradient(to left, rgb(232, 25, 84) -50%, rgb(232, 90, 25) 50%, rgb(232, 25, 25) 120%);
+  background:         url("../icon/icon-lupa.png") 15px 50% no-repeat, linear-gradient(to left, rgb(232, 25, 84) -50%, rgb(232, 90, 25) 50%, rgb(232, 25, 25) 120%);
+  color: inherit;
+  border-radius: 30px;
+  border: none;
+  padding: 10px 20px 10px 35px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+/*
+  ========================================
+  home === Carlos Morillo ===
+  ========================================
+*/
+
+.primary-header-index {
+  /*background: linear-gradient(to right, rgba(29,30,35, .2) 30%, rgba(255, 255, 255, .4)),
+  url(../img/imagen-index-1.jpg); */
+}
+
+.buscar input {   
+  background-color: transparent;
+  border: none;  
+  width: 100%;  
+  padding-left: 15px;
+  font-size: 14px;
+}
+
+.buscar input:focus {
+  outline: none;
 }
 
 /*
@@ -315,19 +388,61 @@ li a {
   ============================================
 */
 
-.logo h1 { 
-  color: #302e2c; 
+.primary-header {
+  background: linear-gradient(rgba(29,30,35, .2) 30%, rgba(255, 255, 255, .3)),
+  url(../img/imagen-header.jpg); 
 }
 
-.logo {   
-  float: left;
+.primary-header,
+.primary-header-index {
+  background-position: top center;
+  background-repeat: no-repeat;
+  background-size: cover;  
+  min-height: 90vh;
+}
+
+.primary-section {     
+  box-shadow: rgba(0, 0, 0, .25) 0px 4px 4px; 
+  padding-top: 8px;
+  padding-bottom: 8px;
+  background-color: rgb(255, 255, 255);
+}
+
+.nav {
+  font-size: 14px;
+  font-weight: 400;     
+}
+
+.logo,
+.nav {
+  letter-spacing: .5px; 
+}
+
+.logo {
+  text-transform: uppercase; 
+}
+
+.primary-nav {
+  margin-top: 16px; 
+  margin-right: 26px;  
+}
+
+.primary-nav ul {
+  margin-right: 5px;
+}
+
+.logo h1 { 
+  color: #302e2c;  
+}
+.buscar,
+.logo {
   display: flex;
   justify-content: center;
-  align-items: center;  
-  margin-left: 10px;
-  font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: .5px;
+  align-items: center;    
+  font-weight: 700;  
+}
+.logo {   
+  float: left;  
 }
 
 .logo:hover {
@@ -335,30 +450,52 @@ li a {
 }
 
 .logo img {
-  width: 50px;
+  width: 50px;  
+  margin-right: 5px;
 }
 
-.primary-header {
-  background-image: url(../img/imagen-header.jpg);
-  background-repeat: no-repeat;
-  background-size: cover;
-  background-position: top;
-  min-height: 90vh;
+#menu,
+.primary-div label {
+  display: none;
+  float: right;
 }
 
-.primary-section {  
-  background-color: #fff; 
-  box-shadow: rgba(0, 0, 0, 0.25) 0px 4px 4px; 
-  padding-top: 5px;
-  padding-bottom: 5px;
+.icon-menu {
+  width: 25px;   
 }
 
-.primary-nav {
-  font-size: 14px;
-  font-weight: 400;
-  letter-spacing: .5px;
-  margin-top: 16px;
-  text-transform: uppercase;  
+.primary-div label {
+  margin-top: 15px;
+  cursor: pointer;  
+}
+
+.col-buscar {
+  text-align: center;
+  border-radius: 14px;
+  background-color: rgba(223, 217, 213, .9);
+  backdrop-filter: blur(5px);
+  padding-top: 74px;
+  padding-bottom: 74px;
+  width: 75%;  
+  margin: 0 auto;
+}
+
+.col-buscar span {
+  opacity: 0;
+  transition: opacity 1s ease-in-out;
+}
+
+.buscar {  
+  background-color: #fff;
+  border-radius: 40px;
+  width: 80%;
+  padding: 10px 10px 10px 15px ;
+  margin: 0 auto;  
+}
+
+.col-buscar,
+.buscar {
+  box-shadow: rgba(0, 0, 0, .1) 0px 4px 4px; 
 }
 
 /*
@@ -386,6 +523,12 @@ li a {
   background-position: left; 
 }
 
+.col-1-3-alt ul {
+  text-align: left;    
+  border: 1px solid #888;
+  background-color: #b53636;  
+}
+
 .col-1-3-alt li {
   margin-top: 30px;
   margin-bottom: 30px;
@@ -395,14 +538,7 @@ li a {
   margin-top: 70px;   
   float: right;
 }
-.icon-twitter,
-.icon-facebook,
-.icon-instagram,
-.icon-tiktok,
-.icon-github,
-.icon-discord,
-.icon-linkedin, 
-.icon-youtube {
+.icon {
   margin-left: 8px;
   margin-right: 8px;
 }
@@ -420,17 +556,25 @@ li a {
   ========================================
 */
 
+.nav-container {
+  position: relative;
+}
+
 .nav {  
-  text-align: right;  
+  text-align: right;   
 }
 
 ul,
 nav li {
-  display: inline-block;  
+  display: inline-block;   
 }
 
 nav li {
   vertical-align: top;
+}
+
+nav li,
+.nav select {
   font-weight: 700;
 }
 
@@ -438,9 +582,8 @@ nav li {
   border: none;
   margin-right: 15px;
   cursor: pointer;
-  text-align: center;
-  font-weight: 700;  
-  color: #302e2c;    
+  text-align: center; 
+  color: #302e2c;   
 }
 
 .nav select:focus {
@@ -453,11 +596,6 @@ nav li {
   background-color: #efefef;  
 }
 
-nav .btn:last-of-type {
-  margin-right: 0;
-  margin-left: 15px;
-}
-
 /*
   ========================================
   register === Carlos Morillo ===
@@ -466,8 +604,7 @@ nav .btn:last-of-type {
 
 .carrusel-row  {    
   overflow: hidden;
-  width: 100%;
-  background-color: #ebebeb;
+  width: 100%;  
 }
 
 .carrusel-row div {  
@@ -485,6 +622,10 @@ figcaption {
 
 }
 
+.col-2-3 img:hover {  
+  opacity: .7;  
+}
+
 .carrusel-row img {
   width: 100%;   
 }
@@ -495,17 +636,6 @@ figcaption {
 
 .col-2-3 p {
   margin-bottom: 44px;
-}
-
-@keyframes slide {
-  0% { margin-left: 0;}
-  20% { margin-left: 0;}
-
-  30% { margin-left: -50%;}
-  45% { margin-left: -50%;}
-
-  50% { margin-left: -100%;}
-  100% { margin-left: -100%;}
 }
 
 fieldset {
@@ -522,7 +652,7 @@ legend {
   text-align: left; 
 }
 
-input {
+.col-1-3 input {
   border: 1px solid #c6c9cc;
   border-radius: 5px;
   color: #888;
@@ -551,4 +681,77 @@ input {
 
 .acciones_enlaces {  
   font-size: 12px;
+}
+
+
+
+/*
+  ===============================================
+  @media Rule === Carlos Morillo ===
+  ===============================================
+*/
+
+@media screen and (max-width:1000px) {
+
+.logo img {
+  width: 40px;
+}
+
+.logo h1{
+  font-size: 14px;
+}
+
+.primary-section {
+    position: relative;
+}  
+
+.primary-div label {
+  display: initial;
+  margin-right: 10px;
+  margin-top: 10px;
+}
+
+.primary-nav {
+  position: absolute;
+  top: 70%;
+  right: 0;
+  left: 0;  
+  padding-top: 44px;
+  padding-bottom: 44px;    
+  background-color: rgba(48, 46, 44, .9);
+  text-align: center; 
+}
+
+.primary-nav .btn-alt {  
+  margin-left: 0;    
+}
+
+.primary-nav select {
+  display: none;
+  margin-right: 0px;
+}
+
+.primary-nav a,
+.primary-nav select {
+  font-size: 12px;    
+}
+
+.primary-nav a {
+  color: #fff;  
+  font-weight: 700;  
+}
+
+.primary-nav li:nth-last-child(n+3) {
+  border-right: .5px solid #fff;  
+}
+
+.primary-nav li:last-child { 
+  width: 70%;  
+  margin-top: 30px;
+}
+
+#menu:checked ~ .primary-nav {
+  display: initial;
+}
+
 }
