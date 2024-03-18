@@ -10,18 +10,23 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.grupo1.PROYECTOFINALEGG.Entity.Imagen;
+import com.grupo1.PROYECTOFINALEGG.Entity.Owner;
 import com.grupo1.PROYECTOFINALEGG.Entity.Post;
 import com.grupo1.PROYECTOFINALEGG.Entity.Property;
 import com.grupo1.PROYECTOFINALEGG.Repositories.ImagenRepository;
 import com.grupo1.PROYECTOFINALEGG.Repositories.PostRepository;
 import com.grupo1.PROYECTOFINALEGG.Repositories.PropertyRepository;
 import com.grupo1.PROYECTOFINALEGG.Repositories.ServiceRepository;
+import com.grupo1.PROYECTOFINALEGG.Repositories.UserRepository;
 
 @Service
 public class RentalService {
 
 	@Autowired
 	PropertyRepository pRepo;
+
+	@Autowired
+	UserRepository uRepo;
 
 	@Autowired
 	ServiceRepository sRepo;
@@ -144,6 +149,17 @@ public class RentalService {
 	}
 
 	public void deleteProperty(int id) {
+		List<com.grupo1.PROYECTOFINALEGG.Entity.User> listaUsers = uRepo.findAll();
+		for (com.grupo1.PROYECTOFINALEGG.Entity.User user : listaUsers) {
+			if (user instanceof Owner) {
+				if (((Owner) user).getProperties().contains(pRepo.findById(id).get())) {
+					((Owner) user).delProp(pRepo.findById(id).get());
+					uRepo.save(user);
+					break;
+				}
+
+			}
+		}
 		pRepo.deleteById(id);
 
 	}
@@ -163,7 +179,7 @@ public class RentalService {
 			}
 		}
 
-		return ((precioBase+preciosSrv)*0.10);
+		return ((precioBase + preciosSrv) * 0.10);
 	}
 
 }

@@ -25,4 +25,7 @@ public class Owner extends User {
 		this.properties.add(prop);
 	}
 
+	public void delProp(Property prop) {
+		this.properties.remove(prop);
+	}
 }

@@ -14,8 +14,8 @@
 						<a th:if="${userType eq 'ADMIN' or userType eq 'OWNER' or userType eq 'CLIENT'}" href="/profile"
 							className="navegacion__micuenta"> </a>
 
-						<a th:if="${userType eq 'ADMIN' or userType eq 'OWNER' or userType eq 'CLIENT'}"><button
-								class="btn btn-alt">Mi perfil</button></a>
+						<a th:if="${userType eq 'ADMIN' or userType eq 'OWNER' or userType eq 'CLIENT'}"
+							href="/profile"><button class="btn btn-alt">Mi perfil</button></a>
 
 						<a th:if="${userType eq 'CLIENT'}" href="/booking">
 							<button class="btn btn-alt">Registrar Alquiler</button>
