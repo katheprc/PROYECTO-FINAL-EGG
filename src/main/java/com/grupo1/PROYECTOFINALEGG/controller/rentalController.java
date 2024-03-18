@@ -55,17 +55,27 @@ public class rentalController {
 	public RedirectView dashboard(Model model) {
 
 		String type = getUserType();
+		model.addAttribute("userType", type);
 
 		if (type.equals("ADMIN")) {
 			return new RedirectView("/admin/dashboard/users", true);
+		} else if (type.equals("CLIENT")) {
+			return new RedirectView("/dashboard/client", true);
+		} else {
+			return new RedirectView("/dashboard/owner/register-property", true);
 		}
 
-		model.addAttribute("userType", type);
-		return new RedirectView("/dashboard/owner/register-property", true);
 	}
 
 	@GetMapping("/dashboard/owner")
 	public String dashboardOwner(Model model) {
+		model.addAttribute("userType", getUserType());
+
+		return "dashboard.html";
+	}
+
+	@GetMapping("/dashboard/client")
+	public String dashboardClient(Model model) {
 		model.addAttribute("userType", getUserType());
 
 		return "dashboard.html";
@@ -92,6 +102,12 @@ public class rentalController {
 	public String error(Model model) {
 		model.addAttribute("userType", getUserType());
 		return "error.html";
+	}
+
+	@GetMapping("/booking")
+	public String booking(Model model) {
+		model.addAttribute("userType", getUserType());
+		return "booking.html";
 	}
 
 	@PostMapping("/registerSuccess")
