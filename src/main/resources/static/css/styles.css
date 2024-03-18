@@ -498,7 +498,16 @@ body {
 	font-weight: 600;
 	color: #FFFFFF;
 }
-
+.formulario__textarea {
+	padding: 1rem;
+	  border: 1px solid var(--color-primario);
+	  border-radius: 0.5rem;
+	  width: 50rem;
+	  max-width: 55rem;
+	
+	}
+  
+/**********************************************************/
 .formulario__input {
 	padding: 1rem;
 	border: 1px solid var(--color-primario);
@@ -646,6 +655,20 @@ body {
 	box-shadow: 0 4px 15px 0 rgba(229, 66, 10, 0.75);
 }
 
+/******18.03.2024 == MARIA **********************************/
+.btn {
+	border-radius: 4px;  
+	color: #fff;
+	cursor: pointer;  
+	letter-spacing: .5px;  
+  }
+  
+  .btn-alt {
+	background-color: #E85A19;
+	padding: 15px 30px;
+  }
+
+  
 /************************* FOOTER *************************/
 
 .footer {

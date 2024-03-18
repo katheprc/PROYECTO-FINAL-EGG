@@ -149,3 +149,590 @@
 	justify-content: center;
 	align-items: center;
 }
+
+/*
+  ========================================
+  Reinicio === Carlos Morillo ===
+  ========================================
+*/
+
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed, 
+figure, figcaption, footer, header, hgroup, 
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video {
+	margin: 0;
+	padding: 0;
+	border: 0;
+	font-size: 100%;
+	font: inherit;
+	vertical-align: baseline;
+}
+/* HTML5 display-role reset for older browsers */
+
+article, aside, details, figcaption, figure, 
+footer, header, hgroup, menu, nav, section {
+	display: block;
+}
+body {
+	line-height: 1;
+}
+ol, ul {
+	list-style: none;
+}
+blockquote, q {
+	quotes: none;
+}
+blockquote:before, blockquote:after,
+q:before, q:after {
+	content: '';
+	content: none;
+}
+table {
+	border-collapse: collapse;
+	border-spacing: 0;
+}
+
+/*
+  ========================================
+  Custom styles === Carlos Morillo ===
+  ========================================
+*/
+
+body {
+  color: #fff;
+  font: 22px "Poppins", sans-serif;
+  background-color: rgb(232, 90, 25);  
+  background: -webkit-linear-gradient(to left, rgb(232, 25, 84) -50%, rgb(232, 90, 25) 50%, rgb(232, 25, 25) 120%);
+  background:    -moz-linear-gradient(to left, rgb(232, 25, 84) -50%, rgb(232, 90, 25) 50%, rgb(232, 25, 25) 120%);
+  background:         linear-gradient(to left, rgb(232, 25, 84) -50%, rgb(232, 90, 25) 50%, rgb(232, 25, 25) 120%);
+}
+
+/*
+  ========================================
+  Grid === Carlos Morillo ===
+  ========================================
+*/
+
+*,
+*:before,
+*:after {
+  -webkit-box-sizing: border-box;
+     -moz-box-sizing: border-box;
+          box-sizing: border-box;
+}
+
+.grid,
+.container {
+  width: 95%;
+  margin: 0 auto;
+}
+
+.container {
+  padding-left: 30px;
+  padding-right: 30px; 
+}
+
+.grid,
+.col-1-3,
+.col-2-3 {
+  padding-left: 15px;
+  padding-right: 15px;
+}
+.col-1-3,
+.col-2-3 {  
+  vertical-align: middle;
+}
+
+.col-1-3,
+.col-2-3,
+.col-1-3-alt {
+  display: inline-block;
+}
+
+.col-1-3-alt {  
+  vertical-align: top;
+  padding-left: 152px;
+  padding-right: 152px;
+  margin-bottom: 60px;  
+}
+
+.col-1-3-alt,
+.col-1-3 {
+  width: 33.33%; 
+}
+
+.col-2-3 {
+  width: 66.66%;
+  text-align: center; 
+}
+
+.col-2-3 h2 {
+  color: #cf5117; 
+}
+
+.col-2-3 p {
+  color: #888;
+  font-size: 18px;  
+}
+
+.col-2-3 img:hover {  
+  opacity: .7;  
+}
+
+/*
+  ========================================
+  Clearfix === Carlos Morillo ===
+  ========================================
+*/
+
+.group:before,
+.group:after {
+  content: "";
+  display: table;
+}
+
+.group:before {
+  z-index: 1;
+}
+
+.group:after {
+  clear: both;
+}
+
+.group {
+  clear: both;
+  zoom: 1;
+}
+
+/*
+  ========================================
+  Root === Carlos Morillo ===
+  ========================================
+*/
+
+:root {
+  --color-secundario: #ff694f;
+    --color-primario: #E85A19;
+       --color-negro: #302e2c;
+         --color-blanco: #fff;
+}
+
+/*
+  ========================================
+  Rows === Carlos Morillo ===
+  ========================================
+*/
+
+.row {
+  background-color: #f4f4f4;  
+}
+
+.row,
+.row-alt {
+  padding-top: 44px;
+  padding-bottom: 44px;
+}
+
+/*
+  ========================================
+  Tipografía === Carlos Morillo ===
+  ========================================
+*/
+
+h1 {
+  font-size: 16px;
+}
+
+h2 {
+  margin-bottom: 10px;
+  font-size: 28px;
+  line-height: 33px;
+  font-weight: 700;
+}
+
+.icon-correo h5 {
+  margin-bottom: 70px;
+  font-weight: 600; 
+  margin-left: 35px; 
+}
+
+/*
+  ========================================
+  Leads === Carlos Morillo ===
+  ========================================
+*/
+
+.lead {
+  text-align: center;
+}
+
+.lead p {
+  font-size: 18px;
+  line-height: 33px;
+}
+
+/*
+  ========================================
+  Links === Carlos Morillo ===
+  ========================================
+*/
+
+a:hover {
+  color: #888;
+}
+
+a {
+  color: #E85A19;
+  text-decoration: none;
+}
+
+small a:hover,
+.col-1-3-alt a:hover,
+.alt-nav a:hover,
+li a {
+  color: #302e2c;  
+}
+
+li a { 
+  padding: 8px 15px;
+}
+
+.col-2-3 a:hover,
+.primary-header a:hover {
+  color: #E85A19;
+}
+
+.primary-footer a {
+  color: #fff;
+}
+
+/*
+  ========================================
+  Botones === Carlos Morillo ===
+  ========================================
+*/
+
+.btn {
+  border-radius: 4px;  
+  color: #fff;
+  cursor: pointer;  
+  letter-spacing: .5px;  
+}
+
+.btn-alt {
+  background-color: #E85A19;
+  padding: 5px 10px;
+  font-size: 16px;
+  text-transform: uppercase;
+  align-items: center; 
+  margin-top: 16px;
+}
+
+.primary-header .btn-alt:hover {
+  color: #fff;
+}
+
+.btn-alt:hover,
+.btn-defaul:hover {
+  opacity: .8;
+}
+
+.btn-defaul {
+  border: 0;
+  background-color: #E85A19;
+  padding: 8px 8px;
+  font-size: 14px;
+  width: 100%;
+  margin-top: 10px;
+  font-weight: 700;  
+  margin-bottom: 10px;
+}
+
+/*
+  ============================================
+  Encabezado principal === Carlos Morillo ===
+  ============================================
+*/
+
+.logo h1 { 
+  color: #302e2c; 
+}
+
+.logo {   
+  float: left;
+  display: flex;
+  justify-content: center;
+  align-items: center;  
+  margin-left: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: .5px;
+}
+
+.logo:hover {
+  opacity: .8;
+}
+
+.logo img {
+  width: 50px;
+}
+
+.primary-header {
+  background-image: url(../img/imagen-header.jpg);
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: top;
+  min-height: 90vh;
+}
+
+.primary-section {  
+  background-color: #fff; 
+  box-shadow: rgba(0, 0, 0, 0.25) 0px 4px 4px; 
+  padding-top: 5px;
+  padding-bottom: 5px;
+}
+
+.primary-nav {
+  font-size: 14px;
+  font-weight: 400;
+  letter-spacing: .5px;
+  margin-top: 16px;
+  text-transform: uppercase;  
+}
+
+/*
+  ===============================================
+  Pie de página principal === Carlos Morillo ===
+  ===============================================
+*/
+
+.primary-footer {
+  padding-bottom: 44px;
+  padding-top: 44px;
+  color: #fff;
+  font-size: 14px;
+}
+
+.primary-footer small {
+  float: left;
+  font-weight: 400;
+  line-height: 25px;
+}
+
+.icon-correo {
+  background-image: url(../icon/icon-correo.png);
+  background-repeat: no-repeat;  
+  background-position: left; 
+}
+
+.col-1-3-alt li {
+  margin-top: 30px;
+  margin-bottom: 30px;
+}
+
+.icon-redes {
+  margin-top: 70px;   
+  float: right;
+}
+.icon-twitter,
+.icon-facebook,
+.icon-instagram,
+.icon-tiktok,
+.icon-github,
+.icon-discord,
+.icon-linkedin, 
+.icon-youtube {
+  margin-left: 8px;
+  margin-right: 8px;
+}
+.icon-redes a:first-child {
+  margin-left: 0;
+}
+
+.icon-redes a:last-child {
+  margin-right: 0;
+}
+
+/*
+  ========================================
+  Navigation === Carlos Morillo ===
+  ========================================
+*/
+
+.nav {  
+  text-align: right;  
+}
+
+ul,
+nav li {
+  display: inline-block;  
+}
+
+nav li {
+  vertical-align: top;
+  font-weight: 700;
+}
+
+.nav select {
+  border: none;
+  margin-right: 15px;
+  cursor: pointer;
+  text-align: center;
+  font-weight: 700;  
+  color: #302e2c;    
+}
+
+.nav select:focus {
+  border-color: #dee2e6;
+  outline: 0;
+  box-shadow: none; 
+}
+
+.nav select:hover {
+  background-color: #efefef;  
+}
+
+nav .btn:last-of-type {
+  margin-right: 0;
+  margin-left: 15px;
+}
+
+/******18.03.2024 == MARIA ********************************/
+.nav-container {
+	position: relative;
+  }
+  
+.nav-btn {
+	position: absolute; 
+	top: 0; 
+	right: 0;
+  
+  }
+
+  .nav-link {
+	text-align: left;
+	font-size: 16px;
+	font-weight: 400;
+	letter-spacing: .5px;
+	margin-top: 16px;
+	text-transform: uppercase;  
+  
+  }
+
+  .navegacion {
+	display: flex;
+  }
+
+  /********************************************************/
+
+
+  .container-register {
+	display: flex;
+}
+/*
+  ========================================
+  index === Carlos Morillo ===
+  ========================================
+*/
+.container-loguin {
+	display: flex;
+}
+
+.carrusel-row  {    
+  overflow: hidden;
+  width: 150%;
+  background-color: #ebebeb;
+}
+
+.carrusel-row div {  
+  display: flex;
+  animation: slide 10s infinite alternate ease-in-out;  
+  width: 200%;
+}
+
+.carrusel-row figure { 
+  display: inline-block;  
+  font-size: 16px;  
+}
+
+figcaption {
+
+}
+
+.carrusel-row img {
+  width: 100%;   
+}
+
+.col-2-3 h2 {
+  line-height: 33px;
+}
+
+.col-2-3 p {
+  margin-bottom: 44px;
+}
+
+@keyframes slide {
+  0% { margin-left: 0;}
+  20% { margin-left: 0;}
+
+  30% { margin-left: -50%;}
+  45% { margin-left: -50%;}
+
+  50% { margin-left: -100%;}
+  100% { margin-left: -100%;}
+}
+
+fieldset {
+  text-align: center;
+  margin: 0 auto;
+  width: 85%;
+}
+
+legend {
+  color: #888;
+  font-size: 13px;
+  font-weight: 700;
+  margin-bottom: 10px; 
+  text-align: left; 
+}
+
+input {
+  border: 1px solid #c6c9cc;
+  border-radius: 5px;
+  color: #888;
+  display: inline-block;
+  margin-top: 5px;
+  margin-bottom: 12px;
+  padding: 18px 8px; 
+  font: 13px "Montserrat", sans-serif;
+  width:48.3%;
+}
+
+.register-group input[type="email"],
+.register-group input[type="password"]{
+  width: 100%;
+}
+
+.register-group input:focus {
+  border-color: #dee2e6;
+  outline: 0;
+  box-shadow: 0px 0px 0px 1px rgba(232, 90, 25, .9); 
+}
+
+.register-group label:first-of-type {  
+    margin-right: 3.2%;
+}
+
+.acciones_enlaces {  
+  font-size: 12px;
+}
+

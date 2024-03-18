@@ -36,37 +36,85 @@
 </head>
 
 <body>
-	<header th:replace="./fragments/header ::  header"></header>
+	<header th:replace="./fragments/header ::  header">	</header>
 
-	<div style="display: flex; gap: 10px; margin: 10px;">
-		<div class="card" th:each="prop : ${listaPropiedades}">
-			<div class="image_container">
-				<img class="image" th:src="${prop.imgs[0]}">
-			</div>
-			<div class="title">
-				<span th:text="${prop.name}"></span>
-			</div>
-			<div class="action">
-				<div class="price">
-					$<span th:text="${prop.pricePerDay}"></span>
+	
+	<!--Contenido principal-->
+
+	<main>
+
+  	</div>
+		<section class="row-alt">
+
+			<div style="display: flex; gap: 10px; margin: 10px;">
+				<div class="card" th:each="prop : ${listaPropiedades}">
+					<div class="image_container">
+						<img class="image" th:src="${prop.imgs[0]}">
+					</div>
+					<div class="title">
+						<span th:text="${prop.name}"></span>
+					</div>
+					<div class="action">
+						<div class="price">
+							$<span th:text="${prop.pricePerDay}"></span>
+						</div>
+						<a th:href="@{/property/{id}(id=${prop.id})}">
+							<button class="cart-button">
+								<svg class="cart-icon" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24" fill="none"
+									xmlns="http://www.w3.org/2000/svg">
+									<path
+										d="M2.25 3h1.386c.51 0 .955.343 1.087.835l.383 1.437M7.5 14.25a3 3 0 0 0-3 3h15.75m-12.75-3h11.218c1.121-2.3 2.1-4.684 2.924-7.138a60.114 60.114 0 0 0-16.536-1.84M7.5 14.25 5.106 5.272M6 20.25a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0Zm12.75 0a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0Z"
+										stroke-linejoin="round" stroke-linecap="round"></path>
+								</svg> <br>
+								<span>Ver</span>
+							</button>
+						</a>
+					</div>
+					<div class="location">
+						<span th:text="${prop.address}"></span>
+					</div>
 				</div>
-				<a th:href="@{/property/{id}(id=${prop.id})}">
-					<button class="cart-button">
-						<svg class="cart-icon" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24" fill="none"
-							xmlns="http://www.w3.org/2000/svg">
-							<path
-								d="M2.25 3h1.386c.51 0 .955.343 1.087.835l.383 1.437M7.5 14.25a3 3 0 0 0-3 3h15.75m-12.75-3h11.218c1.121-2.3 2.1-4.684 2.924-7.138a60.114 60.114 0 0 0-16.536-1.84M7.5 14.25 5.106 5.272M6 20.25a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0Zm12.75 0a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0Z"
-								stroke-linejoin="round" stroke-linecap="round"></path>
-						</svg> <br>
-						<span>Ver</span>
-					</button>
-				</a>
 			</div>
-			<div class="location">
-				<span th:text="${prop.address}"></span>
-			</div>
-		</div>
-	</div>
+		
+	<!--Carrusel-->
+
+		  <div class="container lead">
+			<h2>Bienvenido a nuestro portal</h2>
+			<p>Regístrate para acceder a todos nuestro beneficios!</p>
+		  </div>
+		</section>
+		<section class="row">
+		  <div class="grid">
+			<section class="col-2-3">
+			  <h2>Descubre miles de espacios en tus eventos</h2>
+			  <p>Te abrimos las puertas al inventario de espacios más grande y único para todas tus actividades.</p>
+			  <a href="">
+				<div class="carrusel-row">
+				  <div>
+					<figure>
+					  <img src="../img/imagen-for-register.jpg" alt="">
+					  <figcaption>Fiesta privada</figcaption>
+					</figure><!--      
+					 -->
+					<figure>
+					  <img src="../img/imagen-3.jpg" alt="">
+					  <figcaption>Fiesta corporativa</figcaption>
+					</figure><!--
+					 -->
+					<figure>
+					  <img src="../img/casa-1.jpg" alt="">
+					  <figcaption>Fiesta corporativa</figcaption>
+					</figure>
+				  </div>
+				</div>
+			  </a>
+			</section><!--   
+			 -->
+		   
+		  </div>
+		</section>
+	  </main>
+	
 
 	<footer th:replace="./fragments/footer ::  footer"></footer>
 

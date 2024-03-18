@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <link rel="stylesheet" type="text/css" href="/css/styles.css" />
+
+  <!-- Fuentes -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Kanit:ital,wght@0,200;0,400;0,500;0,600;0,700;0,900;1,400&family=Montserrat:wght@400;500;600;700;900&family=Rajdhani:wght@400;500;600;700&family=Roboto:wght@400;500;700;900&display=swap"
+    rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;700;900&display=swap" rel="stylesheet">
+
+  <title>registrar alquiler</title>
+</head>
+
+<body>
+  <div className="barra">
+
+    <div className="barra__contenido">
+      <nav className="navegacion">
+
+        <a th:if="${userType ne 'ADMIN' and userType ne 'OWNER' and userType ne 'CLIENT'}" href="/login"
+          className="navegacion__micuenta"><button>Login</button></a>
+        <a th:if="${userType ne 'ADMIN' and userType ne 'OWNER' and userType ne 'CLIENT'}" href="/register"
+          className="navegacion__micuenta"><button>Registrarse</button></a>
+        <a th:if="${userType eq 'ADMIN' or userType eq 'OWNER' or userType eq 'CLIENT'}" href="/profile"
+          className="navegacion__micuenta"><button>Mi perfil</button></a>
+
+        <a th:if="${userType eq 'OWNER'}" href="/register-property">
+          <button>Registrar Propiedad</button>
+        </a>
+        <a th:if="${userType eq 'CLIENT'}" href="/register-booking">
+          <button>Registrar Alquiler</button>
+        </a>
+        <a th:if="${userType eq 'ADMIN' or userType eq 'OWNER' or userType eq 'CLIENT'}" href="/dashboard">
+          <button>Dashboard</button>
+        </a>
+        <a th:if="${userType eq 'ADMIN' or userType eq 'OWNER' or userType eq 'CLIENT'}" href="/logout">
+          <button>Logout</button>
+        </a>
+      </nav>
+    </div>
+  </div>
+  <main class="auth">
+    <h2 class="auth__heading">Registro de Alquileres</h2>
+    <form method="post" action="/register-booking" enctype="multipart/form-data">
+
+      <label for="date">Fecha de Reserva:</label><br><br>
+      <label>Desde: </label>
+      <input type="date" id="entry-date" name="entry-date" class="formulario__input" required > <br><br>
+      <label>Hasta: </label>
+      <input type="date" id="exit-date" name="exit-date" class="formulario__input" required><br><br>
+      
+      <label for="services">Servicios Adicionales:</label><br><br>
+      <input type="checkbox" id="service1" name="services[]"  value="Pileta">
+      <label for="service1">Pileta</label><br>
+      <input type="checkbox" id="service2" name="services[]" value="Mobiliario">
+      <label for="service2">Alquiler de Mobiliario Adicional (sillas, mesas, carpas, etc)</label><br>
+      <input type="checkbox" id="service3" name="services[]" value="Decoracion">
+      <label for="service3">Decoración Temática</label><br>
+      <input type="checkbox" id="service4" name="services[]" value="Luces">
+      <label for="service4">Show de Luces y Efectos Especiales</label><br>
+      <input type="checkbox" id="service5" name="services[]" value="Sonido">
+      <label for="service5">Sonido y Música</label><br>
+      <input type="checkbox" id="service6" name="services[]" value="Catering">
+      <label for="service6">Servicio de Catering</label><br>
+      <input type="checkbox" id="service7" name="services[]" value="Limpieza">
+      <label for="service7">Servicio de Limpieza</label><br><br>
+
+      <!-- Agrega más servicios según sea necesario -->
+
+      <label for="message">Mensaje Adicional:</label><br>
+      <textarea id="message" name="message"  class="formulario__textarea" rows="4" cols="50"></textarea><br><br>
+
+      <input type="submit" value="Confirmar Reserva">
+
+      <button type="button" onclick="agregarInput()">Agregar Servicios </button>
+      <button type="button" onclick="eliminarUltimoInput()">Eliminar Último Servicio</button>
+      <button type="submit">Enviar</button>
+    </form>
+  </main>
+  <script>
+
+  </script>
+
+</body>
+
+</html>
