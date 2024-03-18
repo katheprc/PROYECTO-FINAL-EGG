@@ -1,0 +1,52 @@
+<header class="primary-header">
+	<section class="primary-section">
+	<div className="barra">
+
+		<div className="barra__contenido">
+			<nav class="navegacion" className="navegacion">
+
+				<div class="nav-btn">
+					<a th:if="${userType ne 'ADMIN' and userType ne 'OWNER' and userType ne 'CLIENT'}" href="/login"
+						className="navegacion__micuenta"><button class="btn btn-alt">Ingresar</button></a>
+					<a th:if="${userType ne 'ADMIN' and userType ne 'OWNER' and userType ne 'CLIENT'}" href="/register"
+						className="navegacion__micuenta"><button class="btn btn-alt">Registrarse</button></a>
+					<a th:if="${userType eq 'ADMIN' or userType eq 'OWNER' or userType eq 'CLIENT'}" href="/profile"
+						className="navegacion__micuenta"><button class="btn btn-alt">Mi perfil</button></a>
+					></a>
+
+					<a th:if="${userType eq 'ADMIN' or userType eq 'OWNER' or userType eq 'CLIENT'}" href="/dashboard">
+						<button class="btn btn-alt">Registrar Alquiler</button>
+
+						<a th:if="${userType eq 'ADMIN' or userType eq 'OWNER' or userType eq 'CLIENT'}"
+							href="/dashboard">
+							<button class="btn btn-alt">Dashboard</button>
+						</a>
+						<a th:if="${userType eq 'ADMIN' or userType eq 'OWNER' or userType eq 'CLIENT'}" href="/logout">
+							<button class="btn btn-alt">Logout</button>
+						</a>
+				</div>
+				<div class="container primary-div group">
+					<a class="logo" href="index.html"><img src="../img/logo.png" alt="Logo de la empres">
+					  <h1>Quinchos</h1>
+					</a>
+					<div class="nav-link">
+					<li><a href="index.html">home</a></li>
+					<li><a href="">buscar</a></li>
+					<li><a href=>dashboard</a></li>
+					<li><a href="">about us</a></li>
+					<li>
+						<select name="lang" id="">
+							<option value="es" selected>ES</option>
+							<option value="in">IN</option>
+						</select>
+					</li>
+				</div>
+				<div>
+
+				</div>
+			</div>
+			</nav>
+		</div>
+	</div>
+</section>
+</header>
