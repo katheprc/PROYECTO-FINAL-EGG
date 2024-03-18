@@ -38,8 +38,8 @@ public class RentalService {
 
 	}
 
-	public void saveProp(Property property) {
-		pRepo.save(property);
+	public Property saveProp(Property property) {
+		return pRepo.save(property);
 	}
 
 	public void saveServ(com.grupo1.PROYECTOFINALEGG.Entity.Service service) {
@@ -65,8 +65,8 @@ public class RentalService {
 		return imagen;
 	}
 
-	public Property getProp(Property property) {
-		return pRepo.find(property);
+	public Property getProp(Integer id) {
+		return pRepo.findById(id).get();
 	}
 
 	public Optional<Property> getPropById(Integer id) {

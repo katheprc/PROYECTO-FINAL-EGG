@@ -273,7 +273,7 @@ public class UserService implements UserDetailsService {
 	}
 
 	public void updateUserProperty(Owner user, Property prop) {
-		user.addProperty(prop);
+		user.addProperty(rSrv.getProp(prop.getId()));
 		updateUser(user);
 
 	}

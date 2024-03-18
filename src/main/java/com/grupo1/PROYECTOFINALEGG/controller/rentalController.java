@@ -334,9 +334,7 @@ public class rentalController {
 			property.addImg(Utility.getSiteUrl(request) + "/api/image/" + num);
 		}
 
-		rSrv.saveProp(property);
-
-		uSrv.updateUserProperty((Owner) getUser(), rSrv.getProp(property));
+		uSrv.updateUserProperty((Owner) getUser(), rSrv.saveProp(property));
 	}
 
 	public Property getProperty(Integer id) {
