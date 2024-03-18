@@ -138,6 +138,7 @@ public class rentalController {
 	public String propertyPage(@PathVariable Integer id, Model model) throws NotFoundException {
 		model.addAttribute("userType", getUserType());
 		model.addAttribute("property", getProperty(id));
+		model.addAttribute("listaSrv", getProperty(id).getServices());
 		model.addAttribute("propertyImgs", getProperty(id).getImgs());
 		return "sigle-page-arlquileres.html";
 

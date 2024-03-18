@@ -905,6 +905,9 @@ main {
 	box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
 	margin-right: 1rem;
 	/* Una sutil sombra para dar profundidad */
+	height: 50rem;
+	width: 25rem;
+
 }
 
 .publication-info h1 {
@@ -924,6 +927,7 @@ main {
 	font-size: 1em;
 	/* Tamaño de fuente estándar para la descripción */
 	margin-bottom: 20px;
+	width: 100%;
 	/* Espaciado después de la descripción */
 }
 
