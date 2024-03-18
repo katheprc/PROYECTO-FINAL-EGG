@@ -1,6 +1,6 @@
 :root {
 	--color-primario: #E85A19;
-	--color-secundario: #ff694f;
+	--color-secundario: #ee6f21;
 	--color-blanco: #fff;
 	--color-negrp: #302e2c;
 }
@@ -794,9 +794,6 @@ body {
 	}
 }
 
-<<<<<<< Updated upstream
-
-=======
 /***************** ESTILOS DASHBOARD ****************/
 
 .dashboard {
@@ -1309,4 +1306,3 @@ body {
 	padding: 1rem;
 	border-radius: 0.5rem;
 }
->>>>>>> Stashed changes

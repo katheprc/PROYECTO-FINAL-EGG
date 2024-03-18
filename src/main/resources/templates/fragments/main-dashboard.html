@@ -5,15 +5,14 @@
 
 
 			<div class="bloque__contenido">
-				<p class="bloque__texto">
-					aqui
+				<p class="bloque__texto" th:each="user : ${ultimosRegistros}" th:text="${user.email}">
 				</p>
 			</div>
 		</div>
 
 		<div class="bloque">
 			<h3 class="bloque__heading">Ingresos totales</h3>
-			<p class="bloque__texto--cantidad">$</p>
+			<p class="bloque__texto--cantidad" th:text="'$' + ${ingresosTotales}"></p>
 		</div>
 
 		<div class="bloque">

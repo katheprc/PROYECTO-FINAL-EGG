@@ -29,4 +29,5 @@ public interface UserRepository extends JpaRepository<User, Integer> {
 
 	@Query("SELECT u FROM User u WHERE u.type LIKE :type ORDER BY u.id ASC")
 	public List<User> findByTypeOrderAsc(@Param("type") String type);
+
 }

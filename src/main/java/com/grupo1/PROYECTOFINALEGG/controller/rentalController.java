@@ -153,21 +153,19 @@ public class rentalController {
 	// -------------MAPPINGS STATS-------------
 	@GetMapping("/admin/dashboard/stats")
 	public String stats(Model model) {
-		model.addAttribute("listaUsuarios", uSrv.listarUsuarios());
+		model.addAttribute("ultimosRegistros", uSrv.ultimosRegistros());
+		model.addAttribute("ingresosTotales", rSrv.ingresosTotales());
 		model.addAttribute("userType", getUserType());
-<<<<<<< Updated upstream
-=======
+
 		model.addAttribute("buttonBoolean", false);
->>>>>>> Stashed changes
+
 		model.addAttribute("statsBoolean", true);
 		model.addAttribute("usersBoolean", false);
 		model.addAttribute("postsBoolean", false);
 		model.addAttribute("propertiesBoolean", false);
-<<<<<<< Updated upstream
-		return "dashboardAdmin.html";
-=======
+
 		return "dashboard.html";
->>>>>>> Stashed changes
+
 	}
 	// -------------FIN MAPPINGS STATS-------------
 	// ------------------------------------------------
@@ -177,15 +175,14 @@ public class rentalController {
 	public String users(Model model) {
 		model.addAttribute("listaUsuarios", uSrv.listarUsuarios());
 		model.addAttribute("userType", getUserType());
-<<<<<<< Updated upstream
-=======
+
 		model.addAttribute("buttonBoolean", true);
->>>>>>> Stashed changes
+
 		model.addAttribute("statsBoolean", false);
 		model.addAttribute("usersBoolean", true);
 		model.addAttribute("postsBoolean", false);
 		model.addAttribute("propertiesBoolean", false);
-		return "dashboardAdmin.html";
+		return "dashboard.html";
 	}
 
 	@PostMapping("/admin/dashboard/users/edit")
@@ -204,15 +201,14 @@ public class rentalController {
 	public String buscarUsers(@RequestParam("type") String type, @RequestParam("order") String order, Model model) {
 		model.addAttribute("userType", getUserType());
 		model.addAttribute("listaUsuarios", uSrv.busquedaPersonalizada(type, order));
-<<<<<<< Updated upstream
-=======
+
 		model.addAttribute("buttonBoolean", true);
->>>>>>> Stashed changes
+
 		model.addAttribute("statsBoolean", false);
 		model.addAttribute("usersBoolean", true);
 		model.addAttribute("postsBoolean", false);
 		model.addAttribute("propertiesBoolean", false);
-		return "dashboardAdmin.html";
+		return "dashboard.html";
 	}
 
 	// -------------FIN MAPPINGS USER-------------
@@ -222,15 +218,14 @@ public class rentalController {
 	public String posts(Model model) {
 		model.addAttribute("listaPosts", rSrv.getAllPosts());
 		model.addAttribute("userType", getUserType());
-<<<<<<< Updated upstream
-=======
+
 		model.addAttribute("buttonBoolean", true);
->>>>>>> Stashed changes
+
 		model.addAttribute("statsBoolean", false);
 		model.addAttribute("usersBoolean", false);
 		model.addAttribute("postsBoolean", true);
 		model.addAttribute("propertiesBoolean", false);
-		return "dashboardAdmin.html";
+		return "dashboard.html";
 	}
 
 	@PostMapping("/admin/dashboard/posts/delete")
@@ -243,15 +238,14 @@ public class rentalController {
 	public String buscarPosts(@RequestParam("rating") String rating, @RequestParam("order") String order, Model model) {
 		model.addAttribute("userType", getUserType());
 		model.addAttribute("listaPosts", rSrv.getPosts(order, rating));
-<<<<<<< Updated upstream
-=======
+
 		model.addAttribute("buttonBoolean", true);
->>>>>>> Stashed changes
+
 		model.addAttribute("statsBoolean", false);
 		model.addAttribute("usersBoolean", false);
 		model.addAttribute("postsBoolean", true);
 		model.addAttribute("propertiesBoolean", false);
-		return "dashboardAdmin.html";
+		return "dashboard.html";
 	}
 
 	// -------------FIN MAPPINGS POSTS-------------
@@ -261,15 +255,12 @@ public class rentalController {
 	public String properties(Model model) {
 		model.addAttribute("listaProperties", rSrv.getProperties());
 		model.addAttribute("userType", getUserType());
-<<<<<<< Updated upstream
-=======
 		model.addAttribute("buttonBoolean", true);
->>>>>>> Stashed changes
 		model.addAttribute("statsBoolean", false);
 		model.addAttribute("usersBoolean", false);
 		model.addAttribute("postsBoolean", false);
 		model.addAttribute("propertiesBoolean", true);
-		return "dashboardAdmin.html";
+		return "dashboard.html";
 	}
 
 	@PostMapping("/admin/dashboard/properties/delete")
@@ -283,15 +274,14 @@ public class rentalController {
 			Model model) {
 		model.addAttribute("userType", getUserType());
 		model.addAttribute("listaProperties", rSrv.getProperties(type, order));
-<<<<<<< Updated upstream
-=======
+
 		model.addAttribute("buttonBoolean", true);
->>>>>>> Stashed changes
+
 		model.addAttribute("statsBoolean", false);
 		model.addAttribute("usersBoolean", false);
 		model.addAttribute("postsBoolean", false);
 		model.addAttribute("propertiesBoolean", true);
-		return "dashboardAdmin.html";
+		return "dashboard.html";
 	}
 	// -------------FIN MAPPINGS PROPERTIES-------------
 

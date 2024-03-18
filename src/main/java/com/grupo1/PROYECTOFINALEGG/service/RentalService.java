@@ -147,5 +147,23 @@ public class RentalService {
 		pRepo.deleteById(id);
 
 	}
-	
+
+	public Double ingresosTotales() {
+
+		List<Property> lista = pRepo.findAll();
+		Double precioBase = 0.0;
+		Double preciosSrv = 0.0;
+
+		for (Property prop : lista) {
+			precioBase = precioBase + prop.getPricePerDay();
+
+			List<com.grupo1.PROYECTOFINALEGG.Entity.Service> listaSrv = prop.getServices();
+			for (com.grupo1.PROYECTOFINALEGG.Entity.Service srv : listaSrv) {
+				preciosSrv = preciosSrv + Double.parseDouble(srv.getPrice());
+			}
+		}
+
+		return ((precioBase+preciosSrv)*0.10);
+	}
+
 }

@@ -359,4 +359,18 @@ public class UserService implements UserDetailsService {
 
 	}
 
+	public List<com.grupo1.PROYECTOFINALEGG.Entity.User> ultimosRegistros() {
+
+		List<com.grupo1.PROYECTOFINALEGG.Entity.User> lista = uRepo.findAllDesc();
+		List<com.grupo1.PROYECTOFINALEGG.Entity.User> lista2 = new ArrayList<>();
+		int cont = 0;
+		for (com.grupo1.PROYECTOFINALEGG.Entity.User user : lista) {
+			cont++;
+			if (cont < 6) {
+				lista2.add(user);
+			}
+		}
+		return lista2;
+	}
+
 }
