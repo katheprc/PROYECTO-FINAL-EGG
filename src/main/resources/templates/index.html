@@ -1,67 +1,75 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 
-	<head>
-		<meta charset="UTF-8">
-		<meta name="viewport" content="width=device-width, initial-scale=1.0">
-		<link rel="stylesheet" type="text/css" th:href="@{/css/styles.css}" />
-
-		<!-- Fuentes -->
-		<link rel="preconnect" href="https://fonts.googleapis.com">
-		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-		<link
-			href="https://fonts.googleapis.com/css2?family=Kanit:ital,wght@0,200;0,400;0,500;0,600;0,700;0,900;1,400&family=Montserrat:wght@400;500;600;700;900&family=Rajdhani:wght@400;500;600;700&family=Roboto:wght@400;500;700;900&display=swap"
-			rel="stylesheet">
-		<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;700;900&display=swap" rel="stylesheet">
-
-		<!-- Iconos -->
-
-		<link rel="stylesheet" href="https://unpkg.com/leaflet@1.8.0/dist/leaflet.css"
-			integrity="sha512-hoalWLoI8r4UszCkZ5kL8vayOGVae1oxXe/2A4AO6J9+580uKHDO3JdHb7NzwwzK5xr/Fs0W40kiNHxM9vyTtQ=="
-			crossorigin="" />
-		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.2/css/all.min.css"
-			integrity="sha512-1sCRPdkRXhBV2PBLUdRb4tMg1w2YPf37qatUFeS7zlBy7jJI8Lf4VHwWfZZfpXtYSLy85pkm9GaYVYMfw5BC1A=="
-			crossorigin="anonymous" referrerpolicy="no-referrer" />
-		<link rel="stylesheet" href="/build/css/app.css">
-		<script src="https://unpkg.com/leaflet@1.8.0/dist/leaflet.js"
-			integrity="sha512-BB3hKbKWOc9Ez/TAwyWxNXeoV9c1v6FIeYiBieIWkpLjauysF18NzgR1MBNBXf8/KABdlkX68nAhlwcDFLGPCQ=="
-			crossorigin="" defer></script>
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="stylesheet" type="text/css" th:href="@{/css/styles.css}" />
+	<link rel="stylesheet" type="text/css" th:href="@{/css/index.css}" />
 
 
+	<!-- Fuentes -->
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link
+		href="https://fonts.googleapis.com/css2?family=Kanit:ital,wght@0,200;0,400;0,500;0,600;0,700;0,900;1,400&family=Montserrat:wght@400;500;600;700;900&family=Rajdhani:wght@400;500;600;700&family=Roboto:wght@400;500;700;900&display=swap"
+		rel="stylesheet">
+	<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;700;900&display=swap" rel="stylesheet">
+
+	<!-- Iconos -->
+
+	<link rel="stylesheet" href="https://unpkg.com/leaflet@1.8.0/dist/leaflet.css"
+		integrity="sha512-hoalWLoI8r4UszCkZ5kL8vayOGVae1oxXe/2A4AO6J9+580uKHDO3JdHb7NzwwzK5xr/Fs0W40kiNHxM9vyTtQ=="
+		crossorigin="" />
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.2/css/all.min.css"
+		integrity="sha512-1sCRPdkRXhBV2PBLUdRb4tMg1w2YPf37qatUFeS7zlBy7jJI8Lf4VHwWfZZfpXtYSLy85pkm9GaYVYMfw5BC1A=="
+		crossorigin="anonymous" referrerpolicy="no-referrer" />
+	<link rel="stylesheet" href="/build/css/app.css">
+	<script src="https://unpkg.com/leaflet@1.8.0/dist/leaflet.js"
+		integrity="sha512-BB3hKbKWOc9Ez/TAwyWxNXeoV9c1v6FIeYiBieIWkpLjauysF18NzgR1MBNBXf8/KABdlkX68nAhlwcDFLGPCQ=="
+		crossorigin="" defer></script>
 
 
-		<title>Home - Alquiler de fiestas</title>
-	</head>
 
-	<body>
-		<div className="barra">
 
-			<div className="barra__contenido">
-				<nav className="navegacion">
+	<title>Home - Alquiler de fiestas</title>
+</head>
 
-					<a th:if="${userType ne 'ADMIN' and userType ne 'OWNER' and userType ne 'CLIENT'}" href="/login"
-						className="navegacion__micuenta"><button>Login</button></a>
-					<a th:if="${userType ne 'ADMIN' and userType ne 'OWNER' and userType ne 'CLIENT'}" href="/register"
-						className="navegacion__micuenta"><button>Registrarse</button></a>
-					<a th:if="${userType eq 'ADMIN' or userType eq 'OWNER' or userType eq 'CLIENT'}" href="/profile"
-						className="navegacion__micuenta"><button>Mi
-							perfil</button></a>
+<body>
+	<header th:replace="./fragments/header ::  header"></header>
 
-					<a th:if="${userType eq 'OWNER'}" href="/register-property">
-						<button>Registrar Propiedad</button>
-					</a>
-					<a th:if="${userType eq 'ADMIN' or userType eq 'OWNER' or userType eq 'CLIENT'}" href="/dashboard">
-						<button>Dashboard</button>
-					</a>
-					<a th:if="${userType eq 'ADMIN' or userType eq 'OWNER' or userType eq 'CLIENT'}" href="/logout">
-						<button>Logout</button>
-					</a>
-				</nav>
+	<div style="display: flex; gap: 10px; margin: 10px;">
+		<div class="card" th:each="prop : ${listaPropiedades}">
+			<div class="image_container">
+				<img class="image" th:src="${prop.imgs[0]}">
+			</div>
+			<div class="title">
+				<span th:text="${prop.name}"></span>
+			</div>
+			<div class="action">
+				<div class="price">
+					$<span th:text="${prop.pricePerDay}"></span>
+				</div>
+				<a th:href="@{/property/{id}(id=${prop.id})}">
+					<button class="cart-button">
+						<svg class="cart-icon" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24" fill="none"
+							xmlns="http://www.w3.org/2000/svg">
+							<path
+								d="M2.25 3h1.386c.51 0 .955.343 1.087.835l.383 1.437M7.5 14.25a3 3 0 0 0-3 3h15.75m-12.75-3h11.218c1.121-2.3 2.1-4.684 2.924-7.138a60.114 60.114 0 0 0-16.536-1.84M7.5 14.25 5.106 5.272M6 20.25a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0Zm12.75 0a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0Z"
+								stroke-linejoin="round" stroke-linecap="round"></path>
+						</svg> <br>
+						<span>Ver</span>
+					</button>
+				</a>
+			</div>
+			<div class="location">
+				<span th:text="${prop.address}"></span>
 			</div>
 		</div>
+	</div>
 
-		<footer th:replace="./fragments/footer ::  footer"></footer>
+	<footer th:replace="./fragments/footer ::  footer"></footer>
 
-	</body>
+</body>
 
 </html>

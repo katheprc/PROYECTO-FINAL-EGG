@@ -1,0 +1,24 @@
+<header class="header">
+	<div className="barra">
+
+		<div className="barra__contenido">
+			<nav className="navegacion">
+
+				<a th:if="${userType ne 'ADMIN' and userType ne 'OWNER' and userType ne 'CLIENT'}" href="/login"
+					className="navegacion__micuenta"><button>Login</button></a>
+				<a th:if="${userType ne 'ADMIN' and userType ne 'OWNER' and userType ne 'CLIENT'}" href="/register"
+					className="navegacion__micuenta"><button>Registrarse</button></a>
+				<a th:if="${userType eq 'ADMIN' or userType eq 'OWNER' or userType eq 'CLIENT'}" href="/profile"
+					className="navegacion__micuenta"><button>Mi
+						perfil</button></a>
+
+				<a th:if="${userType eq 'ADMIN' or userType eq 'OWNER' or userType eq 'CLIENT'}" href="/dashboard">
+					<button>Dashboard</button>
+				</a>
+				<a th:if="${userType eq 'ADMIN' or userType eq 'OWNER' or userType eq 'CLIENT'}" href="/logout">
+					<button>Logout</button>
+				</a>
+			</nav>
+		</div>
+	</div>
+</header>

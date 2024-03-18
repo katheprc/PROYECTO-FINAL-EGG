@@ -357,4 +357,51 @@
 	</div>
 	<!--FIN TABLA PROPERTIES-->
 
+	<div class="auth" th:if="${registerPropBoolean}">
+		<h2 class="auth__heading">Portal de Registro de Propiedades</h2>
+		<form method="post" action="/register-property" enctype="multipart/form-data">
+			<div class="formulario__campo">
+				<label for="propertyName">Nombre de la propiedad</label>
+				<input type="text" id="propertyName" class="formulario__input" placeholder="Nombre" name="propertyName"
+					required>
+			</div>
+			<div class="formulario__campo">
+				<label for="propertyAddress">Calle y número</label>
+				<input type="text" id="propertyAddress" class="formulario__input" placeholder="Ej: Solis 2988 "
+					name="propertyAddress" required>
+			</div>
+			<div class="formulario__campo">
+				<label for="propertyLocalidad">Localidad o Barrio</label>
+				<input type="text" id="propertyLocalidad" class="formulario__input"
+					placeholder="Ej: Avellaneda, Tigre ó Retiro" name="propertyLocalidad" required>
+			</div>
+			<div class="formulario__campo">
+				<label for="propertyProvincia">Provincia</label>
+				<input type="text" id="propertyProvincia" class="formulario__input"
+					placeholder="Ej: Buenos Aires, Mendoza ó CABA" name="propertyProvincia" required>
+			</div>
+			<div class="formulario__campo">
+				<label for="pricePerDay">Precio base por día</label>
+				<input type="number" id="pricePerDay" class="formulario__input" placeholder="Pesos" name="pricePerDay"
+					required>
+			</div>
+			<br>
+			<div class="formulario__campo">
+				<label for="imagenes">Selecciona imágenes:</label>
+				<input type="file" name="imagenes" id="imagenes" accept="image/*" multiple>
+				<br>
+				<label for="details">Introduce detalles (máximo 255 caracteres): </label>
+
+				<input type="text" id="details" class="formulario__input" placeholder="Descripción" name="details"
+					maxlength="255">
+			</div>
+			<div id="inputContainer">
+				<!-- Aquí se agregarán dinámicamente los inputs -->
+			</div>
+			<button type="button" onclick="agregarInput()">Agregar Servicios</button>
+			<button type="button" onclick="eliminarUltimoInput()">Eliminar Último Servicio</button>
+			<button type="submit">Enviar</button>
+		</form>
+	</div>
+
 </center>

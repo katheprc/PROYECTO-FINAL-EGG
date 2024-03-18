@@ -1,30 +1,36 @@
 <aside class="dashboard__sidebar">
 	<nav class="dashboard__menu">
-		<a href="/admin/dashboard/stats" class="dashboard__enlace ">
+		<a href="/admin/dashboard/stats" class="dashboard__enlace " th:if="${userType eq 'ADMIN'}">
 			<i class="fa-solid fa-chart-simple"></i>
 			<span class="dashboard__menu-texto">
 				Estadisticas
 			</span>
 		</a>
 
-		<a href="/admin/dashboard/users" class="dashboard__enlace ">
+		<a href="/admin/dashboard/users" class="dashboard__enlace " th:if="${userType eq 'ADMIN'}">
 			<i class="fa-solid fa-users dashboard__icono"></i>
 			<span class="dashboard__menu-texto">
 				Usuarios
 			</span>
 		</a>
 
-		<a href="/admin/dashboard/posts" class="dashboard__enlace">
+		<a href="/admin/dashboard/posts" class="dashboard__enlace" th:if="${userType eq 'ADMIN'}">
 			<i class="fa-solid fa-calendar dashboard__icono"></i>
 			<span class="dashboard__menu-texto">
 				Posteos
 			</span>
 		</a>
 
-		<a href="/admin/dashboard/properties" class="dashboard__enlace ">
+		<a href="/admin/dashboard/properties" class="dashboard__enlace " th:if="${userType eq 'ADMIN'}">
 			<i class="fa-solid fa-house dashboard__icono"></i>
 			<span class="dashboard__menu-texto">
 				Propiedades
+			</span>
+		</a>
+		<a href="/dashboard/owner/register-property" class="dashboard__enlace " th:if="${userType eq 'OWNER'}">
+			<i class="fa-solid fa-house dashboard__icono"></i>
+			<span class="dashboard__menu-texto">
+				Registrar propiedad
 			</span>
 		</a>
 	</nav>

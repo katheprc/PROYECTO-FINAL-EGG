@@ -43,7 +43,11 @@ public class rentalController {
 	UserService uSrv;
 
 	@GetMapping("/")
-	public String home() {
+	public String home(Model model) {
+		if (getUserType() != null) {
+			model.addAttribute("userType", getUserType());
+		}
+		model.addAttribute("listaPropiedades", rSrv.getProperties());
 		return "index.html";
 	}
 
@@ -57,14 +61,14 @@ public class rentalController {
 		}
 
 		model.addAttribute("userType", type);
-		return new RedirectView("/dashboard/owner", true);
+		return new RedirectView("/dashboard/owner/register-property", true);
 	}
 
 	@GetMapping("/dashboard/owner")
 	public String dashboardOwner(Model model) {
 		model.addAttribute("userType", getUserType());
 
-		return "index.html";
+		return "dashboard.html";
 	}
 
 	@GetMapping("/profile")
@@ -111,16 +115,26 @@ public class rentalController {
 		}
 	}
 
-	@GetMapping("/register-property")
-	@PreAuthorize("hasAnyRole('ADMIN', 'USER')")
+	@GetMapping("/dashboard/owner/register-property")
 	public String registerProperty(Model model) {
 		model.addAttribute("userType", getUserType());
-		return "registerProperty.html";
+		model.addAttribute("registerPropBoolean", true);
+		model.addAttribute("ultimosRegistros", uSrv.ultimosRegistros());
+		model.addAttribute("ingresosTotales", rSrv.ingresosTotales());
+		model.addAttribute("userType", getUserType());
+
+		model.addAttribute("buttonBoolean", false);
+
+		model.addAttribute("statsBoolean", false);
+		model.addAttribute("usersBoolean", false);
+		model.addAttribute("postsBoolean", false);
+		model.addAttribute("propertiesBoolean", false);
+
+		return "dashboard.html";
 	}
 
 	@PostMapping("/register-property")
-	@PreAuthorize("hasAnyRole('ADMIN', 'USER')")
-	public String registerProperty(@RequestParam String propertyName, @RequestParam String details,
+	public RedirectView registerProperty(@RequestParam String propertyName, @RequestParam String details,
 			@RequestParam("imagenes") MultipartFile[] imagenes, @RequestParam Double pricePerDay,
 			@RequestParam String propertyAddress, @RequestParam String propertyLocalidad,
 			@RequestParam String propertyProvincia, HttpServletRequest request, HttpServletResponse response,
@@ -130,8 +144,8 @@ public class rentalController {
 
 		registerProperty(propertyName, address, details, imagenes, pricePerDay, request, response, model);
 
-		model.addAttribute("userType", getUserType());
-		return "registerProperty.html";
+		return new RedirectView("/dashboard/owner/register-property", true);
+
 	}
 
 	@GetMapping("/property/{id}")
@@ -157,6 +171,7 @@ public class rentalController {
 		model.addAttribute("ultimosRegistros", uSrv.ultimosRegistros());
 		model.addAttribute("ingresosTotales", rSrv.ingresosTotales());
 		model.addAttribute("userType", getUserType());
+		model.addAttribute("registerPropBoolean", false);
 
 		model.addAttribute("buttonBoolean", false);
 
@@ -178,6 +193,7 @@ public class rentalController {
 		model.addAttribute("userType", getUserType());
 
 		model.addAttribute("buttonBoolean", true);
+		model.addAttribute("registerPropBoolean", false);
 
 		model.addAttribute("statsBoolean", false);
 		model.addAttribute("usersBoolean", true);
@@ -204,6 +220,7 @@ public class rentalController {
 		model.addAttribute("listaUsuarios", uSrv.busquedaPersonalizada(type, order));
 
 		model.addAttribute("buttonBoolean", true);
+		model.addAttribute("registerPropBoolean", false);
 
 		model.addAttribute("statsBoolean", false);
 		model.addAttribute("usersBoolean", true);
@@ -221,6 +238,7 @@ public class rentalController {
 		model.addAttribute("userType", getUserType());
 
 		model.addAttribute("buttonBoolean", true);
+		model.addAttribute("registerPropBoolean", false);
 
 		model.addAttribute("statsBoolean", false);
 		model.addAttribute("usersBoolean", false);
@@ -241,6 +259,7 @@ public class rentalController {
 		model.addAttribute("listaPosts", rSrv.getPosts(order, rating));
 
 		model.addAttribute("buttonBoolean", true);
+		model.addAttribute("registerPropBoolean", false);
 
 		model.addAttribute("statsBoolean", false);
 		model.addAttribute("usersBoolean", false);
@@ -257,6 +276,7 @@ public class rentalController {
 		model.addAttribute("listaProperties", rSrv.getProperties());
 		model.addAttribute("userType", getUserType());
 		model.addAttribute("buttonBoolean", true);
+		model.addAttribute("registerPropBoolean", false);
 		model.addAttribute("statsBoolean", false);
 		model.addAttribute("usersBoolean", false);
 		model.addAttribute("postsBoolean", false);
@@ -277,6 +297,7 @@ public class rentalController {
 		model.addAttribute("listaProperties", rSrv.getProperties(type, order));
 
 		model.addAttribute("buttonBoolean", true);
+		model.addAttribute("registerPropBoolean", false);
 
 		model.addAttribute("statsBoolean", false);
 		model.addAttribute("usersBoolean", false);
@@ -292,8 +313,13 @@ public class rentalController {
 	public String getUserType() {
 		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 		String userDetails = authentication.getName();
-		String userType = uSrv.find(userDetails).getType();
-		return userType;
+		try {
+			String userType = uSrv.find(userDetails).getType();
+			return userType;
+		} catch (Exception e) {
+			return "null";
+		}
+
 	}
 
 	public User getUser() {
