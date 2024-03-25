@@ -64,6 +64,10 @@ textarea {
   width:38%;
 }
 
+#imagen-preview {
+  max-width: 300px;
+  max-height: 300px;
+}
 
 /*
   ========================================
