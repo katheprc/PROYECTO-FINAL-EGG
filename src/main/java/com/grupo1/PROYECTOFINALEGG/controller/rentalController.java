@@ -47,7 +47,7 @@ public class rentalController {
 		if (getUserType() != null) {
 			model.addAttribute("userType", getUserType());
 		}
-		model.addAttribute("listaPropiedades", rSrv.getProperties());
+		model.addAttribute("listaPropiedades", rSrv.get5Properties());
 		return "index.html";
 	}
 

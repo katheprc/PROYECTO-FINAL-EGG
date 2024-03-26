@@ -1,6 +1,8 @@
 package com.grupo1.PROYECTOFINALEGG.service;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -41,6 +43,26 @@ public class RentalService {
 
 		return pRepo.findAll();
 
+	}
+	
+	public List<Property> get5Properties(){
+
+		List<Property> random;
+		
+		random = pRepo.findByRatingDesc();
+		
+		List<Property> retorno = new ArrayList<>();
+		
+		for(int aux = 0; aux < random.size(); aux++) {
+			if(aux < 5) {
+				retorno.add(random.get(aux));
+			} else {
+				break;
+			}
+		}
+		
+		return retorno;
+		
 	}
 
 	public Property saveProp(Property property) {
