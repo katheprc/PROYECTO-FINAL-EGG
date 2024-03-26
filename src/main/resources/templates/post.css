@@ -1,0 +1,92 @@
+
+
+/*
+  ========================================
+  Custom styles === Carlos Morillo ===
+  ========================================
+*/
+
+body {
+  color: #fff;
+  font: 22px "Poppins", sans-serif;
+  background-color: rgb(232, 90, 25);  
+  background: -webkit-linear-gradient(to left, rgb(232, 25, 84) -50%, rgb(232, 90, 25) 50%, rgb(232, 25, 25) 120%);
+  background:    -moz-linear-gradient(to left, rgb(232, 25, 84) -50%, rgb(232, 90, 25) 50%, rgb(232, 25, 25) 120%);
+  background:         linear-gradient(to left, rgb(232, 25, 84) -50%, rgb(232, 90, 25) 50%, rgb(232, 25, 25) 120%);
+}
+
+
+/*
+  ========================================
+  Tipografía === Carlos Morillo ===
+  ========================================
+*/
+
+h1 {
+  font-size: 16px;
+}
+
+h2 {
+  margin-bottom: 10px;
+  font-size: 28px;
+  line-height: 33px;
+  font-weight: 700;
+}
+
+.icon-correo h5 {
+  margin-bottom: 70px;
+  font-weight: 600; 
+  margin-left: 35px; 
+}
+
+/*
+  ========================================
+  Post
+  ========================================
+*/
+
+input {
+  border: 1px solid #c6c9cc;
+  border-radius: 5px;
+  color: #888;
+  display: inline-block;
+  margin-top: 5px;
+  margin-bottom: 12px;
+  padding: 18px 8px; 
+  font: 13px "Montserrat", sans-serif;
+  width:38%;
+}
+
+textarea {
+  margin-top: 5px;
+  margin-bottom: 12px;
+  padding: 18px 8px; 
+  width:38%;
+}
+
+#imagen-preview {
+  max-width: 300px;
+  max-height: 300px;
+}
+
+/*
+  ========================================
+  Botones  
+  ========================================
+*/
+.btn-alt2 {
+  border-radius: 15px;
+  background-color: #9b9b9b;
+  padding: 15px 30px;
+  font-size: medium;
+}
+
+.btn-alt2:hover {
+  background-color: #2e46e2;
+  color: white;
+  font-size: medium;
+}
+
+.btn-alt2:hover{
+  opacity: .8;
+}

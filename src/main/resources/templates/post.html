@@ -1,0 +1,98 @@
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+<<<<<<< Updated upstream
+    <link rel="stylesheet" type="text/css" href="post.css" />
+=======
+	<link rel="stylesheet" type="text/css" href="../static/css/post.css" />
+	<link rel="stylesheet" type="text/css" href="../static/css/styles.css" />
+>>>>>>> Stashed changes
+
+    <!-- Fuentes -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Kanit:ital,wght@0,200;0,400;0,500;0,600;0,700;0,900;1,400&family=Montserrat:wght@400;500;600;700;900&family=Rajdhani:wght@400;500;600;700&family=Roboto:wght@400;500;700;900&display=swap"
+    rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;700;900&display=swap" rel="stylesheet">
+
+    <title>Posteo de Fotos</title>
+</head>
+  
+<body>
+ <div className="barra">
+
+    <div className="barra__contenido">
+      <nav className="navegacion">
+
+        <a th:if="${userType ne 'ADMIN' and userType ne 'OWNER' and userType ne 'CLIENT'}" href="/login"
+          className="navegacion__micuenta"><button>Login</button></a>
+        <a th:if="${userType ne 'ADMIN' and userType ne 'OWNER' and userType ne 'CLIENT'}" href="/register"
+          className="navegacion__micuenta"><button>Registrarse</button></a>
+        <a th:if="${userType eq 'ADMIN' or userType eq 'OWNER' or userType eq 'CLIENT'}" href="/profile"
+          className="navegacion__micuenta"><button>Mi perfil</button></a>
+
+        <a th:if="${userType eq 'OWNER'}" href="/register-property">
+          <button>Registrar Propiedad</button>
+        </a>
+        <a th:if="${userType eq 'CLIENT'}" href="/register-booking">
+          <button>Registrar Alquiler</button>
+        </a>
+        <a th:if="${userType eq 'ADMIN' or userType eq 'OWNER' or userType eq 'CLIENT'}" href="/dashboard">
+          <button>Dashboard</button>
+        </a>
+        <a th:if="${userType eq 'ADMIN' or userType eq 'OWNER' or userType eq 'CLIENT'}" href="/logout">
+          <button>Logout</button>
+        </a>
+      </nav>
+    </div>
+  </div>
+
+  <main>
+
+  <!---Formulario de Posteo -->
+    <h2>Posteo de Fotos</h2>
+    <form action="/postear_foto" method="POST" enctype="multipart/form-data">
+        <label for="titulo">Título:</label><br>
+        <input type="text" id="titulo" name="titulo" required><br><br>
+
+        <label for="descripcion">Descripción:</label><br>
+        <textarea id="descripcion" name="descripcion" rows="4" required></textarea><br><br>
+
+        <label for="imagen">Selecciona una imagen:</label><br>
+        <input type="file" id="imagen" name="imagen" accept="image/*" onchange="mostrarVistaPrevia(event)" required><br><br>
+
+        <img id="imagen-preview" src="#" alt="Vista previa de la imagen" style="display: none;"><br><br>
+
+<<<<<<< Updated upstream
+        <button class="btn-alt2" type="submit">Publicar Foto</button>
+=======
+        <button class="formulario__submit bn6-hover bn1" type="submit">Publicar Foto</button>
+>>>>>>> Stashed changes
+    </form>
+
+  </main>
+    <script>
+        function mostrarVistaPrevia(event) {
+            const input = event.target;
+            const archivo = input.files[0];
+
+            if (archivo) {
+                const lector = new FileReader();
+
+                lector.onload = function(e) {
+                    const imagenPreview = document.getElementById('imagen-preview');
+                    imagenPreview.src = e.target.result;
+                    imagenPreview.style.display = 'block';
+                }
+
+                lector.readAsDataURL(archivo);
+            }
+        }
+    </script>
+</body>
+</html>
