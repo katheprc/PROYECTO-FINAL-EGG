@@ -40,4 +40,13 @@ public interface PropertyRepository extends JpaRepository<Property, Integer> {
 	@Query("SELECT p FROM Property p ORDER BY p.rating DESC")
 	public List<Property> findByRatingDesc();
 
+	@Query("SELECT p FROM Property p WHERE p.address LIKE %:search% ORDER BY p.pricePerDay ASC")
+	public List<Property> findByAddressAndPriceASC(@Param("search") String search);
+
+	@Query("SELECT p FROM Property p WHERE p.address LIKE %:search% ORDER BY p.pricePerDay DESC")
+	public List<Property> findByAddressAndPriceDESC(@Param("search") String search);
+
+	@Query("SELECT p FROM Property p WHERE p.address LIKE %:search%")
+	public List<Property> findByAddress(@Param("search") String search);
+
 }

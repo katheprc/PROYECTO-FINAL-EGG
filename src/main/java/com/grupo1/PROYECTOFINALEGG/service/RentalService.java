@@ -16,6 +16,7 @@ import com.grupo1.PROYECTOFINALEGG.Entity.Imagen;
 import com.grupo1.PROYECTOFINALEGG.Entity.Owner;
 import com.grupo1.PROYECTOFINALEGG.Entity.Post;
 import com.grupo1.PROYECTOFINALEGG.Entity.Property;
+import com.grupo1.PROYECTOFINALEGG.Entity.DTOS.UserDTO;
 import com.grupo1.PROYECTOFINALEGG.Repositories.BookingRepository;
 import com.grupo1.PROYECTOFINALEGG.Repositories.ImagenRepository;
 import com.grupo1.PROYECTOFINALEGG.Repositories.PostRepository;
@@ -215,6 +216,30 @@ public class RentalService {
 
 	public List<Booking> findByUserBooking(int id) {
 		return ((Client) uRepo.findById(id).get()).getBookings();
+	}
+
+	public List<Property> busquedaPersonalizadaProp(String search, String order) {
+		List<Property> props;
+
+		if (!(search.equals(""))) {
+			if (!(order.equals("0"))) {
+				if (order.equals("ASC")) {
+					props = pRepo.findByAddressAndPriceASC(search);
+				} else {
+					props = pRepo.findByAddressAndPriceDESC(search);
+				}
+			} else {
+				props = pRepo.findByAddress(search);
+			}
+		} else {
+			if (order.equals("ASC")) {
+				props = pRepo.findByPriceAsc();
+			} else {
+				props = pRepo.findByPriceDesc();
+			}
+		}
+
+		return props;
 	}
 
 }

@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="es">
+
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="/style.css">
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
+            integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+            crossorigin="anonymous"></script>
+        <title>Página de Publicación</title>
+    </head>
+
+    <body>
+
+        <header th:replace="./fragments/header ::  header"></header>
+
+        <div class="container my-4">
+            <div class="row">
+                <div class="col-12">
+                    <form action="/buscarPropiedades" method="get">
+                        <div class="input-group">
+                            <input type="text" class="form-control" placeholder="Ingresa ciudades o barrios"
+                                aria-label="Ingresa ciudades o barrios" name="search" value="">
+
+                            <select class="form-select" aria-label="Orden de precio" name="order">
+                                <option selected value="0" hidden>Precio</option>
+                                <option value="DESC">Mayor precio</option>
+                                <option value="ASC">Menor precio</option>
+                                <!-- Más opciones -->
+                            </select>
+
+                            <button class="btn btn-outline-secondary" type="submit">Aplicar</button>
+                            <a href="/quinchos"><button class="btn btn-outline-danger" type="button">Limpiar
+                                    filtros</button></a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <div class="container mt-5">
+            <h2 class="mb-4">Todas las propiedades</h2>
+            <div class="row">
+                <!-- Tarjeta de Propiedad #1 -->
+                <div class="col-md-4" th:each="prop : ${listaPropiedades}">
+                    <div class="card">
+                        <img th:src="${prop.imgs[0]}" class="card-img-top" alt="Imagen de Propiedad">
+                        <div class="card-body">
+                            <h5 class="card-title" th:text="${prop.name}"></h5>
+                            <p class="card-text" th:text="${prop.address}"></p>
+                            <p class="card-text">$<span th:text="${prop.pricePerDay}"></span></p>
+                            <a th:href="@{/property/{id}(id=${prop.id})}" class="btn btn-primary">Ver más</a>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+        <style>
+            /* Personalizaciones específicas de la página de propiedades */
+            .container {
+                max-width: 1200px;
+                /* Ajusta esto según tus necesidades */
+            }
+
+            .card {
+                margin-bottom: 30px;
+            }
+
+            .card-img-top {
+                height: 200px;
+                /* Ajusta la altura de las imágenes de tus tarjetas */
+                object-fit: cover;
+                /* Asegura que la imagen cubra el área sin perder su aspecto */
+            }
+
+            .card-title {
+                font-size: 1.2rem;
+                /* Ajusta el tamaño del título según necesites */
+            }
+
+            .card-text {
+                font-size: 1rem;
+                /* Ajusta el tamaño del texto según necesites */
+            }
+
+            .input-group {
+                display: flex;
+                gap: 5px;
+                /* Añade un pequeño espacio entre los campos */
+            }
+
+            /* Extiende la barra de búsqueda más que otros elementos */
+            .input-group .form-control {
+                flex: 2;
+                /* Esto permitirá que la barra de búsqueda sea más ancha */
+            }
+
+            /* Ajuste para que los selects no sean más anchos de lo necesario */
+            .input-group .form-select {
+                flex: 1;
+                /* Esto permitirá que los selects ocupen solo el espacio necesario */
+                width: auto;
+                /* Ajuste para que no se estiren */
+            }
+
+            /* Estilo del botón de búsqueda */
+            .input-group button {
+                flex-shrink: 0;
+                /* Evita que el botón se encoja */
+            }
+
+            /* Estilo específico para el botón de búsqueda */
+            .input-group .btn-outline-secondary {
+                border-color: #ced4da;
+            }
+
+            /* Estilo específico para el botón 'Crear alerta' */
+            .input-group .btn-outline-danger {
+                border-color: #dc3545;
+                /* Rojo para el borde */
+            }
+
+            /* Personalizar los bordes y sombras alrededor de los elementos del grupo de entrada */
+            .input-group .form-control,
+            .input-group .form-select,
+            .input-group .btn {
+                border: 1px solid #ced4da;
+                /* Gris claro para los bordes */
+                height: 38px;
+                /* Altura para alinear los campos con los botones */
+                border-radius: 0.25rem;
+                /* Bordes ligeramente redondeados para ajustarse a la imagen original */
+                margin-left: -1px;
+                /* Solapa ligeramente el borde del elemento anterior para unir visualmente los elementos */
+            }
+
+            /* Ajustes para dispositivos móviles */
+            @media (max-width: 768px) {
+                .input-group {
+                    flex-wrap: wrap;
+                    /* Permite que los elementos se ajusten a la siguiente línea */
+                }
+
+                .input-group .form-select,
+                .input-group .form-control,
+                .input-group .btn {
+                    width: 100%;
+                    /* Ancho completo para dispositivos móviles */
+                    margin-bottom: 10px;
+                    /* Espacio debajo de cada elemento */
+                }
+
+                .input-group .form-select:last-child,
+                .input-group .btn:last-child {
+                    margin-bottom: 0;
+                    /* Quitar el margen al último elemento */
+                }
+            }
+        </style>
+
+
+
+        <footer th:replace="./fragments/footer ::  footer"></footer>
+
+
+        <script src="index.js"></script>
+    </body>
+
+</html>

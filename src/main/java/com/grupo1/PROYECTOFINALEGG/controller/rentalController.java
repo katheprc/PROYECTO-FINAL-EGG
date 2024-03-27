@@ -131,6 +131,21 @@ public class rentalController {
 		return "profile.html";
 	}
 
+	@GetMapping("/quinchos")
+	public String quinchos(Model model) {
+		model.addAttribute("userType", getUserType());
+
+		model.addAttribute("listaPropiedades", rSrv.getProperties());
+		return "allProps.html";
+	}
+
+	@GetMapping("/buscarPropiedades")
+	public String buscarProp(Model model, @RequestParam("search") String search, @RequestParam("order") String order) {
+
+		model.addAttribute("listaPropiedades", rSrv.busquedaPersonalizadaProp(search, order));
+		return "allProps.html";
+	}
+
 	@GetMapping("/login")
 	public String login() {
 		return "login.html";
