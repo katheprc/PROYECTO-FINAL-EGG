@@ -1,89 +1,147 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-  <link rel="stylesheet" type="text/css" href="/css/styles.css" />
+    <link rel="stylesheet" type="text/css" href="/css/styles.css" />
 
-  <!-- Fuentes -->
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link
-    href="https://fonts.googleapis.com/css2?family=Kanit:ital,wght@0,200;0,400;0,500;0,600;0,700;0,900;1,400&family=Montserrat:wght@400;500;600;700;900&family=Rajdhani:wght@400;500;600;700&family=Roboto:wght@400;500;700;900&display=swap"
-    rel="stylesheet">
-  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;700;900&display=swap" rel="stylesheet">
+    <!-- Fuentes -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Kanit:ital,wght@0,200;0,400;0,500;0,600;0,700;0,900;1,400&family=Montserrat:wght@400;500;600;700;900&family=Rajdhani:wght@400;500;600;700&family=Roboto:wght@400;500;700;900&display=swap"
+      rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;700;900&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
+      integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+      crossorigin="anonymous"></script>
+    <title>registrar alquiler</title>
+  </head>
 
-  <title>registrar alquiler</title>
-</head>
+  <body>
+    <div className="barra">
 
-<body>
-  <div className="barra">
+      <div className="barra__contenido">
+        <nav className="navegacion">
 
-    <div className="barra__contenido">
-      <nav className="navegacion">
+          <a th:if="${userType ne 'ADMIN' and userType ne 'OWNER' and userType ne 'CLIENT'}" href="/login"
+            className="navegacion__micuenta"><button>Login</button></a>
+          <a th:if="${userType ne 'ADMIN' and userType ne 'OWNER' and userType ne 'CLIENT'}" href="/register"
+            className="navegacion__micuenta"><button>Registrarse</button></a>
+          <a th:if="${userType eq 'ADMIN' or userType eq 'OWNER' or userType eq 'CLIENT'}" href="/profile"
+            className="navegacion__micuenta"><button>Mi perfil</button></a>
 
-        <a th:if="${userType ne 'ADMIN' and userType ne 'OWNER' and userType ne 'CLIENT'}" href="/login"
-          className="navegacion__micuenta"><button>Login</button></a>
-        <a th:if="${userType ne 'ADMIN' and userType ne 'OWNER' and userType ne 'CLIENT'}" href="/register"
-          className="navegacion__micuenta"><button>Registrarse</button></a>
-        <a th:if="${userType eq 'ADMIN' or userType eq 'OWNER' or userType eq 'CLIENT'}" href="/profile"
-          className="navegacion__micuenta"><button>Mi perfil</button></a>
-
-        <a th:if="${userType eq 'OWNER'}" href="/register-property">
-          <button>Registrar Propiedad</button>
-        </a>
-        <a th:if="${userType eq 'CLIENT'}" href="/register-booking">
-          <button>Registrar Alquiler</button>
-        </a>
-        <a th:if="${userType eq 'ADMIN' or userType eq 'OWNER' or userType eq 'CLIENT'}" href="/dashboard">
-          <button>Dashboard</button>
-        </a>
-        <a th:if="${userType eq 'ADMIN' or userType eq 'OWNER' or userType eq 'CLIENT'}" href="/logout">
-          <button>Logout</button>
-        </a>
-      </nav>
+          <a th:if="${userType eq 'OWNER'}" href="/register-property">
+            <button>Registrar Propiedad</button>
+          </a>
+          <a th:if="${userType eq 'CLIENT'}" href="/register-booking">
+            <button>Registrar Alquiler</button>
+          </a>
+          <a th:if="${userType eq 'ADMIN' or userType eq 'OWNER' or userType eq 'CLIENT'}" href="/dashboard">
+            <button>Dashboard</button>
+          </a>
+          <a th:if="${userType eq 'ADMIN' or userType eq 'OWNER' or userType eq 'CLIENT'}" href="/logout">
+            <button>Logout</button>
+          </a>
+        </nav>
+      </div>
     </div>
-  </div>
-  <main class="auth">
-    <h2 class="auth__heading">Registro de Alquileres</h2>
-    <form method="post" action="/register-booking" enctype="multipart/form-data">
 
-      <label for="date">Fecha de Reserva:</label><br><br>
-      <label>Desde: </label>
-      <input type="date" id="entry-date" name="entry-date" class="formulario__input" required > <br><br>
-      <label>Hasta: </label>
-      <input type="date" id="exit-date" name="exit-date" class="formulario__input" required><br><br>
-      
-      <label for="services">Servicios Adicionales:</label><br><br>
-      <input type="checkbox" id="service1" name="services[]"  value="Pileta">
-      <label for="service1">Pileta</label><br>
-      <input type="checkbox" id="service2" name="services[]" value="Mobiliario">
-      <label for="service2">Alquiler de Mobiliario Adicional (sillas, mesas, carpas, etc)</label><br>
-      <input type="checkbox" id="service3" name="services[]" value="Decoracion">
-      <label for="service3">Decoración Temática</label><br>
-      <input type="checkbox" id="service4" name="services[]" value="Luces">
-      <label for="service4">Show de Luces y Efectos Especiales</label><br>
-      <input type="checkbox" id="service5" name="services[]" value="Sonido">
-      <label for="service5">Sonido y Música</label><br>
-      <input type="checkbox" id="service6" name="services[]" value="Catering">
-      <label for="service6">Servicio de Catering</label><br>
-      <input type="checkbox" id="service7" name="services[]" value="Limpieza">
-      <label for="service7">Servicio de Limpieza</label><br><br>
+    <main class="auth">
+      <h2 class="auth__heading">Registro de Alquileres</h2>
+      <div class="container mt-5">
+        <label for="card">Propiedad:</label>
+        <div class="card rounded-4 ">
+          <div class="card-body">
+            <h5 class="card-title" th:text="${property.name}"></h5>
+            <p class="card-text" th:text="${property.address}"></p>
+            <p class="card-text">Precio base por día: $<span id="pricePerDay" th:text="${property.pricePerDay}"></span>
+              + servicios</p>
+          </div>
+        </div>
+      </div>
+      <br>
+      <form id="bookingForm" method="post" action="/register-booking" enctype="multipart/form-data">
+        <input type="text" name="id" th:value="${property.id}" hidden>
 
-      <!-- Agrega más servicios según sea necesario -->
+        <label for="date">Fecha de Reserva:</label><br><br>
+        <label>Desde: </label>
+        <input type="date" id="entry-date" name="entry-date" class="formulario__input" min="" required> <br><br>
+        <label for="servicios">Servicios Adicionales:</label><br><br>
 
-      <label for="message">Mensaje Adicional:</label><br>
-      <textarea id="message" name="message"  class="formulario__textarea" rows="4" cols="50"></textarea><br><br>
 
-      <button type="submit">Confirmar Reserva</button>
-    </form>
-  </main>
-  <script>
 
-  </script>
+        <label th:each="servicio : ${listaSrv}">
+          <input type="checkbox" class="service-checkbox" th:id="${servicio.id}" name="services[]"
+            th:value="${servicio.name}">
+          <span th:text="${servicio.name}"> </span> ($<span class="service-price" th:text="${servicio.price}"></span>)
+        </label>
 
-</body>
+
+        <br><br>
+        <p>Total: $<span id="totalAmount" name="total">0</span></p>
+        <br> <br>
+
+        <button type="submit">Confirmar Reserva</button>
+      </form>
+    </main>
+
+    <script>
+      // Función para calcular el total
+      function calcularTotal() {
+        var pricePerDay = parseFloat(document.getElementById('pricePerDay').innerText);
+        var entryDate = new Date(document.getElementById('entry-date').value);
+
+        // Deshabilitar el día de mañana para seleccionar
+        var tomorrow = new Date();
+        tomorrow.setDate(tomorrow.getDate());
+        var tomorrowStr = tomorrow.toISOString().split('T')[0];
+        document.getElementById('entry-date').min = tomorrowStr;
+
+        // Calcula el total de los servicios seleccionados
+        var totalServices = 0;
+        var checkboxes = document.querySelectorAll('.service-checkbox:checked');
+        checkboxes.forEach(function (checkbox) {
+          totalServices += parseFloat(checkbox.nextElementSibling.nextElementSibling.innerText);
+        });
+
+        // Calcula el total general (multiplica por 1 si es el mismo día de entrada y salida, de lo contrario, calcula el número de días de estancia)
+        var days = 1;
+        var totalAmount = pricePerDay;
+        if (entryDate < tomorrow) {
+          alert("La fecha de entrada debe ser a partir de mañana.");
+          return false;
+        }
+
+        // Calcula el total general
+        var totalAmount = pricePerDay + totalServices;
+
+        // Actualiza el elemento HTML que muestra el total
+        document.getElementById('totalAmount').innerText = totalAmount.toFixed(2);
+
+        return true;
+      }
+
+      // Agrega event listener para el cambio en la fecha de entrada y la selección de servicios
+      document.getElementById('entry-date').addEventListener('change', calcularTotal);
+      var checkboxes = document.querySelectorAll('.service-checkbox');
+      checkboxes.forEach(function (checkbox) {
+        checkbox.addEventListener('change', calcularTotal);
+      });
+
+      // Llama a la función inicialmente para deshabilitar el día de mañana y calcular el total
+      calcularTotal();
+    </script>
+
+    <script>
+
+    </script>
+
+  </body>
+
 
 </html>

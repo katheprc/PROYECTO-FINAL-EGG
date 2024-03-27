@@ -28,8 +28,10 @@ public class Property {
 	private String details;
 
 	private Double pricePerDay;
-	
+
 	private Integer rating = 0;
+
+	private Integer ownerId;
 
 	@ElementCollection
 	@CollectionTable(name = "listOfPropertyImages")

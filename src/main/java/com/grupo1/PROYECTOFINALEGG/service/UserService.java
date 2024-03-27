@@ -22,6 +22,7 @@ import org.springframework.web.context.request.ServletRequestAttributes;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.grupo1.PROYECTOFINALEGG.Entity.Admin;
+import com.grupo1.PROYECTOFINALEGG.Entity.Booking;
 import com.grupo1.PROYECTOFINALEGG.Entity.Client;
 import com.grupo1.PROYECTOFINALEGG.Entity.Owner;
 import com.grupo1.PROYECTOFINALEGG.Entity.Property;
@@ -82,19 +83,19 @@ public class UserService implements UserDetailsService {
 			Integer num = rSrv.subirImagen(imagen);
 			user.addImg(Utility.getSiteUrl(request) + "/api/image/" + num);
 			uRepo.save(user);
-			/*
-			 * } else if (type.equals("ADMIN")) {
-			 * 
-			 * Admin user = new Admin();
-			 * 
-			 * user.setUsername(username); user.setLastname(apellido); user.setEmail(email);
-			 * user.setPassword(new BCryptPasswordEncoder().encode(password)); // codificado
-			 * user.setRole(Role.ADMIN);
-			 * 
-			 * Integer num = rSrv.subirImagen(imagen);
-			 * user.addImg(Utility.getSiteUrl(request) + "/api/image/" + num);
-			 * uRepo.save(user);
-			 */
+		} else if (type.equals("ADMIN")) {
+
+			Admin user = new Admin();
+
+			user.setUsername(username);
+			user.setLastname(apellido);
+			user.setEmail(email);
+			user.setRole(Role.ADMIN);
+
+			Integer num = rSrv.subirImagen(imagen);
+			user.addImg(Utility.getSiteUrl(request) + "/api/image/" + num);
+			uRepo.save(user);
+
 		} else {
 			throw new MyException("ERROR EN SISTEMA, INTENTA NUEVAMENTE");
 		}
@@ -212,6 +213,9 @@ public class UserService implements UserDetailsService {
 		}
 		if (apellido.isEmpty() || apellido == null) {
 			throw new MyException("El apellido no puede ser nulo o estar vacío");
+		}
+		if (!(password.equals(password2))) {
+			throw new MyException("Las contraseñas ingresadas deben ser iguales");
 		}
 
 	}
@@ -371,6 +375,11 @@ public class UserService implements UserDetailsService {
 			}
 		}
 		return lista2;
+	}
+
+	public void updateUserBooking(Client user, Booking book) {
+		user.addBookings(book);
+		updateUser(user);
 	}
 
 }

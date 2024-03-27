@@ -77,6 +77,8 @@
 						<button type="submit" th:if="${userType eq 'CLIENT'}">Contratar
 						</button>
 					</a>
+					<p th:if="${userType ne 'CLIENT'}" style="font-size: large;"><a href="/login">Inicia sesión</a> o
+						<a href="/register">regístrate</a> como cliente para reservar!</p>
 
 				</section>
 			</div>

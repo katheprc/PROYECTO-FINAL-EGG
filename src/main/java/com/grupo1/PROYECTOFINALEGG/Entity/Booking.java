@@ -12,6 +12,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 import lombok.Data;
 
@@ -23,7 +25,7 @@ public class Booking {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
 
-	private String property;
+	private Integer property;
 
 	@OneToOne
 	private Client user;
@@ -31,7 +33,8 @@ public class Booking {
 	@OneToOne
 	private Owner owner;
 
-	private Date inDate, finDate;
+	@Temporal(TemporalType.DATE)
+	private Date date;
 	private Double total;
 
 	@ElementCollection

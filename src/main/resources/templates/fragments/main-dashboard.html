@@ -388,18 +388,41 @@
 			<br>
 			<div class="formulario__campo">
 				<label for="imagenes">Selecciona imágenes:</label>
-				<input type="file" name="imagenes" id="imagenes" accept="image/*" multiple>
+				<input type="file" name="imagenes" id="imagenes" accept="image/*" multiple required>
 				<br>
 				<label for="details">Introduce detalles (máximo 255 caracteres): </label>
-
 				<input type="text" id="details" class="formulario__input" placeholder="Descripción" name="details"
-					maxlength="255">
+					maxlength="255" required>
 			</div>
 			<div id="inputContainer">
 				<!-- Aquí se agregarán dinámicamente los inputs -->
 			</div>
-			<button type="button" onclick="agregarInput()">Agregar Servicios</button>
-			<button type="button" onclick="eliminarUltimoInput()">Eliminar Último Servicio</button>
+			<label for="services">Servicios Adicionales:</label><br><br>
+
+			<input type="checkbox" id="service1" name="services[]" value="Pileta"
+				onclick="toggleInput(this, 1)">Pileta<input type="number" name="precio[]" id="precio1"
+				placeholder="Precio" disabled> <br>
+			<input type="checkbox" id="service2" name="services[]" value="Alquiler de Mobiliario
+			(sillas, mesas, carpas, etc)" onclick="toggleInput(this, 2)">Alquiler de Mobiliario
+			(sillas, mesas, carpas, etc)<input type="number" name="precio[]" id="precio2" placeholder="Precio" disabled>
+			<br>
+			<input type="checkbox" id="service3" name="services[]" value="Decoración Temática"
+				onclick="toggleInput(this, 3)">Decoración Temática<input type="number" name="precio[]" id="precio3"
+				placeholder="Precio" disabled><br>
+			<input type="checkbox" id="service4" name="services[]" value="Show de Luces y Efectos Especiales"
+				onclick="toggleInput(this, 4)">Show de Luces y Efectos Especiales<input type="number" name="precio[]"
+				id="precio4" placeholder="Precio" disabled><br>
+			<input type="checkbox" id="service5" name="services[]" value="Sonido y Música"
+				onclick="toggleInput(this, 5)">Sonido
+			y Música<input type="number" name="precio[]" id="precio5" placeholder="Precio" disabled><br>
+			<input type="checkbox" id="service6" name="services[]" value="Servicio de Catering"
+				onclick="toggleInput(this, 6)">Servicio de Catering<input type="number" name="precio[]" id="precio6"
+				placeholder="Precio" disabled><br>
+			<input type="checkbox" id="service7" name="services[]" value="Servicio de Limpieza"
+				onclick="toggleInput(this, 7)">Servicio de Limpieza<input type="number" name="precio[]" id="precio7"
+				placeholder="Precio" disabled><br>
+			<br><br><br>
+
 			<button type="submit">Enviar</button>
 		</form>
 	</div>
@@ -420,16 +443,13 @@
 								Propiedad
 							</th>
 							<th scope="col">
-								Fecha de inicio
-							</th>
-							<th scope="col">
-								Fecha de fin
+								Fecha
 							</th>
 							<th scope="col">
 								Precio total
 							</th>
 							<th scope="col">
-								Cant. servicios
+								Cant. servicios contratados
 							</th>
 							<th></th>
 						</tr>
@@ -439,31 +459,24 @@
 							<form action="/dashboard/client/reservas/delete" method="post">
 								<td scope="row" style="vertical-align: middle;">
 									<input type="text" name="id" class="form-control" readonly="readonly"
-										style="width: 36px; text-align: center;" th:value="${property.id}">
+										style="width: 36px; text-align: center;" th:value="${reserva.id}">
 								</td>
 								<td style="vertical-align: middle;">
-									<input type="text" class="form-control" readOnly=true th:value="${property.name}"
-										th:id="${property.id}" required>
+									<a th:href="@{/property/{id}(id=${reserva.property})}"><button class="form-control"
+											th:id="${reserva.id}" required type="button"> Página de la
+											propiedad</button></a>
 								</td>
 								<td style="vertical-align: middle;">
-									<input type="text" class="form-control" readOnly=true th:value="${property.address}"
-										th:id="${property.id}" required>
+									<input type="text" class="form-control" readOnly=true th:value="${reserva.date}"
+										th:id="${reserva.id}" required>
 								</td>
 								<td style="vertical-align: middle;">
-									<input type="text" class="form-control" readOnly=true th:value="${property.details}"
-										th:id="${property.id}" required>
-								</td>
-								<td style="vertical-align: middle;">
-									<input type="text" class="form-control" readOnly=true
-										th:value="${property.pricePerDay}" th:id="${property.id}" required>
+									<input type="text" class="form-control" readOnly=true th:value="${reserva.total}"
+										th:id="${reserva.id}" required>
 								</td>
 								<td style="vertical-align: middle;">
 									<input type="text" class="form-control" readOnly=true
-										th:value="${#lists.size(property.services)}" th:id="${property.id}" required>
-								</td>
-								<td style="vertical-align: middle;">
-									<input type="text" class="form-control" readOnly=true th:value="${property.rating}"
-										th:id="${property.id}" required>
+										th:value="${#lists.size(reserva.services)}" th:id="${reserva.id}" required>
 								</td>
 								<td style="vertical-align: middle; text-align: center;">
 									<button type="submit" class="btn btn-danger btn-eliminar" style="width: 5rem;">
@@ -477,5 +490,6 @@
 			</div>
 		</div>
 	</div>
+
 
 </center>

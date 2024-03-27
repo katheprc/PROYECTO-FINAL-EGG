@@ -1,7 +1,10 @@
 package com.grupo1.PROYECTOFINALEGG.controller;
 
 import java.io.IOException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import javax.servlet.ServletException;
@@ -18,11 +21,15 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.view.RedirectView;
 
+import com.grupo1.PROYECTOFINALEGG.Entity.Booking;
+import com.grupo1.PROYECTOFINALEGG.Entity.BookingRequest;
+import com.grupo1.PROYECTOFINALEGG.Entity.Client;
 import com.grupo1.PROYECTOFINALEGG.Entity.Owner;
 import com.grupo1.PROYECTOFINALEGG.Entity.Property;
 import com.grupo1.PROYECTOFINALEGG.Entity.User;
@@ -93,9 +100,9 @@ public class rentalController {
 	}
 
 	@GetMapping("/dashboard/client")
-	public String dashboardClient(Model model) {
-		model.addAttribute("userType", getUserType());
-		return "dashboard.html";
+	public RedirectView dashboardClient(Model model) {
+		return new RedirectView("/dashboard/client/reservas", true);
+
 	}
 
 	@GetMapping("/dashboard/client/reservas")
@@ -167,8 +174,20 @@ public class rentalController {
 		model.addAttribute("userType", getUserType());
 		model.addAttribute("property", getProperty(id));
 		model.addAttribute("listaSrv", getProperty(id).getServices());
-
 		return "booking.html";
+	}
+
+	@PostMapping("/register-booking")
+	public RedirectView regBooking(@RequestParam("services[]") String[] services,
+			@RequestParam("entry-date") String date, @RequestParam("id") String id) {
+		try {
+			SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+			Date date1 = formatter.parse(date);
+			registerBooking(Integer.parseInt(id), services, date1, (Client) getUser());
+		} catch (ParseException | ServletException | IOException e) {
+			e.printStackTrace();
+		}
+		return new RedirectView("/property/" + id, true);
 	}
 
 	@PostMapping("/registerSuccess")
@@ -425,7 +444,7 @@ public class rentalController {
 	public void registerProperty(String propertyName, String propertyAddress, String details, MultipartFile[] imagenes,
 			Double pricePerDay, HttpServletRequest request, HttpServletResponse response, Model model)
 			throws ServletException, IOException {
-		String[] names = request.getParameterValues("nombre[]");
+		String[] names = request.getParameterValues("services[]");
 		String[] prices = request.getParameterValues("precio[]");
 
 		Property property = new Property();
@@ -455,7 +474,40 @@ public class rentalController {
 			property.addImg(Utility.getSiteUrl(request) + "/api/image/" + num);
 		}
 
+		property.setOwnerId(((Owner) getUser()).getId());
+
 		uSrv.updateUserProperty((Owner) getUser(), rSrv.saveProp(property));
+	}
+
+	public void registerBooking(Integer id, String[] services, Date date, Client client)
+			throws ServletException, IOException {
+
+		Booking booking = new Booking();
+
+		List<com.grupo1.PROYECTOFINALEGG.Entity.Service> srvs = new ArrayList<>();
+		Double total = getProperty(id).getPricePerDay();
+		if (services != null) {
+			for (String service : services) {
+				String name = service;
+
+				for (com.grupo1.PROYECTOFINALEGG.Entity.Service srv : getProperty(id).getServices()) {
+					if (srv.getName().equals(name)) {
+						srvs.add(srv);
+						total = total + Double.parseDouble(srv.getPrice());
+					}
+				}
+			}
+
+		}
+
+		booking.setDate(date);
+		booking.setProperty(id);
+		booking.setServices(srvs);
+		booking.setTotal(total);
+		booking.setUser(client);
+		booking.setOwner((Owner) (uSrv.getUserById(getProperty(id).getOwnerId()).get()));
+
+		uSrv.updateUserBooking(client, rSrv.getBookingById(rSrv.saveBooking(booking).getId()));
 	}
 
 	public Property getProperty(Integer id) {

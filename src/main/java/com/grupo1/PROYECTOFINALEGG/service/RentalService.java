@@ -16,7 +16,6 @@ import com.grupo1.PROYECTOFINALEGG.Entity.Imagen;
 import com.grupo1.PROYECTOFINALEGG.Entity.Owner;
 import com.grupo1.PROYECTOFINALEGG.Entity.Post;
 import com.grupo1.PROYECTOFINALEGG.Entity.Property;
-import com.grupo1.PROYECTOFINALEGG.Entity.DTOS.UserDTO;
 import com.grupo1.PROYECTOFINALEGG.Repositories.BookingRepository;
 import com.grupo1.PROYECTOFINALEGG.Repositories.ImagenRepository;
 import com.grupo1.PROYECTOFINALEGG.Repositories.PostRepository;
@@ -240,6 +239,15 @@ public class RentalService {
 		}
 
 		return props;
+	}
+
+	public Booking saveBooking(Booking booking) {
+
+		return bRepo.save(booking);
+	}
+
+	public Booking getBookingById(Integer id) {
+		return bRepo.findById(id).get();
 	}
 
 }
