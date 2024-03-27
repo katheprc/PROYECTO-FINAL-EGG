@@ -69,6 +69,25 @@ public class rentalController {
 	@GetMapping("/dashboard/owner")
 	public String dashboardOwner(Model model) {
 		model.addAttribute("userType", getUserType());
+		return "dashboard.html";
+	}
+
+	@GetMapping("/dashboard/owner/reservas")
+	public String dashboardOwnerReservas(Model model) {
+		model.addAttribute("userType", getUserType());
+		model.addAttribute("registerPropBoolean", false);
+		model.addAttribute("ultimosRegistros", uSrv.ultimosRegistros());
+		model.addAttribute("ingresosTotales", rSrv.ingresosTotales());
+		model.addAttribute("userType", getUserType());
+
+		model.addAttribute("buttonBoolean", false);
+
+		model.addAttribute("statsBoolean", false);
+		model.addAttribute("usersBoolean", false);
+		model.addAttribute("postsBoolean", false);
+		model.addAttribute("propertiesBoolean", false);
+		model.addAttribute("oBookingsBoolean", true);
+		model.addAttribute("uBookingsBoolean", false);
 
 		return "dashboard.html";
 	}
@@ -76,8 +95,33 @@ public class rentalController {
 	@GetMapping("/dashboard/client")
 	public String dashboardClient(Model model) {
 		model.addAttribute("userType", getUserType());
-
 		return "dashboard.html";
+	}
+
+	@GetMapping("/dashboard/client/reservas")
+	public String dashboardClientReservas(Model model) {
+		model.addAttribute("userType", getUserType());
+		model.addAttribute("registerPropBoolean", false);
+		model.addAttribute("ultimosRegistros", uSrv.ultimosRegistros());
+		model.addAttribute("ingresosTotales", rSrv.ingresosTotales());
+		model.addAttribute("userType", getUserType());
+
+		model.addAttribute("buttonBoolean", false);
+
+		model.addAttribute("statsBoolean", false);
+		model.addAttribute("usersBoolean", false);
+		model.addAttribute("postsBoolean", false);
+		model.addAttribute("propertiesBoolean", false);
+		model.addAttribute("oBookingsBoolean", false);
+		model.addAttribute("uBookingsBoolean", true);
+		model.addAttribute("listaReservas", rSrv.findByUserBooking(getUser().getId()));
+		return "dashboard.html";
+	}
+
+	@PostMapping("/dashboard/client/reservas/delete")
+	public RedirectView deleteBooking(@RequestParam("id") String id, Model model) {
+		rSrv.deleteBooking(Integer.parseInt(id));
+		return new RedirectView("/dashboard/client/reservas", true);
 	}
 
 	@GetMapping("/profile")
@@ -103,9 +147,12 @@ public class rentalController {
 		return "error.html";
 	}
 
-	@GetMapping("/booking")
-	public String booking(Model model) {
+	@GetMapping("/booking/{id}")
+	public String booking(@PathVariable Integer id, Model model) throws NotFoundException {
 		model.addAttribute("userType", getUserType());
+		model.addAttribute("property", getProperty(id));
+		model.addAttribute("listaSrv", getProperty(id).getServices());
+
 		return "booking.html";
 	}
 
@@ -139,11 +186,13 @@ public class rentalController {
 		model.addAttribute("userType", getUserType());
 
 		model.addAttribute("buttonBoolean", false);
+		model.addAttribute("uBookingsBoolean", false);
 
 		model.addAttribute("statsBoolean", false);
 		model.addAttribute("usersBoolean", false);
 		model.addAttribute("postsBoolean", false);
 		model.addAttribute("propertiesBoolean", false);
+		model.addAttribute("oBookingsBoolean", false);
 
 		return "dashboard.html";
 	}
@@ -189,6 +238,8 @@ public class rentalController {
 		model.addAttribute("registerPropBoolean", false);
 
 		model.addAttribute("buttonBoolean", false);
+		model.addAttribute("oBookingsBoolean", false);
+		model.addAttribute("uBookingsBoolean", false);
 
 		model.addAttribute("statsBoolean", true);
 		model.addAttribute("usersBoolean", false);
@@ -209,6 +260,8 @@ public class rentalController {
 
 		model.addAttribute("buttonBoolean", true);
 		model.addAttribute("registerPropBoolean", false);
+		model.addAttribute("oBookingsBoolean", false);
+		model.addAttribute("uBookingsBoolean", false);
 
 		model.addAttribute("statsBoolean", false);
 		model.addAttribute("usersBoolean", true);
@@ -233,9 +286,11 @@ public class rentalController {
 	public String buscarUsers(@RequestParam("type") String type, @RequestParam("order") String order, Model model) {
 		model.addAttribute("userType", getUserType());
 		model.addAttribute("listaUsuarios", uSrv.busquedaPersonalizada(type, order));
+		model.addAttribute("uBookingsBoolean", false);
 
 		model.addAttribute("buttonBoolean", true);
 		model.addAttribute("registerPropBoolean", false);
+		model.addAttribute("oBookingsBoolean", false);
 
 		model.addAttribute("statsBoolean", false);
 		model.addAttribute("usersBoolean", true);
@@ -251,9 +306,11 @@ public class rentalController {
 	public String posts(Model model) {
 		model.addAttribute("listaPosts", rSrv.getAllPosts());
 		model.addAttribute("userType", getUserType());
+		model.addAttribute("uBookingsBoolean", false);
 
 		model.addAttribute("buttonBoolean", true);
 		model.addAttribute("registerPropBoolean", false);
+		model.addAttribute("oBookingsBoolean", false);
 
 		model.addAttribute("statsBoolean", false);
 		model.addAttribute("usersBoolean", false);
@@ -272,9 +329,11 @@ public class rentalController {
 	public String buscarPosts(@RequestParam("rating") String rating, @RequestParam("order") String order, Model model) {
 		model.addAttribute("userType", getUserType());
 		model.addAttribute("listaPosts", rSrv.getPosts(order, rating));
+		model.addAttribute("uBookingsBoolean", false);
 
 		model.addAttribute("buttonBoolean", true);
 		model.addAttribute("registerPropBoolean", false);
+		model.addAttribute("oBookingsBoolean", false);
 
 		model.addAttribute("statsBoolean", false);
 		model.addAttribute("usersBoolean", false);
@@ -296,6 +355,9 @@ public class rentalController {
 		model.addAttribute("usersBoolean", false);
 		model.addAttribute("postsBoolean", false);
 		model.addAttribute("propertiesBoolean", true);
+		model.addAttribute("oBookingsBoolean", false);
+		model.addAttribute("uBookingsBoolean", false);
+
 		return "dashboard.html";
 	}
 
@@ -313,6 +375,8 @@ public class rentalController {
 
 		model.addAttribute("buttonBoolean", true);
 		model.addAttribute("registerPropBoolean", false);
+		model.addAttribute("oBookingsBoolean", false);
+		model.addAttribute("uBookingsBoolean", false);
 
 		model.addAttribute("statsBoolean", false);
 		model.addAttribute("usersBoolean", false);

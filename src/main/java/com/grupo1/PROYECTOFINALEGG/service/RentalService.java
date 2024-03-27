@@ -10,10 +10,13 @@ import org.springframework.data.crossstore.ChangeSetPersister.NotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.grupo1.PROYECTOFINALEGG.Entity.Booking;
+import com.grupo1.PROYECTOFINALEGG.Entity.Client;
 import com.grupo1.PROYECTOFINALEGG.Entity.Imagen;
 import com.grupo1.PROYECTOFINALEGG.Entity.Owner;
 import com.grupo1.PROYECTOFINALEGG.Entity.Post;
 import com.grupo1.PROYECTOFINALEGG.Entity.Property;
+import com.grupo1.PROYECTOFINALEGG.Repositories.BookingRepository;
 import com.grupo1.PROYECTOFINALEGG.Repositories.ImagenRepository;
 import com.grupo1.PROYECTOFINALEGG.Repositories.PostRepository;
 import com.grupo1.PROYECTOFINALEGG.Repositories.PropertyRepository;
@@ -38,30 +41,33 @@ public class RentalService {
 	@Autowired
 	PostRepository postRepo;
 
+	@Autowired
+	BookingRepository bRepo;
+
 	public List<Property> getProperties() {
 
 		return pRepo.findAll();
 
 	}
-	
-	public List<Property> get5Properties(){
+
+	public List<Property> get5Properties() {
 
 		List<Property> random;
-		
+
 		random = pRepo.findByRatingDesc();
-		
+
 		List<Property> retorno = new ArrayList<>();
-		
-		for(int aux = 0; aux < random.size(); aux++) {
-			if(aux < 5) {
+
+		for (int aux = 0; aux < random.size(); aux++) {
+			if (aux < 5) {
 				retorno.add(random.get(aux));
 			} else {
 				break;
 			}
 		}
-		
+
 		return retorno;
-		
+
 	}
 
 	public Property saveProp(Property property) {
@@ -201,6 +207,14 @@ public class RentalService {
 		}
 
 		return ((precioBase + preciosSrv) * 0.10);
+	}
+
+	public void deleteBooking(int id) {
+		bRepo.deleteById(id);
+	}
+
+	public List<Booking> findByUserBooking(int id) {
+		return ((Client) uRepo.findById(id).get()).getBookings();
 	}
 
 }

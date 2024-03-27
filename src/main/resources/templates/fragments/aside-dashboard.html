@@ -33,5 +33,17 @@
 				Registrar propiedad
 			</span>
 		</a>
+		<a href="/dashboard/owner/reservas" class="dashboard__enlace " th:if="${userType eq 'OWNER'}">
+			<i class="fa-solid fa-calendar dashboard__icono"></i>
+			<span class="dashboard__menu-texto">
+				Reservas
+			</span>
+		</a>
+		<a href="/dashboard/client/reservas" class="dashboard__enlace " th:if="${userType eq 'CLIENT'}">
+			<i class="fa-solid fa-calendar dashboard__icono"></i>
+			<span class="dashboard__menu-texto">
+				Mis reservas
+			</span>
+		</a>
 	</nav>
 </aside>
