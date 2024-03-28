@@ -8,7 +8,7 @@
             </span>    
         </a>
 
-        <a href="/admin/users" class="dashboard__enlace ">
+        <a href="/admin/dashboard/users" class="dashboard__enlace ">
             <i class="fa-solid fa-users dashboard__icono"></i>
             <span class="dashboard__menu-texto">
                 Usuarios
@@ -22,23 +22,24 @@
             </span>    
         </a>
 
-        <a th:if="${userType eq 'OWNER' or userType eq 'ADMIN'}" href="/register-property" class="dashboard__enlace ">
+        <a 
+        href="/admin/dashboard/properties" class="dashboard__enlace ">
             <i class="fa-solid fa-house dashboard__icono"></i>
             <span class="dashboard__menu-texto">
                 Propiedades
             </span>    
         </a>
-        <!-- <a href="/dashboard" class="dashboard__enlace ">
+        <a href="/admin/dashboard/posts" class="dashboard__enlace ">
             <i class="fa-solid fa-hand-holding-dollar"></i>
             <span class="dashboard__menu-texto">
-                Servicios
+                Publicar
             </span>    
-        </a> -->
-        <!-- <a href="/dashboard" class="dashboard__enlace ">
-            <i class="fa-solid fa-gift dashboard__icono"></i>
+        </a>
+        <a th:if="${userType eq 'OWNER' or userType eq 'ADMIN'}" href="/register-property" class="dashboard__enlace ">
+            <i class="fa-solid fa-house-circle-check"></i>
             <span class="dashboard__menu-texto">
-             Veremos
+             Registrar Propiedad
             </span>    
-        </a> -->
+        </a>
     </nav>
 </aside>

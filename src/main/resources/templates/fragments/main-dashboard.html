@@ -1,37 +1,663 @@
 <div class="bloques">
-    <div class="bloques__grid">
-        <div class="bloque">
-            <h3 class="bloque__heading">Últimos Registros</h3>
+  <div class="bloques__grid">
+    <div class="bloque">
+      <h3 class="bloque__heading">Últimos Registros</h3>
 
-          
-                <div class="bloque__contenido">
-                    <p class="bloque__texto">
-                        aqui
-                    </p>
-                </div>
-        </div>
-
-        <div class="bloque">
-            <h3 class="bloque__heading">Ingresos totales</h3>
-            <p class="bloque__texto--cantidad">$</p>
-        </div>
-
-        <div class="bloque">
-            <h3 class="bloque__heading">verde</h3>
-                <div class="bloque__contenido">
-                    <p class="bloque__texto">
-                       aqui foreach
-                    </p>
-                </div>
-        </div>
-
-        <div class="bloque">
-            <h3 class="bloque__heading">Azuk</h3>
-           
-                <div class="bloque__contenido">
-                    <p class="bloque__texto">
-                       foreach
-                </div>
-        </div>
+      <div class="bloque__contenido">
+        <p class="bloque__texto">aqui</p>
+      </div>
     </div>
+
+    <div class="bloque">
+      <h3 class="bloque__heading">Ingresos totales</h3>
+      <p class="bloque__texto--cantidad">$</p>
+    </div>
+
+    <div class="bloque">
+      <h3 class="bloque__heading">verde</h3>
+      <div class="bloque__contenido">
+        <p class="bloque__texto">aqui foreach</p>
+      </div>
+    </div>
+
+    <div class="bloque">
+      <h3 class="bloque__heading">Azul</h3>
+
+      <div class="bloque__contenido">
+        <p class="bloque__texto">foreach</p>
+      </div>
+    </div>
+  </div>
 </div>
+
+<!--TABLA USERS-->
+<div
+  class="grupoDiv"
+  style="margin: 20px; display: flex; gap: 10px; height: 400px"
+  th:if="${usersBoolean}"
+>
+  <div
+    class="grupoDiv2"
+    style="
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      align-items: center;
+      justify-content: center;
+    "
+  >
+    <div class="card" id="filtrar" style="width: 10rem; display: none">
+      <form class="card-body" action="/admin/dashboard/users" method="post">
+        <h5 class="card-title">Búsqueda personalizada</h5>
+        <br />
+        <div class="form-group">
+          <label for="type">Tipo:</label>
+          <select class="form-control text-center" id="type" name="type">
+            <option value="CUALQUIERA" th:text="CUALQUIERA"></option>
+            <option value="ADMIN" th:text="ADMIN"></option>
+            <option value="OWNER" th:text="OWNER"></option>
+            <option value="CLIENT" th:text="CLIENT"></option>
+          </select>
+        </div>
+        <br />
+        <div class="form-group">
+          <label for="order">Orden:</label>
+          <select class="form-control text-center" id="order" name="order">
+            <option value="ASC">Ascendente</option>
+            <option value="DESC">Descendente</option>
+          </select>
+        </div>
+        <br />
+        <button type="submit" class="btn btn-primary">Buscar</button>
+      </form>
+    </div>
+  </div>
+  <div class="table" style="height: 100%; width: 100%; overflow-y: scroll">
+    <div class="grupoDiv" style="display: flex; gap: 10px">
+      <table class="table">
+        <thead>
+          <tr>
+            <th scope="col">ID</th>
+            <th scope="col">Nombre</th>
+            <th scope="col">Apellido</th>
+            <th scope="col">Email</th>
+            <th scope="col">Tipo</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr th:each="usuario : ${listaUsuarios}">
+            <form action="/admin/dashboard/users/edit" method="post">
+              <td scope="row" style="vertical-align: middle">
+                <input
+                  type="text"
+                  name="id"
+                  class="form-control"
+                  readonly="readonly"
+                  style="width: 36px; text-align: center"
+                  th:value="${usuario.id}"
+                />
+              </td>
+              <td style="vertical-align: middle">
+                <input
+                  type="text"
+                  name="username"
+                  class="form-control"
+                  readonly="true"
+                  th:value="${usuario.username}"
+                  th:id="${usuario.id}"
+                  required
+                />
+              </td>
+              <td style="vertical-align: middle">
+                <input
+                  type="text"
+                  name="lastname"
+                  class="form-control"
+                  readonly="true"
+                  th:value="${usuario.lastname}"
+                  th:id="${usuario.id}"
+                  required
+                />
+              </td>
+              <td style="vertical-align: middle">
+                <input
+                  type="email"
+                  name="email"
+                  class="form-control"
+                  readonly="true"
+                  th:value="${usuario.email}"
+                  th:id="${usuario.id}"
+                  aria-describedby="emailHelp"
+                  required
+                />
+              </td>
+              <td
+                style="vertical-align: middle; width: 100px; text-align: center"
+              >
+                <input
+                  type="text"
+                  class="form-control inputUser"
+                  readonly="true"
+                  th:value="${usuario.type}"
+                  th:id="${usuario.id}"
+                  required
+                />
+
+                <select
+                  class="form-control selectUser custom-select custom-select-sm"
+                  id="type"
+                  name="type"
+                  th:id="${usuario.id}"
+                  style="display: none; border-color: black"
+                >
+                  <option
+                    th:selected="(${usuario.type} eq 'ADMIN')"
+                    th:value="ADMIN"
+                    th:text="ADMIN"
+                  ></option>
+                  <option
+                    th:selected="(${usuario.type} eq 'OWNER')"
+                    th:value="OWNER"
+                    th:text="OWNER"
+                  ></option>
+                  <option
+                    th:selected="(${usuario.type} eq 'CLIENT')"
+                    th:value="CLIENT"
+                    th:text="CLIENT"
+                  ></option>
+                </select>
+              </td>
+              <td style="vertical-align: middle; text-align: center">
+                <button
+                  type="button"
+                  class="btn btn-primary btn-editar"
+                  onclick="edicionUsers(this)"
+                  style="width: 4rem"
+                >
+                  Editar
+                </button>
+                <button
+                  type="submit"
+                  class="btn btn-success btn-guardar"
+                  onclick="guardarCambiosUsers(this)"
+                  style="display: none; width: 5rem"
+                >
+                  Guardar
+                </button>
+              </td>
+              <td style="vertical-align: middle; text-align: center">
+                <button
+                  type="submit"
+                  class="btn btn-danger btn-eliminar"
+                  onclick="eliminarFilaUsers(this)"
+                  style="width: 5rem"
+                >
+                  Eliminar
+                </button>
+              </td>
+            </form>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<!--FIN TABLA USERS-->
+
+<!--______________________________________________________________________-->
+
+<!--TABLA POSTS-->
+
+<div
+  class="grupoDiv"
+  style="margin: 20px; display: flex; gap: 10px; height: 400px"
+  th:if="${postsBoolean}"
+>
+  <div
+    class="grupoDiv2"
+    style="
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      align-items: center;
+      justify-content: center;
+    "
+  >
+    <div class="card" id="filtrar" style="width: 10rem; display: none">
+      <form class="card-body" action="/admin/dashboard/posts" method="post">
+        <h5 class="card-title">Búsqueda personalizada</h5>
+        <br />
+        <div class="form-group">
+          <label for="rating">Rating:</label>
+          <select class="form-control text-center" id="rating" name="rating">
+            <option value="0" th:text="CUALQUIERA"></option>
+            <option value="5" th:text="5"></option>
+            <option value="4" th:text="4"></option>
+            <option value="3" th:text="3"></option>
+            <option value="2" th:text="2"></option>
+            <option value="1" th:text="1"></option>
+          </select>
+        </div>
+        <br />
+        <div class="form-group">
+          <label for="order">Orden:</label>
+          <select class="form-control text-center" id="order" name="order">
+            <option value="ASC">Ascendente</option>
+            <option value="DESC">Descendente</option>
+          </select>
+        </div>
+        <br />
+        <button type="submit" class="btn btn-primary">Buscar</button>
+      </form>
+    </div>
+  </div>
+  <div class="table" style="height: 100%; width: 100%; overflow-y: scroll">
+    <div class="grupoDiv" style="display: flex; gap: 10px">
+      <table class="table">
+        <thead>
+          <tr>
+            <th scope="col">ID</th>
+            <th scope="col">Rating</th>
+            <th scope="col">Comentario</th>
+            <th scope="col">Cliente</th>
+            <th scope="col">Propiedad</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr th:each="post : ${listaPosts}">
+            <form action="/admin/dashboard/posts/delete" method="post">
+              <td scope="row" style="vertical-align: middle">
+                <input
+                  type="text"
+                  name="id"
+                  class="form-control"
+                  readonly="readonly"
+                  style="width: 36px; text-align: center"
+                  th:value="${post.id}"
+                />
+              </td>
+              <td style="vertical-align: middle">
+                <input
+                  type="text"
+                  class="form-control"
+                  readonly="true"
+                  th:value="${post.rating}"
+                  th:id="${post.id}"
+                  required
+                />
+              </td>
+              <td style="vertical-align: middle">
+                <input
+                  type="text"
+                  class="form-control"
+                  readonly="true"
+                  th:value="${post.commentary}"
+                  th:id="${post.id}"
+                  required
+                />
+              </td>
+              <td style="vertical-align: middle">
+                <a href="/profile/${post.client.id}">
+                  <input
+                    type="text"
+                    class="form-control"
+                    readonly="true"
+                    th:value="${post.client.id}"
+                    th:id="${post.id}"
+                    required
+                  />
+                </a>
+              </td>
+              <td style="vertical-align: middle">
+                <a href="/profile/${post.property.id}">
+                  <input
+                    type="text"
+                    class="form-control"
+                    readonly="true"
+                    th:value="${post.property.id}"
+                    th:id="${post.id}"
+                    required
+                /></a>
+              </td>
+              <td style="vertical-align: middle; text-align: center">
+                <button
+                  type="submit"
+                  class="btn btn-danger btn-eliminar"
+                  style="width: 5rem"
+                >
+                  Eliminar
+                </button>
+              </td>
+            </form>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<!--FIN TABLA POSTS-->
+
+<!--______________________________________________________________________-->
+
+<!--TABLA PROPERTIES-->
+<div
+  class="grupoDiv"
+  style="margin: 20px; display: flex; gap: 10px; height: 400px"
+  th:if="${propertiesBoolean}"
+>
+  <div
+    class="grupoDiv2"
+    style="
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      align-items: center;
+      justify-content: center;
+    "
+  >
+    <div class="card" id="filtrar" style="width: 10rem; display: none">
+      <form
+        class="card-body"
+        action="/admin/dashboard/properties"
+        method="post"
+      >
+        <h5 class="card-title">Búsqueda personalizada</h5>
+        <br />
+        <div class="form-group">
+          <label for="type">Ordenar por:</label>
+          <select class="form-control text-center" id="type" name="type">
+            <option value="id">ID</option>
+            <option value="name">NOMBRE</option>
+            <option value="price">PRECIO</option>
+            <option value="rating">RATING GENERAL</option>
+          </select>
+        </div>
+        <br />
+        <div class="form-group">
+          <label for="order">Orden:</label>
+          <select class="form-control text-center" id="order" name="order">
+            <option value="ASC">Ascendente</option>
+            <option value="DESC">Descendente</option>
+          </select>
+        </div>
+        <br />
+        <button type="submit" class="btn btn-primary">Buscar</button>
+      </form>
+    </div>
+  </div>
+  <div class="table" style="height: 100%; width: 100%; overflow-y: scroll">
+    <div class="grupoDiv" style="display: flex; gap: 10px">
+      <table class="table">
+        <thead>
+          <tr>
+            <th scope="col">ID</th>
+            <th scope="col">Nombre</th>
+            <th scope="col">Dirección</th>
+            <th scope="col">Detalles</th>
+            <th scope="col">Precio por día</th>
+            <th scope="col">Cant. servicios</th>
+            <th scope="col">Rating general</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr th:each="property : ${listaProperties}">
+            <form action="/admin/dashboard/properties/delete" method="post">
+              <td scope="row" style="vertical-align: middle">
+                <input
+                  type="text"
+                  name="id"
+                  class="form-control"
+                  readonly="readonly"
+                  style="width: 36px; text-align: center"
+                  th:value="${property.id}"
+                />
+              </td>
+              <td style="vertical-align: middle">
+                <input
+                  type="text"
+                  class="form-control"
+                  readonly="true"
+                  th:value="${property.name}"
+                  th:id="${property.id}"
+                  required
+                />
+              </td>
+              <td style="vertical-align: middle">
+                <input
+                  type="text"
+                  class="form-control"
+                  readonly="true"
+                  th:value="${property.address}"
+                  th:id="${property.id}"
+                  required
+                />
+              </td>
+              <td style="vertical-align: middle">
+                <input
+                  type="text"
+                  class="form-control"
+                  readonly="true"
+                  th:value="${property.details}"
+                  th:id="${property.id}"
+                  required
+                />
+              </td>
+              <td style="vertical-align: middle">
+                <input
+                  type="text"
+                  class="form-control"
+                  readonly="true"
+                  th:value="${property.pricePerDay}"
+                  th:id="${property.id}"
+                  required
+                />
+              </td>
+              <td style="vertical-align: middle">
+                <input
+                  type="text"
+                  class="form-control"
+                  readonly="true"
+                  th:value="${property.services.length}"
+                  th:id="${property.id}"
+                  required
+                />
+              </td>
+              <td style="vertical-align: middle">
+                <input
+                  type="text"
+                  class="form-control"
+                  readonly="true"
+                  th:value="${property.rating}"
+                  th:id="${property.id}"
+                  required
+                />
+              </td>
+              <td style="vertical-align: middle; text-align: center">
+                <button
+                  type="submit"
+                  class="btn btn-danger btn-eliminar"
+                  style="width: 5rem"
+                >
+                  Eliminar
+                </button>
+              </td>
+            </form>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+<!--FIN TABLA PROPERTIES-->
+
+<!--______________________________________________________________________-->
+
+<script>
+  //BOTON FILTRADO DE TABLAS
+  function toggleFiltrado() {
+    var div = document.getElementById("filtrar");
+    if (div.style.display === "none") {
+      div.style.display = "inline";
+    } else {
+      div.style.display = "none";
+    }
+  }
+</script>
+
+<!--______________________________________________________________________-->
+
+<script>
+  //EDICION Y ELIMINACION TABLA USERS
+  function edicionUsers(boton) {
+    var fila = boton.closest("tr");
+    var input = fila.querySelector(".inputUser");
+    var select = fila.querySelector(".selectUser");
+    var botonEditar = fila.querySelector(".btn-editar");
+    var botonGuardar = fila.querySelector(".btn-guardar");
+    var botonEliminar = fila.querySelector(".btn-eliminar");
+
+    document.querySelectorAll("fila-editando").forEach(function (otraFila) {
+      if (otraFila !== fila) {
+        desactivarEdicionUsers(otraFila);
+      }
+    });
+
+    fila.classList.toggle("fila-editando");
+    botonEditar.style.display = "none";
+    botonGuardar.style.display = "inline";
+    input.style.display = "none";
+    select.style.display = "inline";
+    botonEliminar.disabled = fila.classList.contains("fila-editando");
+
+    var form = fila.querySelector("form");
+    form.action = "";
+  }
+
+  function desactivarEdicionUsers(fila) {
+    var input = fila.querySelector(".inputUser");
+    var select = fila.querySelector(".selectUser");
+    var botonEditar = fila.querySelector(".btn-editar");
+    var botonGuardar = fila.querySelector(".btn-guardar");
+    var botonEliminar = fila.querySelector(".btn-eliminar");
+
+    for (var i = 0; i < inputs.length; i++) {
+      inputs[i].readOnly = true;
+    }
+
+    fila.classList.remove("fila-editando");
+    botonEditar.style.display = "none";
+    botonGuardar.style.display = "none";
+    input.style.display = "inline";
+    select.style.display = "none";
+    botonEditar.style.display = "inline";
+    botonEliminar.disabled = true;
+  }
+
+  function guardarCambiosUsers(boton) {
+    var fila = boton.closest("tr");
+    var form = fila.querySelector("form");
+    form.action = "/admin/dashboard/users/edit";
+  }
+
+  function eliminarFilaUsers(boton) {
+    var fila = boton.closest("tr");
+    var form = fila.querySelector("form");
+    form.action = "/admin/dashboard/users/delete";
+  }
+</script>
+
+<main class="auth">
+    <h2 class="auth__heading">Portal de Registro de Propiedades</h2>
+    <form method="post" action="/register-property" enctype="multipart/form-data">
+        <div class="formulario__campo">
+            <label for="propertyName">Nombre de la propiedad</label>
+            <input type="text" id="propertyName" class="formulario__input" placeholder="Nombre"
+                name="propertyName" required>
+        </div>
+        <div class="formulario__campo">
+            <label for="propertyAddress">Calle y número</label>
+            <input type="text" id="propertyAddress" class="formulario__input" placeholder="Ej: Solis 2988 "
+                name="propertyAddress" required>
+        </div>
+        <div class="formulario__campo">
+            <label for="propertyLocalidad">Localidad o Barrio</label>
+            <input type="text" id="propertyLocalidad" class="formulario__input"
+                placeholder="Ej: Avellaneda, Tigre ó Retiro" name="propertyLocalidad" required>
+        </div>
+        <div class="formulario__campo">
+            <label for="propertyProvincia">Provincia</label>
+            <input type="text" id="propertyProvincia" class="formulario__input"
+                placeholder="Ej: Buenos Aires, Mendoza ó CABA" name="propertyProvincia" required>
+        </div>
+        <div class="formulario__campo">
+            <label for="pricePerDay">Precio base por día</label>
+            <input type="number" id="pricePerDay" class="formulario__input" placeholder="Pesos"
+                name="pricePerDay" required>
+        </div>
+        <br>
+        <div class="formulario__campo">
+            <label for="imagenes">Selecciona imágenes:</label>
+            <input type="file" name="imagenes" id="imagenes" accept="image/*" multiple>
+            <br>
+            <label for="details">Introduce detalles (máximo 255 caracteres): </label>
+
+            <input type="text" id="details" class="formulario__input" placeholder="Descripción" name="details"
+                maxlength="255">
+        </div>
+        <div id="inputContainer">
+            <!-- Aquí se agregarán dinámicamente los inputs -->
+        </div>
+        <button type="button" onclick="agregarInput()">Agregar Servicios</button>
+        <button type="button" onclick="eliminarUltimoInput()">Eliminar Último Servicio</button>
+        <button type="submit">Enviar</button>
+    </form>
+</main>
+<script>
+    function agregarInput() {
+        var inputContainer = document.getElementById('inputContainer');
+
+        // Crear un nuevo objeto de entrada con nombre y precio
+        var nuevoInput = document.createElement('div');
+        nuevoInput.innerHTML = `
+<input type="text" name="nombre[]" placeholder="Nombre">
+<input type="number" name="precio[]" placeholder="Precio">
+`;
+
+        inputContainer.appendChild(nuevoInput);
+    }
+
+    function eliminarUltimoInput() {
+        var inputContainer = document.getElementById('inputContainer');
+        var inputs = inputContainer.querySelectorAll('div');
+
+        // Verificar si hay inputs antes de intentar eliminar
+        if (inputs.length > 0) {
+            inputContainer.removeChild(inputs[inputs.length - 1]);
+        }
+    }
+
+    document.getElementById('dynamicForm').addEventListener('submit', function (event) {
+        event.preventDefault(); // Evita que el formulario se envíe de forma convencional
+
+        // Obtener los valores de los inputs
+        var nombres = document.getElementsByName('nombre[]');
+        var precios = document.getElementsByName('precio[]');
+
+        var productos = [];
+
+        // Crear objetos con nombre y precio
+        for (var i = 0; i < nombres.length; i++) {
+            var nombre = nombres[i].value;
+            var precio = parseFloat(precios[i].value); // Convertir el precio a número
+            productos.push({ nombre: nombre, precio: precio });
+        }
+
+        // Enviar los valores al endpoint (simulado aquí con un mensaje en la consola)
+        console.log('Productos enviados al endpoint:', productos);
+    });
+</script>
