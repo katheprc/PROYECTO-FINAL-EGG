@@ -10,7 +10,9 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -37,9 +39,8 @@ public class Booking {
 	private Date date;
 	private Double total;
 
-	@ElementCollection
-	@CollectionTable(name = "listOfHiredServices")
-	@OneToMany
+	@ManyToMany
+	@JoinTable(name = "booking_services", joinColumns = @JoinColumn(name = "booking_id"), inverseJoinColumns = @JoinColumn(name = "service_id"))
 	private List<Service> services = new ArrayList<>();
 
 }
