@@ -250,4 +250,10 @@ public class RentalService {
 		return bRepo.findById(id).get();
 	}
 
+	public void updatePropBooking(Integer id, Booking savedBooking) {
+		Property prop = getPropById(id).get();
+		prop.addBooking(savedBooking);
+		pRepo.save(prop);
+	}
+
 }

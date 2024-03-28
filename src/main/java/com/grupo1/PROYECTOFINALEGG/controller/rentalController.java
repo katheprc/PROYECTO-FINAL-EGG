@@ -1,11 +1,13 @@
 package com.grupo1.PROYECTOFINALEGG.controller;
 
 import java.io.IOException;
+import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -21,14 +23,12 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.view.RedirectView;
 
 import com.grupo1.PROYECTOFINALEGG.Entity.Booking;
-import com.grupo1.PROYECTOFINALEGG.Entity.BookingRequest;
 import com.grupo1.PROYECTOFINALEGG.Entity.Client;
 import com.grupo1.PROYECTOFINALEGG.Entity.Owner;
 import com.grupo1.PROYECTOFINALEGG.Entity.Property;
@@ -154,17 +154,37 @@ public class rentalController {
 		model.addAttribute("userType", getUserType());
 		model.addAttribute("property", getProperty(id));
 		model.addAttribute("listaSrv", getProperty(id).getServices());
+		List<String> fechasDeshabilitadas = new ArrayList<>();
+		for (Booking booking : getProperty(id).getBookings()) {
+			fechasDeshabilitadas.add(booking.getDate());
+		}
+		model.addAttribute("fechasDeshabilitadas", fechasDeshabilitadas);
+
+		List<String> fechasNombre = new ArrayList<>();
+		for (String fecha : fechasDeshabilitadas) {
+			SimpleDateFormat formatoEntrada = new SimpleDateFormat("yyyy-MM-dd");
+			try {
+				Date fecha2 = formatoEntrada.parse(fecha);
+				DateFormat formatoSalida = new SimpleDateFormat("d 'de' MMMM',' yyyy", new Locale("es", "ES"));
+				String fechaFormateada = formatoSalida.format(fecha2);
+				fechasNombre.add(fechaFormateada);
+			} catch (ParseException e) {
+				e.printStackTrace();
+			}
+		}
+		model.addAttribute("fechasNombre", fechasNombre);
+		if (fechasNombre.size() > 0) {
+			model.addAttribute("fechasBoolean", true);
+		}
 		return "booking.html";
 	}
 
 	@PostMapping("/register-booking")
-	public RedirectView regBooking(@RequestParam("services[]") String[] services,
+	public RedirectView regBooking(@RequestParam(required = false, name = "services[]") String[] services,
 			@RequestParam("entry-date") String date, @RequestParam("id") String id) {
 		try {
-			SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
-			Date date1 = formatter.parse(date);
-			registerBooking(Integer.parseInt(id), services, date1, (Client) getUser());
-		} catch (ParseException | ServletException | IOException e) {
+			registerBooking(Integer.parseInt(id), services, date, (Client) getUser());
+		} catch (ServletException | IOException e) {
 			e.printStackTrace();
 		}
 		return new RedirectView("/property/" + id, true);
@@ -242,7 +262,6 @@ public class rentalController {
 
 		model.addAttribute("statsBoolean", true);
 
-
 		return "dashboard.html";
 
 	}
@@ -297,7 +316,7 @@ public class rentalController {
 		model.addAttribute("buttonBoolean", true);
 
 		model.addAttribute("postsBoolean", true);
-	
+
 		return "dashboard.html";
 	}
 
@@ -314,7 +333,6 @@ public class rentalController {
 
 		model.addAttribute("buttonBoolean", true);
 
-
 		model.addAttribute("postsBoolean", true);
 
 		return "dashboard.html";
@@ -329,8 +347,6 @@ public class rentalController {
 		model.addAttribute("userType", getUserType());
 		model.addAttribute("buttonBoolean", true);
 		model.addAttribute("propertiesBoolean", true);
-
-
 		return "dashboard.html";
 	}
 
@@ -412,7 +428,7 @@ public class rentalController {
 		uSrv.updateUserProperty((Owner) getUser(), rSrv.saveProp(property));
 	}
 
-	public void registerBooking(Integer id, String[] services, Date date, Client client)
+	public void registerBooking(Integer id, String[] services, String date, Client client)
 			throws ServletException, IOException {
 
 		Booking booking = new Booking();
@@ -439,8 +455,10 @@ public class rentalController {
 		booking.setTotal(total);
 		booking.setUser(client);
 		booking.setOwner((Owner) (uSrv.getUserById(getProperty(id).getOwnerId()).get()));
+		Booking savedBooking = rSrv.saveBooking(booking);
+		uSrv.updateUserBooking(client, rSrv.getBookingById(savedBooking.getId()));
+		rSrv.updatePropBooking(id, savedBooking);
 
-		uSrv.updateUserBooking(client, rSrv.getBookingById(rSrv.saveBooking(booking).getId()));
 	}
 
 	public Property getProperty(Integer id) {

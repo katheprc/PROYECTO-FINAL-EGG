@@ -47,6 +47,11 @@ public class Property {
 	@OneToMany
 	private List<Post> posts;
 
+	@ElementCollection
+	@CollectionTable(name = "listOfPropBookings")
+	@OneToMany
+	private List<Booking> bookings;
+
 	public void addImg(String img) {
 		this.imgs.add(img);
 	}
@@ -59,4 +64,7 @@ public class Property {
 		this.posts.add(post);
 	}
 
+	public void addBooking(Booking booking) {
+		this.bookings.add(booking);
+	}
 }

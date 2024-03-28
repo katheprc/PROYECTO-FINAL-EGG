@@ -23,6 +23,26 @@
   </head>
 
   <body>
+
+
+
+    <style>
+      .highlighted {
+        background-color: rgb(255, 99, 99);
+        color: white;
+      }
+
+      .fechasElegidas {
+        position: absolute;
+        margin: auto;
+        transform: translateY(50%);
+      }
+
+      .fechasElegidas ul li {
+        font-size: large;
+      }
+    </style>
+
     <div className="barra">
 
       <div className="barra__contenido">
@@ -51,6 +71,13 @@
       </div>
     </div>
 
+
+    <div class="fechasElegidas" th:if="${fechasBoolean}">
+      <h3>Fechas no disponibles para reserva</h3>
+      <ul>
+        <li th:each="fecha: ${fechasNombre}" th:text="${fecha}"></li>
+      </ul>
+    </div>
     <main class="auth">
       <h2 class="auth__heading">Registro de Alquileres</h2>
       <div class="container mt-5">
@@ -69,11 +96,11 @@
         <input type="text" name="id" th:value="${property.id}" hidden>
 
         <label for="date">Fecha de Reserva:</label><br><br>
-        <label>Desde: </label>
-        <input type="date" id="entry-date" name="entry-date" class="formulario__input" min="" required> <br><br>
+        <input type="date" id="entry-date" name="entry-date" class="formulario__input" min="" required> <span
+          id="estado-fecha"></span>
+        <br><br>
+
         <label for="servicios">Servicios Adicionales:</label><br><br>
-
-
 
         <label th:each="servicio : ${listaSrv}">
           <input type="checkbox" class="service-checkbox" th:id="${servicio.id}" name="services[]"
@@ -86,7 +113,7 @@
         <p>Total: $<span id="totalAmount" name="total">0</span></p>
         <br> <br>
 
-        <button type="submit">Confirmar Reserva</button>
+        <button type="submit" id="submit-button">Confirmar Reserva</button>
       </form>
     </main>
 
@@ -135,10 +162,55 @@
 
       // Llama a la función inicialmente para deshabilitar el día de mañana y calcular el total
       calcularTotal();
+
+
+
+
     </script>
 
-    <script>
 
+    <script th:inline="javascript">
+      /* Obtenemos la lista de fechas resaltadas desde el modelo de Thymeleaf */
+      var fechasResaltadas = /*[[${fechasDeshabilitadas}]]*/[];
+
+      document.addEventListener('DOMContentLoaded', function () {
+        var fechaInput = document.getElementById('entry-date');
+        var estadoFecha = document.getElementById('estado-fecha');
+        var submitButton = document.getElementById('submit-button');
+
+        // Función para verificar si una fecha está en la lista de fechas resaltadas
+        function esFechaResaltada(fecha) {
+          return fechasResaltadas.includes(fecha);
+        }
+
+        // Función para aplicar el resaltado a la fecha seleccionada
+        function aplicarResaltado() {
+          var fechaSeleccionada = fechaInput.value;
+          if (!fechaSeleccionada) {
+            // Si no hay fecha seleccionada, deshabilitar el botón de submit y mostrar mensaje vacío
+            estadoFecha.textContent = '';
+            submitButton.disabled = true;
+            return;
+          }
+          if (esFechaResaltada(fechaSeleccionada)) {
+            fechaInput.classList.add('highlighted');
+            estadoFecha.textContent = 'Fecha no disponible';
+            estadoFecha.style.color = 'red';
+            submitButton.disabled = true; // Deshabilitar el botón de submit
+          } else {
+            fechaInput.classList.remove('highlighted');
+            estadoFecha.textContent = 'Fecha disponible';
+            estadoFecha.style.color = 'green';
+            submitButton.disabled = false; // Habilitar el botón de submit
+          }
+        }
+
+        // Escuchar cambios en la fecha seleccionada
+        fechaInput.addEventListener('change', aplicarResaltado);
+
+        // Aplicar el resaltado inicialmente
+        aplicarResaltado();
+      });
     </script>
 
   </body>
