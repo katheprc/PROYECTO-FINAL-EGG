@@ -209,10 +209,6 @@ public class RentalService {
 		return ((precioBase + preciosSrv) * 0.10);
 	}
 
-	public void deleteBooking(int id) {
-		bRepo.deleteById(id);
-	}
-
 	public List<Booking> findByUserBooking(int id) {
 		return ((Client) uRepo.findById(id).get()).getBookings();
 	}
@@ -254,6 +250,51 @@ public class RentalService {
 		Property prop = getPropById(id).get();
 		prop.addBooking(savedBooking);
 		pRepo.save(prop);
+	}
+
+	public void deleteBooking(int id) {
+		Property prop = pRepo.getById(bRepo.findById(id).get().getProperty());
+
+		for (Booking book : prop.getBookings()) {
+			if (book.getId() == id) {
+				prop.getBookings().remove(book);
+				pRepo.save(prop);
+				break;
+			}
+		}
+
+		Client client = bRepo.findById(id).get().getUser();
+
+		for (Booking book : client.getBookings()) {
+			if (book.getId() == id) {
+				client.getBookings().remove(book);
+				uRepo.save(client);
+				break;
+			}
+		}
+
+		bRepo.deleteById(id);
+	}
+
+	public Post registerPost(Property prop, Post post, Integer bookId) {
+
+		Post savedPost = postRepo.save(post);
+		prop.addPost(savedPost);
+		prop.addRating(post.getRating());
+		Booking booking = bRepo.getById(bookId);
+
+		booking.setPost(true);
+
+		bRepo.save(booking);
+
+		pRepo.save(prop);
+
+		return savedPost;
+
+	}
+
+	public Booking updateBookBool(Booking book) {
+		return bRepo.save(book);
 	}
 
 }

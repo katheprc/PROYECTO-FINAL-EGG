@@ -29,7 +29,7 @@ public class Property {
 
 	private Double pricePerDay;
 
-	private Integer rating = 0;
+	private Double rating = 0.0;
 
 	private Integer ownerId;
 
@@ -43,7 +43,7 @@ public class Property {
 	private List<Service> services = new ArrayList<>();
 
 	@ElementCollection
-	@CollectionTable(name = "listOfPosts")
+	@CollectionTable(name = "listOfPropPosts")
 	@OneToMany
 	private List<Post> posts;
 
@@ -60,11 +60,23 @@ public class Property {
 		this.services.add(srv);
 	}
 
-	public void addPosts(Post post) {
+	public void addPost(Post post) {
 		this.posts.add(post);
 	}
 
 	public void addBooking(Booking booking) {
 		this.bookings.add(booking);
+	}
+
+	public void addRating(Integer rating2) {
+
+		Double ratingTotal = 0.0;
+
+		for (Post post : posts) {
+			ratingTotal = ratingTotal + post.getRating();
+		}
+
+		this.rating = ratingTotal / posts.size();
+
 	}
 }

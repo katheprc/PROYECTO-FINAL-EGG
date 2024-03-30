@@ -4,7 +4,10 @@ import java.io.IOException;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
@@ -31,6 +34,7 @@ import org.springframework.web.servlet.view.RedirectView;
 import com.grupo1.PROYECTOFINALEGG.Entity.Booking;
 import com.grupo1.PROYECTOFINALEGG.Entity.Client;
 import com.grupo1.PROYECTOFINALEGG.Entity.Owner;
+import com.grupo1.PROYECTOFINALEGG.Entity.Post;
 import com.grupo1.PROYECTOFINALEGG.Entity.Property;
 import com.grupo1.PROYECTOFINALEGG.Entity.User;
 import com.grupo1.PROYECTOFINALEGG.Exceptions.MyException;
@@ -86,7 +90,68 @@ public class rentalController {
 		model.addAttribute("ingresosTotales", rSrv.ingresosTotales());
 		model.addAttribute("oBookingsBoolean", true);
 
+		Date today = new Date();
+		String date = (1900 + today.getYear()) + "-" + (today.getMonth() + 1) + "-" + today.getDate();
+		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-M-dd");
+
+		LocalDate fechaHoy = LocalDate.parse(date, formatter);
+		List<Booking> listaReservas = new ArrayList<>();
+
+		for (Property prop : ((Owner) getUser()).getProperties()) {
+			for (Booking book : prop.getBookings()) {
+				LocalDate fechaBook = LocalDate.parse(book.getDate(), formatter);
+				if (fechaHoy.compareTo(fechaBook) > 0) {
+					book.setBool(true);
+					rSrv.updateBookBool(book);
+				} else {
+					book.setBool(false);
+					listaReservas.add(rSrv.updateBookBool(book));
+				}
+			}
+
+		}
+		model.addAttribute("listaReservas", listaReservas);
+
 		return "dashboard.html";
+	}
+
+	@GetMapping("/dashboard/owner/historialReservas")
+	public String dashboardOwnerHistorialReservas(Model model) {
+		model.addAttribute("userType", getUserType());
+		model.addAttribute("ultimosRegistros", uSrv.ultimosRegistros());
+		model.addAttribute("ingresosTotales", rSrv.ingresosTotales());
+		model.addAttribute("oHBookingsBoolean", true);
+		Date today = new Date();
+		String date = (1900 + today.getYear()) + "-" + (today.getMonth() + 1) + "-" + today.getDate();
+		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-M-dd");
+
+		LocalDate fechaHoy = LocalDate.parse(date, formatter);
+		List<Booking> listaReservas = new ArrayList<>();
+
+		for (Property prop : ((Owner) getUser()).getProperties()) {
+			for (Booking book : prop.getBookings()) {
+				LocalDate fechaBook = LocalDate.parse(book.getDate(), formatter);
+				if (fechaHoy.compareTo(fechaBook) > 0) {
+					book.setBool(true);
+
+					listaReservas.add(rSrv.updateBookBool(book));
+
+				} else {
+					book.setBool(false);
+					rSrv.updateBookBool(book);
+				}
+
+			}
+
+		}
+		model.addAttribute("listaReservas", listaReservas);
+		return "dashboard.html";
+	}
+
+	@PostMapping("/dashboard/owner/reservas/delete")
+	public RedirectView deleteOBooking(@RequestParam("id") String id, Model model) {
+		rSrv.deleteBooking(Integer.parseInt(id));
+		return new RedirectView("/dashboard/owner/reservas", true);
 	}
 
 	@GetMapping("/dashboard/client")
@@ -101,7 +166,51 @@ public class rentalController {
 		model.addAttribute("ultimosRegistros", uSrv.ultimosRegistros());
 		model.addAttribute("ingresosTotales", rSrv.ingresosTotales());
 		model.addAttribute("uBookingsBoolean", true);
-		model.addAttribute("listaReservas", rSrv.findByUserBooking(getUser().getId()));
+		Date today = new Date();
+		String date = (1900 + today.getYear()) + "-" + (today.getMonth() + 1) + "-" + today.getDate();
+		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-M-dd");
+
+		LocalDate fechaHoy = LocalDate.parse(date, formatter);
+		List<Booking> listaReservas = new ArrayList<>();
+
+		for (Booking book : ((Client) getUser()).getBookings()) {
+			LocalDate fechaBook = LocalDate.parse(book.getDate(), formatter);
+			if (fechaHoy.compareTo(fechaBook) > 0) {
+				book.setBool(true);
+				rSrv.updateBookBool(book);
+			} else {
+				book.setBool(false);
+				listaReservas.add(rSrv.updateBookBool(book));
+			}
+		}
+		model.addAttribute("listaReservas", listaReservas);
+		return "dashboard.html";
+	}
+
+	@GetMapping("/dashboard/client/historialReservas")
+	public String dashboardClientHistorialReservas(Model model) {
+		model.addAttribute("userType", getUserType());
+		model.addAttribute("ultimosRegistros", uSrv.ultimosRegistros());
+		model.addAttribute("ingresosTotales", rSrv.ingresosTotales());
+		model.addAttribute("uHBookingsBoolean", true);
+		Date today = new Date();
+		String date = (1900 + today.getYear()) + "-" + (today.getMonth() + 1) + "-" + today.getDate();
+		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-M-dd");
+
+		LocalDate fechaHoy = LocalDate.parse(date, formatter);
+		List<Booking> listaReservas = new ArrayList<>();
+
+		for (Booking book : ((Client) getUser()).getBookings()) {
+			LocalDate fechaBook = LocalDate.parse(book.getDate(), formatter);
+			if (fechaHoy.compareTo(fechaBook) > 0) {
+				book.setBool(true);
+				listaReservas.add(rSrv.updateBookBool(book));
+			} else {
+				book.setBool(false);
+				rSrv.updateBookBool(book);
+			}
+		}
+		model.addAttribute("listaReservas", listaReservas);
 		return "dashboard.html";
 	}
 
@@ -155,9 +264,23 @@ public class rentalController {
 		model.addAttribute("property", getProperty(id));
 		model.addAttribute("listaSrv", getProperty(id).getServices());
 		List<String> fechasDeshabilitadas = new ArrayList<>();
-		for (Booking booking : getProperty(id).getBookings()) {
-			fechasDeshabilitadas.add(booking.getDate());
+
+		Date today = new Date();
+		String date = (1900 + today.getYear()) + "-" + (today.getMonth() + 1) + "-" + today.getDate();
+		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-M-dd");
+
+		LocalDate fechaHoy = LocalDate.parse(date, formatter);
+
+		for (Booking book : getProperty(id).getBookings()) {
+			LocalDate fechaBook = LocalDate.parse(book.getDate(), formatter);
+
+			if (!(fechaHoy.compareTo(fechaBook) >= 0)) {
+				fechasDeshabilitadas.add(book.getDate());
+
+			}
+
 		}
+
 		model.addAttribute("fechasDeshabilitadas", fechasDeshabilitadas);
 
 		List<String> fechasNombre = new ArrayList<>();
@@ -187,7 +310,7 @@ public class rentalController {
 		} catch (ServletException | IOException e) {
 			e.printStackTrace();
 		}
-		return new RedirectView("/property/" + id, true);
+		return new RedirectView("/dashboard/client/reservas", true);
 	}
 
 	@PostMapping("/registerSuccess")
@@ -209,6 +332,81 @@ public class rentalController {
 
 			return "register.html";
 		}
+	}
+
+	@GetMapping("/post/{id}/{bookId}")
+	public String Post(@PathVariable Integer id, @PathVariable Integer bookId, Model model) {
+
+		model.addAttribute("userType", getUserType());
+		model.addAttribute("propId", id);
+		model.addAttribute("bookId", bookId);
+		Date today = new Date();
+		String date = (1900 + today.getYear()) + "-" + (today.getMonth() + 1) + "-" + today.getDate();
+		model.addAttribute("today", date);
+
+		return "post.html";
+	}
+
+	@PostMapping("/post")
+	public RedirectView registerPost(@RequestParam("propId") String id, @RequestParam("details") String details,
+			@RequestParam("imagen") MultipartFile imagen,
+			@RequestParam("rating") String rating, @RequestParam("bookId") String bookId,
+			HttpServletRequest request, HttpServletResponse response,
+			Model model) throws ServletException, IOException {
+
+		Post post = new Post();
+		Date today = new Date();
+		String month = "";
+		switch (today.getMonth() + 1) {
+			case 1:
+				month = "Enero";
+				break;
+			case 2:
+				month = "Febrero";
+				break;
+			case 3:
+				month = "Marzo";
+				break;
+			case 4:
+				month = "Abril";
+				break;
+			case 5:
+				month = "Mayo";
+				break;
+			case 6:
+				month = "Junio";
+				break;
+			case 7:
+				month = "Julio";
+				break;
+			case 8:
+				month = "Agosto";
+				break;
+			case 9:
+				month = "Septiembre";
+				break;
+			case 10:
+				month = "Octubre";
+				break;
+			case 11:
+				month = "Noviembre";
+				break;
+			case 12:
+				month = "Diciembre";
+				break;
+			default:
+				break;
+		}
+
+		String date = today.getDate() + " de " + month + ", " + (1900 + today.getYear());
+		Integer num = rSrv.subirImagen(imagen);
+
+		post.addImg(Utility.getSiteUrl(request) + "/api/image/" + num);
+
+		savePost(Integer.parseInt(id), (Client) getUser(), rating, details, post, date, Integer.parseInt(bookId));
+
+		return new RedirectView("/dashboard/client/reservas", true);
+
 	}
 
 	@GetMapping("/dashboard/owner/register-property")
@@ -463,6 +661,19 @@ public class rentalController {
 
 	public Property getProperty(Integer id) {
 		return rSrv.getPropById(id).get();
+	}
+
+	public void savePost(Integer propId, Client client, String rating, String details, Post post, String date,
+			Integer bookId) {
+
+		post.setClient(client);
+		post.setProperty(getProperty(propId));
+		post.setCommentary(details);
+		post.setRating(Integer.parseInt(rating));
+		post.setDate(date);
+
+		client.addPosts(rSrv.registerPost(getProperty(propId), post, bookId));
+		uSrv.updateUser(client);
 	}
 
 }

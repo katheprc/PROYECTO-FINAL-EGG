@@ -125,7 +125,7 @@
 
         // Deshabilitar el día de mañana para seleccionar
         var tomorrow = new Date();
-        tomorrow.setDate(tomorrow.getDate());
+        tomorrow.setDate(tomorrow.getDate() + 1);
         var tomorrowStr = tomorrow.toISOString().split('T')[0];
         document.getElementById('entry-date').min = tomorrowStr;
 
@@ -139,10 +139,7 @@
         // Calcula el total general (multiplica por 1 si es el mismo día de entrada y salida, de lo contrario, calcula el número de días de estancia)
         var days = 1;
         var totalAmount = pricePerDay;
-        if (entryDate < tomorrow) {
-          alert("La fecha de entrada debe ser a partir de mañana.");
-          return false;
-        }
+
 
         // Calcula el total general
         var totalAmount = pricePerDay + totalServices;
@@ -211,6 +208,18 @@
         // Aplicar el resaltado inicialmente
         aplicarResaltado();
       });
+    </script>
+
+    <script>
+      window.onload = function () {
+        // Obtener el elemento de entrada de fecha
+        var fechaInput = document.getElementById('entry-date');
+
+        // Deshabilitar la entrada de teclado
+        fechaInput.addEventListener('keydown', function (event) {
+          event.preventDefault();
+        });
+      };
     </script>
 
   </body>

@@ -78,7 +78,8 @@
 						</button>
 					</a>
 					<p th:if="${userType ne 'CLIENT'}" style="font-size: large;"><a href="/login">Inicia sesión</a> o
-						<a href="/register">regístrate</a> como cliente para reservar!</p>
+						<a href="/register">regístrate</a> como cliente para reservar!
+					</p>
 
 				</section>
 			</div>
@@ -94,35 +95,36 @@
 					</p>
 				</div>
 			</div>
+			<br> <br>
+			<div class="comment-div">
+				<h2>Comentarios Recientes</h2>
+				<section class="comments-display">
+					<article class="comment" th:each="post: ${property.posts}">
+						<header>
+							<h3 th:text="${post.client.username + ' ' + post.client.lastname}"></h3>
+							<time th:text="${post.date}"></time> <br>
+							<span th:switch="${post.rating}">
+								<span th:case="5">★★★★★</span>
+								<span th:case="4">★★★★☆</span>
+								<span th:case="3">★★★☆☆</span>
+								<span th:case="2">★★☆☆☆</span>
+								<span th:case="1">★☆☆☆☆</span>
+							</span>
+						</header>
+						<p th:text="${post.commentary}">Este es un comentario de ejemplo para mostrar cómo se verá.
+						</p>
+						<div class="imagen-con-texto">
+							<a th:href="${post.img}" target="_blank">
+								<img th:src="${post.img}" alt="">
+								<div class="texto">Clickear para ver</div>
+							</a>
+						</div>
+					</article>
+				</section>
+			</div>
+
 		</main>
-		<!--<section class="comments-display">
-		<h2>Comentarios Recientes</h2>
-		<article class="comment">
-			<header>
-				<h3>Nombre del Usuario</h3>
-				<time datetime="2021-01-26T09:00">26 Enero, 2021</time>
-			</header>
-			<p>Este es un comentario de ejemplo para mostrar cómo se verá.</p>
-		</article>-->
-		<!-- Repite el artículo para más comentarios -->
-		<!--</section>
-	<section class="comments-form">
-		<section class="comments-form">
-			<form>
-				<h2>Deja tu comentario</h2>
-				<textarea placeholder="Escribe tu comentario aquí..." required></textarea>
-				<label for="rating">Tu puntuación:</label>
-				<select name="rating" id="rating">
-					<option value="5">★★★★★</option>
-					<option value="4">★★★★☆</option>
-					<option value="3">★★★☆☆</option>
-					<option value="2">★★☆☆☆</option>
-					<option value="1">★☆☆☆☆</option>
-				</select>
-				<button type="submit">Enviar comentario</button>
-			</form>
-		</section>
-	</section>-->
+
 		<footer th:replace="./fragments/footer ::  footer"></footer>
 
 	</body>

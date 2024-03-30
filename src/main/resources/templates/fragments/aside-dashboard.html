@@ -45,5 +45,17 @@
 				Mis reservas
 			</span>
 		</a>
+		<a href="/dashboard/client/historialReservas" class="dashboard__enlace " th:if="${userType eq 'CLIENT'}">
+			<i class="fa-solid fa-calendar dashboard__icono"></i>
+			<span class="dashboard__menu-texto">
+				Historial de Reservas
+			</span>
+		</a>
+		<a href="/dashboard/owner/historialReservas" class="dashboard__enlace " th:if="${userType eq 'OWNER'}">
+			<i class="fa-solid fa-calendar dashboard__icono"></i>
+			<span class="dashboard__menu-texto">
+				Historial de Reservas
+			</span>
+		</a>
 	</nav>
 </aside>

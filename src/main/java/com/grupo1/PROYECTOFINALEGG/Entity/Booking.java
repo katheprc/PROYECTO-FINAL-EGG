@@ -10,7 +10,6 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
-import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 
 import lombok.Data;
@@ -26,13 +25,17 @@ public class Booking {
 	private Integer property;
 
 	@OneToOne
-	private Client user;
+	private Client user; 
 
 	@OneToOne
 	private Owner owner;
 
 	private String date;
 	private Double total;
+
+	private Boolean bool = false;
+
+	private Boolean post = false;
 
 	@ManyToMany
 	@JoinTable(name = "listOfHiredServices", joinColumns = @JoinColumn(name = "booking_id"), inverseJoinColumns = @JoinColumn(name = "service_id"))

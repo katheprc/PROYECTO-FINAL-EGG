@@ -463,7 +463,8 @@
 								</td>
 								<td style="vertical-align: middle;">
 									<a th:href="@{/property/{id}(id=${reserva.property})}"><button class="form-control"
-											th:id="${reserva.id}" required type="button"> Página de la
+											th:id="${reserva.id}" required type="button"> Página de
+											la
 											propiedad</button></a>
 								</td>
 								<td style="vertical-align: middle;">
@@ -478,7 +479,155 @@
 									<input type="text" class="form-control" readOnly=true
 										th:value="${#lists.size(reserva.services)}" th:id="${reserva.id}" required>
 								</td>
-								<td style="vertical-align: middle; text-align: center;">
+								<td style="vertical-align: middle; text-align: center;" th:if="${!reserva.bool}">
+									<button type="submit" class="btn btn-danger btn-eliminar" style="width: 5rem;">
+										Eliminar
+									</button>
+								</td>
+								<td style="vertical-align: middle; text-align: center;"
+									th:if="${!reserva.post and reserva.bool}">
+									<a th:href="@{/post/{id}/{bookId}(id=${reserva.property}, bookId=${reserva.id})}">
+										<button type="button" class="btn btn-primary btn-eliminar" style="width: 5rem;">
+											Calificar
+										</button>
+									</a>
+								</td>
+							</form>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+		</div>
+	</div>
+
+	<div class="grupoDiv" style="margin: 20px; display: flex; gap: 10px; height: 100%; font-size: medium; "
+		th:if="${uHBookingsBoolean}">
+
+		<div class="table" style="height: 100%; width: 100%; overflow-y: scroll;">
+			<div class="grupoDiv" style="display: flex; gap: 10px;">
+				<table class="table">
+					<thead>
+						<tr>
+							<th scope="col">
+								ID
+							</th>
+							<th scope="col">
+								Propiedad
+							</th>
+							<th scope="col">
+								Fecha
+							</th>
+							<th scope="col">
+								Precio total
+							</th>
+							<th scope="col">
+								Cant. servicios contratados
+							</th>
+							<th></th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr th:each="reserva : ${listaReservas}">
+							<form action="/dashboard/client/reservas/delete" method="post">
+								<td scope="row" style="vertical-align: middle;">
+									<input type="text" name="id" class="form-control" readonly="readonly"
+										style="width: 36px; text-align: center;" th:value="${reserva.id}">
+								</td>
+								<td style="vertical-align: middle;">
+									<a th:href="@{/property/{id}(id=${reserva.property})}"><button class="form-control"
+											th:id="${reserva.id}" required type="button"> Página de
+											la
+											propiedad</button></a>
+								</td>
+								<td style="vertical-align: middle;">
+									<input type="text" class="form-control" readOnly=true th:value="${reserva.date}"
+										th:id="${reserva.id}" required>
+								</td>
+								<td style="vertical-align: middle;">
+									<input type="text" class="form-control" readOnly=true th:value="${reserva.total}"
+										th:id="${reserva.id}" required>
+								</td>
+								<td style="vertical-align: middle;">
+									<input type="text" class="form-control" readOnly=true
+										th:value="${#lists.size(reserva.services)}" th:id="${reserva.id}" required>
+								</td>
+								<td style="vertical-align: middle; text-align: center;"
+									th:if="${!reserva.post and reserva.bool}">
+									<a th:href="@{/post/{id}/{bookId}(id=${reserva.property}, bookId=${reserva.id})}">
+										<button type="button" class="btn btn-primary btn-eliminar" style="width: 5rem;">
+											Calificar
+										</button>
+									</a>
+								</td>
+							</form>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+		</div>
+	</div>
+
+
+	<div class="grupoDiv" style="margin: 20px; display: flex; gap: 10px; height: 100%; font-size: medium; "
+		th:if="${oBookingsBoolean}">
+
+		<div class="table" style="height: 100%; width: 100%; overflow-y: scroll;">
+			<div class="grupoDiv" style="display: flex; gap: 10px;">
+				<table class="table">
+					<thead>
+						<tr>
+							<th scope="col">
+								ID
+							</th>
+							<th scope="col">
+								Cliente
+							</th>
+							<th scope="col">
+								Propiedad
+							</th>
+							<th scope="col">
+								Fecha
+							</th>
+							<th scope="col">
+								Precio total
+							</th>
+							<th scope="col">
+								Cant. servicios contratados
+							</th>
+							<th></th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr th:each="reserva : ${listaReservas}">
+							<form action="/dashboard/owner/reservas/delete" method="post">
+								<td scope="row" style="vertical-align: middle;">
+									<input type="text" name="id" class="form-control" readonly="readonly"
+										style="width: 36px; text-align: center;" th:value="${reserva.id}">
+								</td>
+								<td style="vertical-align: middle;">
+									<a th:href="@{/profile/{id}(id=${reserva.user.id})}"><button class="form-control"
+											th:id="${reserva.id}" required type="button"> Perfil del
+											cliente</button></a>
+								</td>
+								<td style="vertical-align: middle;">
+									<a th:href="@{/property/{id}(id=${reserva.property})}"><button class="form-control"
+											th:id="${reserva.id}" required type="button"> Página de
+											la
+											propiedad</button></a>
+								</td>
+								<td style="vertical-align: middle;">
+									<input type="text" class="form-control" readOnly=true th:value="${reserva.date}"
+										th:id="${reserva.id}" required>
+								</td>
+								<td style="vertical-align: middle;">
+									<input type="text" class="form-control" readOnly=true th:value="${reserva.total}"
+										th:id="${reserva.id}" required>
+								</td>
+								<td style="vertical-align: middle;">
+									<input type="text" class="form-control" readOnly=true
+										th:value="${#lists.size(reserva.services)}" th:id="${reserva.id}" required>
+								</td>
+								<td style="vertical-align: middle; text-align: center;" th:if="${!reserva.bool}">
 									<button type="submit" class="btn btn-danger btn-eliminar" style="width: 5rem;">
 										Eliminar
 									</button>
@@ -491,5 +640,71 @@
 		</div>
 	</div>
 
+	<div class="grupoDiv" style="margin: 20px; display: flex; gap: 10px; height: 100%; font-size: medium; "
+		th:if="${oHBookingsBoolean}">
+
+		<div class="table" style="height: 100%; width: 100%; overflow-y: scroll;">
+			<div class="grupoDiv" style="display: flex; gap: 10px;">
+				<table class="table">
+					<thead>
+						<tr>
+							<th scope="col">
+								ID
+							</th>
+							<th scope="col">
+								Cliente
+							</th>
+							<th scope="col">
+								Propiedad
+							</th>
+							<th scope="col">
+								Fecha
+							</th>
+							<th scope="col">
+								Precio total
+							</th>
+							<th scope="col">
+								Cant. servicios contratados
+							</th>
+							<th></th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr th:each="reserva : ${listaReservas}">
+							<form action="/dashboard/owner/reservas/delete" method="post">
+								<td scope="row" style="vertical-align: middle;">
+									<input type="text" name="id" class="form-control" readonly="readonly"
+										style="width: 36px; text-align: center;" th:value="${reserva.id}">
+								</td>
+								<td style="vertical-align: middle;">
+									<a th:href="@{/profile/{id}(id=${reserva.user.id})}"><button class="form-control"
+											th:id="${reserva.id}" required type="button"> Perfil del
+											cliente</button></a>
+								</td>
+								<td style="vertical-align: middle;">
+									<a th:href="@{/property/{id}(id=${reserva.property})}"><button class="form-control"
+											th:id="${reserva.id}" required type="button"> Página de
+											la
+											propiedad</button></a>
+								</td>
+								<td style="vertical-align: middle;">
+									<input type="text" class="form-control" readOnly=true th:value="${reserva.date}"
+										th:id="${reserva.id}" required>
+								</td>
+								<td style="vertical-align: middle;">
+									<input type="text" class="form-control" readOnly=true th:value="${reserva.total}"
+										th:id="${reserva.id}" required>
+								</td>
+								<td style="vertical-align: middle;">
+									<input type="text" class="form-control" readOnly=true
+										th:value="${#lists.size(reserva.services)}" th:id="${reserva.id}" required>
+								</td>
+							</form>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+		</div>
+	</div>
 
 </center>
