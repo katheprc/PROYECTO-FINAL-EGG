@@ -227,6 +227,13 @@ public class rentalController {
 		return "profile.html";
 	}
 
+	@GetMapping("/profile/{id}")
+	public String profile(@PathVariable Integer id, Model model) {
+		model.addAttribute("user", uSrv.convertirUserDTO(uSrv.getUserById(id).get()));
+		model.addAttribute("userType", getUserType());
+		return "profile.html";
+	}
+
 	@GetMapping("/quinchos")
 	public String quinchos(Model model) {
 		model.addAttribute("userType", getUserType());
@@ -438,8 +445,22 @@ public class rentalController {
 	public String propertyPage(@PathVariable Integer id, Model model) throws NotFoundException {
 		model.addAttribute("userType", getUserType());
 		model.addAttribute("property", getProperty(id));
-		model.addAttribute("listaSrv", getProperty(id).getServices());
 		model.addAttribute("propertyImgs", getProperty(id).getImgs());
+
+		if (!(getProperty(id).getServices().isEmpty())) {
+			model.addAttribute("listaSrv", getProperty(id).getServices());
+			model.addAttribute("pSrvBoolean", true);
+		} else {
+			model.addAttribute("pSrvBoolean", false);
+
+		}
+
+		if (!(getProperty(id).getPosts().isEmpty())) {
+			model.addAttribute("pPostBoolean", true);
+		} else {
+			model.addAttribute("pPostBoolean", false);
+
+		}
 		return "sigle-page-arlquileres.html";
 
 	}

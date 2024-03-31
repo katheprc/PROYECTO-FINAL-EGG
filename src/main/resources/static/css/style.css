@@ -973,6 +973,15 @@ main {
   /* Tamaño de fuente grande para el precio */
 }
 
+.publication-info p.rating {
+  color: #333;
+  /* Un color llamativo para el precio */
+  font-weight: bold;
+  /* Negrita para el precio */
+  font-size: 1.5em;
+  /* Tamaño de fuente grande para el precio */
+}
+
 /* .publication-info p,
 .publication-info button {
   margin-bottom: 10px; /* Espaciado entre elementos */

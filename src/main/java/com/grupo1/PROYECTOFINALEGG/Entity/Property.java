@@ -1,5 +1,6 @@
 package com.grupo1.PROYECTOFINALEGG.Entity;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -77,6 +78,9 @@ public class Property {
 		}
 
 		this.rating = ratingTotal / posts.size();
+
+		DecimalFormat df = new DecimalFormat("#.##");
+		this.rating = Double.parseDouble(df.format(this.rating));
 
 	}
 }

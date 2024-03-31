@@ -50,7 +50,9 @@
                     <div class="card">
                         <img th:src="${prop.imgs[0]}" class="card-img-top" alt="Imagen de Propiedad">
                         <div class="card-body">
-                            <h5 class="card-title" th:text="${prop.name}"></h5>
+                            <h5 class="card-title" th:text="${prop.name}"></h5>★<span th:text="${prop.rating}"
+                                th:if="${prop.rating > 0}"></span> <span th:if="${prop.rating == 0}">Sin reseñas
+                                aún</span>
                             <p class="card-text" th:text="${prop.address}"></p>
                             <p class="card-text">$<span th:text="${prop.pricePerDay}"></span></p>
                             <a th:href="@{/property/{id}(id=${prop.id})}" class="btn btn-primary">Ver más</a>

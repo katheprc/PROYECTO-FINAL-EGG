@@ -4,6 +4,8 @@
 		<div className="barra__contenido">
 			<nav className="navegacion">
 
+				<a href="/" className="navegacion__micuenta"><button>Inicio</button></a>
+				<a href="/quinchos" className="navegacion__micuenta"><button>Explorar propiedades</button></a>
 				<a th:if="${userType ne 'ADMIN' and userType ne 'OWNER' and userType ne 'CLIENT'}" href="/login"
 					className="navegacion__micuenta"><button>Login</button></a>
 				<a th:if="${userType ne 'ADMIN' and userType ne 'OWNER' and userType ne 'CLIENT'}" href="/register"

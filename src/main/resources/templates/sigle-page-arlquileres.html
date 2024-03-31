@@ -70,6 +70,7 @@
 				</section>
 				<section class="publication-info">
 					<h1 th:text="${property.name}"></h1>
+					<p class="rating" th:if="${pPostBoolean}">★<span th:text="${property.rating}"></span></p>
 					<p th:text="${property.details}">
 					</p>
 					<p class="price">Precio por día: <span th:text="'$ ' + ${property.pricePerDay}"></span></p>
@@ -77,6 +78,7 @@
 						<button type="submit" th:if="${userType eq 'CLIENT'}">Contratar
 						</button>
 					</a>
+
 					<p th:if="${userType ne 'CLIENT'}" style="font-size: large;"><a href="/login">Inicia sesión</a> o
 						<a href="/register">regístrate</a> como cliente para reservar!
 					</p>
@@ -85,18 +87,22 @@
 			</div>
 			<div style="align-items: center; justify-content: center;">
 				<br>
-				<div style="display: flex; gap: 10px; align-items: center; justify-content: space-evenly; ">
+				<div style="display: flex; gap: 10px; align-items: center; justify-content: space-evenly; "
+					th:if="${pSrvBoolean}">
 					<h2 style="color: black;">Servicios</h2>
-					<br>
 					<p th:each="srv : ${listaSrv}">
 						Nombre: <span th:text="${srv.name}"></span>
 						<br>
 						Precio: <span th:text="${srv.price}"></span>
 					</p>
 				</div>
+				<div style="display: flex; gap: 10px; align-items: center; justify-content: space-evenly; "
+					th:if="${!pSrvBoolean}">
+					<h2 style="color: black;">Sin servicios extra</h2>
+				</div>
 			</div>
 			<br> <br>
-			<div class="comment-div">
+			<div class="comment-div" th:if="${pPostBoolean}">
 				<h2>Comentarios Recientes</h2>
 				<section class="comments-display">
 					<article class="comment" th:each="post: ${property.posts}">
@@ -121,6 +127,10 @@
 						</div>
 					</article>
 				</section>
+			</div>
+			<div class="comment-div" th:if="${!pPostBoolean}">
+				<h2>Todavia no hay reseñas para esta publicación</h2>
+
 			</div>
 
 		</main>
