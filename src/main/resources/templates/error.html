@@ -7,6 +7,13 @@
 		<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
 		integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous" />
 		<title>Something went wrong!</title>
+
+ 
+  
+			<link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css'>
+		  <link rel='stylesheet' href='https://fonts.googleapis.com/css?family=Arvo'>
+			
+	
 	</head>
 
 	<body>
@@ -16,8 +23,8 @@
 					aria-controls="navbarTogglerDemo03" aria-expanded="false" aria-label="Toggle navigation">
 					<span class="navbar-toggler-icon"></span>
 				</button>
-				<a class="navbar-brand fs-3" href="/"><img style="width: 40px" src="../img/logo.png"
-						alt="Logo de la empres"></a>
+				<!-- <a class="navbar-brand fs-3" href="/"><img style="width: 40px" src="../static/img/logo.png"
+						alt="Logo de la empres"></a> -->
 				<div class="collapse navbar-collapse" id="navbarTogglerDemo03">
 					<ul class="navbar-nav me-auto mb-2 mb-lg-0">
 						<li class="nav-item me-1">
@@ -37,10 +44,10 @@
 							<a th:if="${userType eq 'ADMIN' or userType eq 'OWNER' or userType eq 'CLIENT'}" href="/profile"
 								class="nav-link">Mi perfil</a>
 						</li>
-						<!-- <li class="nav-item me-2">
+					<li class="nav-item me-2">
 							<a th:if="${userType eq 'OWNER'}" href="/dashboard/owner/register-property" class="nav-link">Registrar Propiedad
 							</a>
-						</li> -->
+						</li> 
 						<li class="nav-item me-2">
 							<a th:if="${userType eq 'ADMIN' or userType eq 'OWNER' or userType eq 'CLIENT'}"
 								href="/dashboard" class="nav-link">Dashboard
@@ -58,22 +65,67 @@
 				</div>
 		</nav>
 
-		
-		<h1>Generic Error - <span th:text="${status}">Status</span></h1>
-		<p>Sorry for the inconvenience. Please contact the administrator.</p>
-		<br />
-		<ul>
-			<li>Timestamp: <span th:text="${timestamp}">Timestamp</span></li>
-			<li>Path: <span th:text="${path}">Path</span></li>
-			<li>Error: <span th:text="${error}">Error</span></li>
-		</ul>
+	<section class="page_404">
+	  <div class="container">
+		  <div class="row">	
+		  <div class="col-sm-12 ">
+		  <div class="col-sm-10 col-sm-offset-1  text-center">
+		  <div class="four_zero_four_bg">
+			  <h1 class="text-center "><span th:text="${status}">Status</span></h1>
+		  
+		  
+		  </div>
+		  
+		  <div class="contant_box_404">
+		  <h3 class="h2">
+		  Look like you're lost
+		  </h3>
+		  
+		  <p>the page you are looking for not avaible!</p>
+		  
+		  <a href="/" class="link_404">Go to Home</a>
+	  </div>
+		  </div>
+		  </div>
+		  </div>
+	  </div>
+  </section>
+  
+  
 
-
-
-		<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
-		<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js" integrity="sha384-0pUGZvbkm6XF6gxjEnlmuGrJXVbNuzT9qBBavbLwCsOGabYfZo0T0to5eqruptLy" crossorigin="anonymous"></script>
+	
+	
 	</body>
+<style>
+	.page_404{ padding:40px 0; background:#fff; font-family: 'Arvo', serif;
+}
 
+.page_404  img{ width:100%;}
+
+.four_zero_four_bg{
+ 
+ background-image: url(https://cdn.dribbble.com/users/285475/screenshots/2083086/dribbble_1.gif);
+    height: 400px;
+    background-position: center;
+ }
+ 
+ 
+ .four_zero_four_bg h1{
+ font-size:80px;
+ }
+ 
+  .four_zero_four_bg h3{
+			 font-size:80px;
+			 }
+			 
+			 .link_404{			 
+	color: #fff!important;
+    padding: 10px 20px;
+    background: #ee6f21;
+    margin: 20px 0;
+    display: inline-block;}
+	.contant_box_404{ margin-top:-50px;}
+</style>
 
 
 </html>
