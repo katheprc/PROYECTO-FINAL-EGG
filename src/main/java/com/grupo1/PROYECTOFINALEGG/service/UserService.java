@@ -51,6 +51,27 @@ public class UserService implements UserDetailsService {
 	}
 
 	@Transactional
+	public void updateUserProfile(com.grupo1.PROYECTOFINALEGG.Entity.User user, String username, String lastname, MultipartFile imagen,
+			HttpServletRequest request) throws MyException {
+
+		if (username != null && !(username.isEmpty()) && !(username.equals(""))) {
+			user.setUsername(username);
+		}
+		if (lastname != null && !(lastname.isEmpty()) && !(lastname.equals(""))) {
+			user.setLastname(lastname);
+
+		}
+
+		if (imagen != null && !(imagen.isEmpty()) && (imagen.getSize() > 0)) {
+			Integer num = rSrv.subirImagen(imagen);
+			user.addImg(Utility.getSiteUrl(request) + "/api/image/" + num);
+		}
+
+		uRepo.save(user);
+
+	}
+
+	@Transactional
 	public void registrar(String username, String apellido, String email, String password, String password2,
 			String type, MultipartFile imagen, HttpServletRequest request) throws MyException {
 
@@ -91,6 +112,7 @@ public class UserService implements UserDetailsService {
 			user.setLastname(apellido);
 			user.setEmail(email);
 			user.setRole(Role.ADMIN);
+			user.setPassword(new BCryptPasswordEncoder().encode(password));
 
 			Integer num = rSrv.subirImagen(imagen);
 			user.addImg(Utility.getSiteUrl(request) + "/api/image/" + num);
@@ -381,6 +403,5 @@ public class UserService implements UserDetailsService {
 		user.addBookings(book);
 		updateUser(user);
 	}
-
 
 }

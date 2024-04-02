@@ -72,9 +72,36 @@ public class rentalController {
 		} else if (type.equals("CLIENT")) {
 			return new RedirectView("/dashboard/client", true);
 		} else {
-			return new RedirectView("/dashboard/owner/register-property", true);
+			return new RedirectView("/dashboard/owner/properties", true);
 		}
 
+	}
+
+	@GetMapping("/dashboard/owner/properties")
+	public String ownerProperties(Model model) {
+		model.addAttribute("listaProperties", ((Owner) getUser()).getProperties());
+		model.addAttribute("userType", getUserType());
+		model.addAttribute("buttonBoolean", true);
+		model.addAttribute("OpropertiesBoolean", true);
+		return "dashboard.html";
+	}
+
+	@PostMapping("/dashboard/owner/properties/delete")
+	public RedirectView deleteOwnerProperties(@RequestParam("id") String id, Model model) {
+		rSrv.deleteProperty(Integer.parseInt(id));
+		return new RedirectView("/dashboard/owner/properties", true);
+	}
+
+	@PostMapping("/dashboard/owner/properties")
+	public String buscarOwnerProperties(@RequestParam("type") String type, @RequestParam("order") String order,
+			Model model) {
+		model.addAttribute("userType", getUserType());
+		model.addAttribute("listaProperties", rSrv.getProperties(((Owner) getUser()), type, order));
+
+		model.addAttribute("buttonBoolean", true);
+
+		model.addAttribute("OpropertiesBoolean", true);
+		return "dashboard.html";
 	}
 
 	@GetMapping("/dashboard/owner")
@@ -92,7 +119,7 @@ public class rentalController {
 
 		Date today = new Date();
 		String date = (1900 + today.getYear()) + "-" + (today.getMonth() + 1) + "-" + today.getDate();
-		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-M-dd");
+		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-M-d");
 
 		LocalDate fechaHoy = LocalDate.parse(date, formatter);
 		List<Booking> listaReservas = new ArrayList<>();
@@ -123,7 +150,7 @@ public class rentalController {
 		model.addAttribute("oHBookingsBoolean", true);
 		Date today = new Date();
 		String date = (1900 + today.getYear()) + "-" + (today.getMonth() + 1) + "-" + today.getDate();
-		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-M-dd");
+		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-M-d");
 
 		LocalDate fechaHoy = LocalDate.parse(date, formatter);
 		List<Booking> listaReservas = new ArrayList<>();
@@ -168,7 +195,7 @@ public class rentalController {
 		model.addAttribute("uBookingsBoolean", true);
 		Date today = new Date();
 		String date = (1900 + today.getYear()) + "-" + (today.getMonth() + 1) + "-" + today.getDate();
-		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-M-dd");
+		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-M-d");
 
 		LocalDate fechaHoy = LocalDate.parse(date, formatter);
 		List<Booking> listaReservas = new ArrayList<>();
@@ -195,7 +222,7 @@ public class rentalController {
 		model.addAttribute("uHBookingsBoolean", true);
 		Date today = new Date();
 		String date = (1900 + today.getYear()) + "-" + (today.getMonth() + 1) + "-" + today.getDate();
-		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-M-dd");
+		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-M-d");
 
 		LocalDate fechaHoy = LocalDate.parse(date, formatter);
 		List<Booking> listaReservas = new ArrayList<>();
@@ -231,7 +258,7 @@ public class rentalController {
 	public String profile(@PathVariable Integer id, Model model) {
 		model.addAttribute("user", uSrv.convertirUserDTO(uSrv.getUserById(id).get()));
 		model.addAttribute("userType", getUserType());
-		return "profile.html";
+		return "publicProfile.html";
 	}
 
 	@GetMapping("/quinchos")
@@ -259,6 +286,28 @@ public class rentalController {
 		return "register.html";
 	}
 
+	@PostMapping("/profileUpdate")
+	public RedirectView profileUpdate(@RequestParam(required = false, name = "username") String username,
+			@RequestParam(required = false, name = "lastname") String apellido,
+			@RequestParam(required = false, name = "imagen") MultipartFile imagen,
+			ModelMap model,
+			HttpServletRequest request,
+			HttpServletResponse response) {
+		model.addAttribute("userType", getUserType());
+
+		User user = getUser();
+		Integer id = getUser().getId();
+
+		try {
+			uSrv.updateUserProfile(user, username, apellido, imagen, request);
+			model.put("exito", "Datos actualizados correctamente!");
+		} catch (MyException ex) {
+			model.put("error", ex.getMessage());
+		}
+		return new RedirectView("/profile", true);
+
+	}
+
 	@GetMapping("/error")
 	public String error(Model model) {
 		model.addAttribute("userType", getUserType());
@@ -274,7 +323,7 @@ public class rentalController {
 
 		Date today = new Date();
 		String date = (1900 + today.getYear()) + "-" + (today.getMonth() + 1) + "-" + today.getDate();
-		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-M-dd");
+		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-M-d");
 
 		LocalDate fechaHoy = LocalDate.parse(date, formatter);
 
@@ -292,7 +341,7 @@ public class rentalController {
 
 		List<String> fechasNombre = new ArrayList<>();
 		for (String fecha : fechasDeshabilitadas) {
-			SimpleDateFormat formatoEntrada = new SimpleDateFormat("yyyy-MM-dd");
+			SimpleDateFormat formatoEntrada = new SimpleDateFormat("yyyy-M-d");
 			try {
 				Date fecha2 = formatoEntrada.parse(fecha);
 				DateFormat formatoSalida = new SimpleDateFormat("d 'de' MMMM',' yyyy", new Locale("es", "ES"));

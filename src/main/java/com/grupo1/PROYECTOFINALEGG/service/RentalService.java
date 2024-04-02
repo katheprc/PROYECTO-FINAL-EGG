@@ -175,6 +175,51 @@ public class RentalService {
 
 	}
 
+	public List<Property> getProperties(Owner user, String type, String order) {
+
+		List<Property> listaProperties;
+
+		if (order.equals("DESC")) {
+
+			if (type.equals("name")) {
+				listaProperties = pRepo.findByNameDesc();
+			} else if (type.equals("price")) {
+				listaProperties = pRepo.findByPriceDesc();
+			} else if (type.equals("rating")) {
+				listaProperties = pRepo.findByRatingDesc();
+			} else {
+				listaProperties = pRepo.findAllDesc();
+			}
+
+		} else {
+
+			if (type.equals("name")) {
+				listaProperties = pRepo.findByNameAsc();
+			} else if (type.equals("price")) {
+				listaProperties = pRepo.findByPriceAsc();
+			} else if (type.equals("rating")) {
+				listaProperties = pRepo.findByRatingAsc();
+			} else {
+				listaProperties = pRepo.findAllAsc();
+			}
+
+		}
+
+		List<Property> listaOwner = new ArrayList<>();
+
+		for (Property prop : listaProperties) {
+			for (Property Oprop : user.getProperties()) {
+				if (prop == Oprop) {
+					listaOwner.add(Oprop);
+					break;
+				}
+			}
+		}
+
+		return listaOwner;
+
+	}
+
 	public void deleteProperty(int id) {
 		List<com.grupo1.PROYECTOFINALEGG.Entity.User> listaUsers = uRepo.findAll();
 		for (com.grupo1.PROYECTOFINALEGG.Entity.User user : listaUsers) {

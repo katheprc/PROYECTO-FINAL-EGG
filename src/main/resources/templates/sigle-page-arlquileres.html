@@ -1,147 +1,187 @@
 <!DOCTYPE html>
 <html lang="es">
 
-<head>
-	<meta charset="UTF-8" />
-	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
-		integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous" />
-	<link rel="stylesheet" type="text/css" href="/css/style.css" />
-	<title>Página de Publicación</title>
-</head>
+		<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
+			integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN"
+			crossorigin="anonymous" />
+		<link rel="stylesheet" type="text/css" href="/css/style.css" />
+		<title>Página de Publicación</title>
+	</head>
 
-<body>
-	<nav class="navbar navbar-expand-lg mb-4 fs-4" style="background-color: #ee6f21;">
-		<div class="container-fluid">
-			<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarTogglerDemo03"
-				aria-controls="navbarTogglerDemo03" aria-expanded="false" aria-label="Toggle navigation">
-				<span class="navbar-toggler-icon"></span>
-			</button>
-			<a class="navbar-brand fs-3" href="/"><img style="width: 40px" src="../img/logo.png"
-					alt="Logo de la empres"></a>
-			<div class="collapse navbar-collapse" id="navbarTogglerDemo03">
-				<ul class="navbar-nav me-auto mb-2 mb-lg-0">
-					<li class="nav-item me-1">
-						<a class="nav-link active" aria-current="page" href="/">Home</a>
+	<body>
+		<nav class="navbar navbar-expand-lg mb-4 fs-4" style="background-color: #ee6f21;">
+			<div class="container-fluid">
+				<button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+					data-bs-target="#navbarTogglerDemo03" aria-controls="navbarTogglerDemo03" aria-expanded="false"
+					aria-label="Toggle navigation">
+					<span class="navbar-toggler-icon"></span>
+				</button>
+				<a class="navbar-brand fs-3" href="/"><img style="width: 40px" src="../img/logo.png"
+						alt="Logo de la empres"></a>
+				<div class="collapse navbar-collapse" id="navbarTogglerDemo03">
+					<ul class="navbar-nav me-auto mb-2 mb-lg-0">
+						<li class="nav-item me-1">
+							<a class="nav-link active" aria-current="page" href="/">Home</a>
 
 
-					</li>
-					<li class="nav-item me-2">
-						<a th:if="${userType ne 'ADMIN' and userType ne 'OWNER' and userType ne 'CLIENT'}" href="/login"
-							class="nav-link">Login</a>
-					</li>
-					<li class="nav-item me-2">
-						<a th:if="${userType ne 'ADMIN' and userType ne 'OWNER' and userType ne 'CLIENT'}"
-							href="/register" class="nav-link">Registrarse</a>
-					</li>
-					<li class="nav-item me-2">
-						<a th:if="${userType eq 'ADMIN' or userType eq 'OWNER' or userType eq 'CLIENT'}" href="/profile"
-							class="nav-link">Mi perfil</a>
-					</li>
-					<!-- <li class="nav-item me-2">
+						</li>
+						<li class="nav-item me-2">
+							<a th:if="${userType ne 'ADMIN' and userType ne 'OWNER' and userType ne 'CLIENT'}"
+								href="/login" class="nav-link">Login</a>
+						</li>
+						<li class="nav-item me-2">
+							<a th:if="${userType ne 'ADMIN' and userType ne 'OWNER' and userType ne 'CLIENT'}"
+								href="/register" class="nav-link">Registrarse</a>
+						</li>
+						<li class="nav-item me-2">
+							<a th:if="${userType eq 'ADMIN' or userType eq 'OWNER' or userType eq 'CLIENT'}"
+								href="/profile" class="nav-link">Mi perfil</a>
+						</li>
+						<!-- <li class="nav-item me-2">
 						<a th:if="${userType eq 'OWNER'}" href="/dashboard/owner/register-property" class="nav-link">Registrar Propiedad
 						</a>
 					</li> -->
-					<li class="nav-item me-2">
-						<a th:if="${userType eq 'ADMIN' or userType eq 'OWNER' or userType eq 'CLIENT'}"
-							href="/dashboard" class="nav-link">Dashboard
+						<li class="nav-item me-2">
+							<a th:if="${userType eq 'ADMIN' or userType eq 'OWNER' or userType eq 'CLIENT'}"
+								href="/dashboard" class="nav-link">Dashboard
+							</a>
+						</li>
+
+					</ul>
+					<div class="d-flex fs-4">
+						<a th:if="${userType eq 'ADMIN' or userType eq 'OWNER' or userType eq 'CLIENT'}" href="/logout"
+							class="nav-link">
+							<button class="btn btn-outline-light fs-4">Logout</button>
 						</a>
-					</li>
 
-				</ul>
-				<div class="d-flex fs-4">
-					<a th:if="${userType eq 'ADMIN' or userType eq 'OWNER' or userType eq 'CLIENT'}" href="/logout"
-						class="nav-link">
-						<button class="btn btn-outline-light fs-4">Logout</button>
-					</a>
-
-				</div>
-			</div>
-	</nav>
-	<main>
-		<style>
-			.carousel-item img {
-				width: 100rem;
-				height: 50rem;
-				object-fit: cover;
-			}
-		</style>
-		<div style="display: flex; width: fit-content">
-			<section class="carousel-container ms-5 me-5" style="width: 100rem; height: 50rem; overflow-y: hidden">
-				<div id="carouselExampleControls" class="carousel slide">
-					<div class="carousel-inner">
-						<div class="carousel-item" th:each="url: ${propertyImgs}"
-							th:classappend="${urlStat.first} ? active : ''">
-							<img class="d-block w-100" th:src="${url}" />
-						</div>
 					</div>
-					<a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev">
-						<span class="carousel-control-prev-icon" aria-hidden="true"></span>
-						<span class="sr-only">Previous</span>
-					</a>
-					<a class="carousel-control-next" href="#carouselExampleControls" role="button" data-slide="next">
-						<span class="carousel-control-next-icon" aria-hidden="true"></span>
-						<span class="sr-only">Next</span>
-					</a>
 				</div>
-			</section>
-			<section class="publication-info">
-				<h1 th:text="${property.name}"></h1>
-				<p class="fs-5" th:text="${property.details}"></p>
-				<p class="price">
-					Precio por día:
-					<span th:text="'$ ' + ${property.pricePerDay}"></span>
-				</p>
-				<a th:href="@{/booking/{id}(id=${property.id})}">
-					<button type="submit" th:if="${userType eq 'CLIENT'}">
-						Contratar
-					</button>
-				</a>
-				<p th:if="${userType ne 'CLIENT'}" style="font-size: large">
-					<a href="/login">Inicia sesión</a> o
-					<a href="/register">regístrate</a> como cliente para reservar!
-				</p>
-			</section>
-		</div>
-		<!-- fin del carruosel -->
-
-
-
-
-	</main>
+		</nav>
+		<main>
+			<style>
+				.carousel-item img {
+					width: 100rem;
+					height: 50rem;
+					object-fit: cover;
+				}
+			</style>
+			<div style="display: flex; width: fit-content">
+				<section class="carousel-container ms-5 me-5" style="width: 100rem; height: 50rem; overflow-y: hidden">
+					<div id="carouselExampleControls" class="carousel slide">
+						<div class="carousel-inner">
+							<div class="carousel-item" th:each="url: ${propertyImgs}"
+								th:classappend="${urlStat.first} ? active : ''">
+								<img class="d-block w-100" th:src="${url}" />
+							</div>
+						</div>
+						<a class="carousel-control-prev" href="#carouselExampleControls" role="button"
+							data-slide="prev">
+							<span class="carousel-control-prev-icon" aria-hidden="true"></span>
+							<span class="sr-only">Previous</span>
+						</a>
+						<a class="carousel-control-next" href="#carouselExampleControls" role="button"
+							data-slide="next">
+							<span class="carousel-control-next-icon" aria-hidden="true"></span>
+							<span class="sr-only">Next</span>
+						</a>
+					</div>
+				</section>
+				<section class="publication-info">
+					<h1 th:text="${property.name}"></h1>
+					<p class="rating" th:if="${pPostBoolean}">★<span th:text="${property.rating}"></span></p>
+					<p class="fs-5" th:text="${property.details}"></p>
+					<p class="price">
+						Precio por día:
+						<span th:text="'$ ' + ${property.pricePerDay}"></span>
+					</p>
+					<a th:href="@{/booking/{id}(id=${property.id})}">
+						<button type="submit" th:if="${userType eq 'CLIENT'}">
+							Contratar
+						</button>
+					</a>
+					<p th:if="${userType ne 'CLIENT'}" style="font-size: large">
+						<a href="/login">Inicia sesión</a> o
+						<a href="/register">regístrate</a> como cliente para reservar!
+					</p>
+				</section>
+			</div>
+			<!-- fin del carruosel -->
+		</main>
 		<!-- inicio de servicios -->
 		<div>
-			<div class="card mx-auto p-2 mt-5 mb-2" style="width: 70rem; background-color: #d3d3d357;">
+			<div class="card mx-auto p-2 mt-5 mb-2" style="width: 70rem; background-color: #d3d3d357;"
+				th:if="${pSrvBoolean}">
 				<div class="card-body">
-				  <h5 class="card-title fs-3">SERVICIOS ADICIONALES</h5>
-				  <p class="card-text fs-4">El cliente añadio servicios adicionales que puedes incluir con un costo adicional</p>
+					<h5 class="card-title fs-3">SERVICIOS ADICIONALES</h5>
+					<p class="card-text fs-4">El cliente añadio servicios adicionales que puedes incluir con un costo
+						adicional</p>
 				</div>
 				<ul class="list-group list-group-flush">
 					<li class="list-group list-group-numbered">
-						<li class="list-group-item d-flex justify-content-between align-items-start" th:each="srv : ${listaSrv}">
-						  <div class="ms-2 me-auto" >
+					<li class="list-group-item d-flex justify-content-between align-items-start"
+						th:each="srv : ${listaSrv}">
+						<div class="ms-2 me-auto">
 							<div class="fw-bold fs-4" th:text="
 							 ${srv.name}"></div>
-						  </div>
-						  <span class="badge text-bg-warning rounded-pill fs-4 " th:text="'$' + ${srv.price}"></span>
-						</li>		
+						</div>
+						<span class="badge text-bg-warning rounded-pill fs-4 " th:text="'$' + ${srv.price}"></span>
+					</li>
 					</li>
 				</ul>
-			  </div>
-		</div>
-						<!-- fin de Servicios -->
-	<footer th:replace="./fragments/footer ::  footer"></footer>
-</body>
+			</div>
+			<div style="display: flex; gap: 10px; align-items: center; justify-content: space-evenly; "
+				th:if="${!pSrvBoolean}">
+				<h2 style="color: black;">Sin servicios extra</h2>
+			</div>
+			<!-- fin de Servicios -->
+			<div class="comment-div" th:if="${pPostBoolean}">
+				<h2>Comentarios Recientes</h2>
+				<section class="comments-display">
+					<article class="comment" th:each="post: ${property.posts}">
+						<header>
+							<h3 th:text="${post.client.username + ' ' + post.client.lastname}"></h3>
+							<time th:text="${post.date}"></time> <br>
+							<span th:switch="${post.rating}">
+								<span th:case="5">★★★★★</span>
+								<span th:case="4">★★★★☆</span>
+								<span th:case="3">★★★☆☆</span>
+								<span th:case="2">★★☆☆☆</span>
+								<span th:case="1">★☆☆☆☆</span>
+							</span>
+						</header>
+						<p th:text="${post.commentary}">Este es un comentario de ejemplo para mostrar cómo se verá.
+						</p>
+						<div class="imagen-con-texto">
+							<a th:href="${post.img}" target="_blank">
+								<img th:src="${post.img}" alt="">
+								<div class="texto">Clickear para ver</div>
+							</a>
+						</div>
+					</article>
+				</section>
+			</div>
+			<div class="comment-div" th:if="${!pPostBoolean}">
+				<h2>Todavia no hay reseñas para esta publicación</h2>
 
-<!-- Bootstrap CSS -->
-<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js" integrity="sha384-0pUGZvbkm6XF6gxjEnlmuGrJXVbNuzT9qBBavbLwCsOGabYfZo0T0to5eqruptLy" crossorigin="anonymous"></script>
+			</div>
+			<footer th:replace="./fragments/footer ::  footer"></footer>
+	</body>
 
-<script>
-	$(document).ready(function () {
-		$(".carousel").carousel();
-	});
-</script>
+	<!-- Bootstrap CSS -->
+	<link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+	<!-- jQuery -->
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+	<!-- Bootstrap JS -->
+	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+	<script>
+		$(document).ready(function () {
+			$(".carousel").carousel();
+		});
+	</script>
 
 </html>

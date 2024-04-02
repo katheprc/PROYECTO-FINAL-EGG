@@ -1,5 +1,6 @@
 .msgExitoError {
   position: absolute;
+  z-index: 5;
 }
 
 .animacion-aparecer {

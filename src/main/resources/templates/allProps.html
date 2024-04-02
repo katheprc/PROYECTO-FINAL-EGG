@@ -18,8 +18,9 @@
     <body>
         <nav class="navbar navbar-expand-lg mb-4 fs-4" style="background-color: #ee6f21;">
             <div class="container-fluid">
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarTogglerDemo03"
-                    aria-controls="navbarTogglerDemo03" aria-expanded="false" aria-label="Toggle navigation">
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                    data-bs-target="#navbarTogglerDemo03" aria-controls="navbarTogglerDemo03" aria-expanded="false"
+                    aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
                 <a class="navbar-brand fs-3" href="/"><img style="width: 40px" src="../img/logo.png"
@@ -28,20 +29,20 @@
                     <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                         <li class="nav-item me-1">
                             <a class="nav-link active" aria-current="page" href="/">Home</a>
-    
-    
+
+
                         </li>
                         <li class="nav-item me-2">
-                            <a th:if="${userType ne 'ADMIN' and userType ne 'OWNER' and userType ne 'CLIENT'}" href="/login"
-                                class="nav-link">Login</a>
+                            <a th:if="${userType ne 'ADMIN' and userType ne 'OWNER' and userType ne 'CLIENT'}"
+                                href="/login" class="nav-link">Login</a>
                         </li>
                         <li class="nav-item me-2">
                             <a th:if="${userType ne 'ADMIN' and userType ne 'OWNER' and userType ne 'CLIENT'}"
                                 href="/register" class="nav-link">Registrarse</a>
                         </li>
                         <li class="nav-item me-2">
-                            <a th:if="${userType eq 'ADMIN' or userType eq 'OWNER' or userType eq 'CLIENT'}" href="/profile"
-                                class="nav-link">Mi perfil</a>
+                            <a th:if="${userType eq 'ADMIN' or userType eq 'OWNER' or userType eq 'CLIENT'}"
+                                href="/profile" class="nav-link">Mi perfil</a>
                         </li>
                         <!-- <li class="nav-item me-2">
                             <a th:if="${userType eq 'OWNER'}" href="/dashboard/owner/register-property" class="nav-link">Registrar Propiedad
@@ -52,14 +53,14 @@
                                 href="/dashboard" class="nav-link">Dashboard
                             </a>
                         </li>
-    
+
                     </ul>
                     <div class="d-flex fs-4">
                         <a th:if="${userType eq 'ADMIN' or userType eq 'OWNER' or userType eq 'CLIENT'}" href="/logout"
                             class="nav-link">
                             <button class="btn btn-outline-light fs-4">Logout</button>
                         </a>
-    
+
                     </div>
                 </div>
         </nav>
@@ -95,7 +96,9 @@
                     <div class="card">
                         <img th:src="${prop.imgs[0]}" class="card-img-top" alt="Imagen de Propiedad">
                         <div class="card-body">
-                            <h5 class="card-title" th:text="${prop.name}"></h5>
+                            <h5 class="card-title" th:text="${prop.name}"></h5>★<span th:text="${prop.rating}"
+                                th:if="${prop.rating > 0}"></span> <span th:if="${prop.rating == 0}">Sin reseñas
+                                aún</span>
                             <p class="card-text" th:text="${prop.address}"></p>
                             <p class="card-text">$<span th:text="${prop.pricePerDay}"></span></p>
                             <a th:href="@{/property/{id}(id=${prop.id})}" class="btn btn-primary">Ver más</a>

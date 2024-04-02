@@ -14,24 +14,6 @@
 			<h3 class="bloque__heading">Ingresos totales</h3>
 			<p class="bloque__texto--cantidad" th:text="'$' + ${ingresosTotales}"></p>
 		</div>
-
-		<div class="bloque">
-			<h3 class="bloque__heading">verde</h3>
-			<div class="bloque__contenido">
-				<p class="bloque__texto">
-					aqui foreach
-				</p>
-			</div>
-		</div>
-
-		<div class="bloque">
-			<h3 class="bloque__heading">Azuk</h3>
-
-			<div class="bloque__contenido">
-				<p class="bloque__texto">
-					foreach
-			</div>
-		</div>
 	</div>
 </div>
 
@@ -698,6 +680,109 @@
 								<td style="vertical-align: middle;">
 									<input type="text" class="form-control" readOnly=true
 										th:value="${#lists.size(reserva.services)}" th:id="${reserva.id}" required>
+								</td>
+							</form>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+		</div>
+	</div>
+
+
+	<div class="grupoDiv" style="margin: 20px; display: flex; gap: 10px; height: 100%; font-size: medium; "
+		th:if="${OpropertiesBoolean}">
+		<div class=" grupoDiv2" style="display: flex; flex-direction: column; gap: 10px;">
+			<div class="card" id="filtrar" style="width: 11rem; display: none; text-align: center;">
+				<form class="card-body" action="/dashboard/owner/properties" method="post">
+					<h5 class="card-title">Búsqueda personalizada</h5>
+					<br>
+					<div class="form-group">
+						<label for="type">Ordenar por:</label>
+						<select class="form-control text-center" id="type" name="type">
+							<option value="id">ID</option>
+							<option value="name">NOMBRE</option>
+							<option value="price">PRECIO</option>
+							<option value="rating">RATING GENERAL</option>
+						</select>
+					</div>
+					<br>
+					<div class="form-group">
+						<label for="order">Orden:</label>
+						<select class="form-control text-center" id="order" name="order">
+							<option value="ASC">Ascendente</option>
+							<option value="DESC">Descendente</option>
+						</select>
+					</div>
+					<br>
+					<button type="submit" class="btn btn-primary">Buscar</button>
+				</form>
+			</div>
+		</div>
+		<div class="table" style="height: 100%; width: 100%; overflow-y: scroll;">
+			<div class="grupoDiv" style="display: flex; gap: 10px;">
+				<table class="table">
+					<thead>
+						<tr>
+							<th scope="col">
+								ID
+							</th>
+							<th scope="col">
+								Nombre
+							</th>
+							<th scope="col">
+								Dirección
+							</th>
+							<th scope="col">
+								Detalles
+							</th>
+							<th scope="col">
+								Precio por día
+							</th>
+							<th scope="col">
+								Cant. servicios
+							</th>
+							<th scope="col">
+								Rating general
+							</th>
+							<th></th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr th:each="property : ${listaProperties}">
+							<form action="/dashboard/owner/properties/delete" method="post">
+								<td scope="row" style="vertical-align: middle;">
+									<input type="text" name="id" class="form-control" readonly="readonly"
+										style="width: 36px; text-align: center;" th:value="${property.id}">
+								</td>
+								<td style="vertical-align: middle;">
+									<input type="text" class="form-control" readOnly=true th:value="${property.name}"
+										th:id="${property.id}" required>
+								</td>
+								<td style="vertical-align: middle;">
+									<input type="text" class="form-control" readOnly=true th:value="${property.address}"
+										th:id="${property.id}" required>
+								</td>
+								<td style="vertical-align: middle;">
+									<input type="text" class="form-control" readOnly=true th:value="${property.details}"
+										th:id="${property.id}" required>
+								</td>
+								<td style="vertical-align: middle;">
+									<input type="text" class="form-control" readOnly=true
+										th:value="${property.pricePerDay}" th:id="${property.id}" required>
+								</td>
+								<td style="vertical-align: middle;">
+									<input type="text" class="form-control" readOnly=true
+										th:value="${#lists.size(property.services)}" th:id="${property.id}" required>
+								</td>
+								<td style="vertical-align: middle;">
+									<input type="text" class="form-control" readOnly=true th:value="${property.rating}"
+										th:id="${property.id}" required>
+								</td>
+								<td style="vertical-align: middle; text-align: center;">
+									<button type="submit" class="btn btn-danger btn-eliminar" style="width: 5rem;">
+										Eliminar
+									</button>
 								</td>
 							</form>
 						</tr>

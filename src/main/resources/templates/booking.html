@@ -35,16 +35,16 @@
           <ul class="navbar-nav me-auto mb-2 mb-lg-0">
             <li class="nav-item me-1">
               <a class="nav-link active" aria-current="page" href="/">Home</a>
-  
-  
+
+
             </li>
             <li class="nav-item me-2">
               <a th:if="${userType ne 'ADMIN' and userType ne 'OWNER' and userType ne 'CLIENT'}" href="/login"
                 class="nav-link">Login</a>
             </li>
             <li class="nav-item me-2">
-              <a th:if="${userType ne 'ADMIN' and userType ne 'OWNER' and userType ne 'CLIENT'}"
-                href="/register" class="nav-link">Registrarse</a>
+              <a th:if="${userType ne 'ADMIN' and userType ne 'OWNER' and userType ne 'CLIENT'}" href="/register"
+                class="nav-link">Registrarse</a>
             </li>
             <li class="nav-item me-2">
               <a th:if="${userType eq 'ADMIN' or userType eq 'OWNER' or userType eq 'CLIENT'}" href="/profile"
@@ -55,22 +55,43 @@
               </a>
             </li> -->
             <li class="nav-item me-2">
-              <a th:if="${userType eq 'ADMIN' or userType eq 'OWNER' or userType eq 'CLIENT'}"
-                href="/dashboard" class="nav-link">Dashboard
+              <a th:if="${userType eq 'ADMIN' or userType eq 'OWNER' or userType eq 'CLIENT'}" href="/dashboard"
+                class="nav-link">Dashboard
               </a>
             </li>
-  
+
           </ul>
           <div class="d-flex fs-4">
             <a th:if="${userType eq 'ADMIN' or userType eq 'OWNER' or userType eq 'CLIENT'}" href="/logout"
               class="nav-link">
               <button class="btn btn-outline-light fs-4">Logout</button>
             </a>
-  
+
           </div>
         </div>
     </nav>
+    <style>
+      .highlighted {
+        background-color: rgb(255, 99, 99);
+        color: white;
+      }
 
+      .fechasElegidas {
+        position: absolute;
+        margin: auto;
+        transform: translateY(50%);
+      }
+
+      .fechasElegidas ul li {
+        font-size: large;
+      }
+    </style>
+    <div class="fechasElegidas" th:if="${fechasBoolean}">
+      <h3>Fechas no disponibles para reserva</h3>
+      <ul>
+        <li th:each="fecha: ${fechasNombre}" th:text="${fecha}"></li>
+      </ul>
+    </div>
     <main class="auth">
       <h2 class="auth__heading">Registro de Alquileres</h2>
       <div class="container mt-5">
@@ -89,17 +110,17 @@
         <input type="text" name="id" th:value="${property.id}" hidden>
 
         <label for="date">Fecha de Reserva:</label><br><br>
-        <label>Desde: </label>
-        <input type="date" id="entry-date" name="entry-date" class="formulario__input" min="" required> <br><br>
+        <input type="date" id="entry-date" name="entry-date" class="formulario__input" min="" required> <span
+          id="estado-fecha"></span>
+        <br><br>
         <label for="servicios">Servicios Adicionales:</label><br><br>
-
-
 
         <label class="me-3" th:each="servicio : ${listaSrv}">
           <input type="checkbox" class="service-checkbox" th:id="${servicio.id}" name="services[]"
             th:value="${servicio.name}">
-          <span class="form-check-label" th:text="${servicio.name}"> </span> ($<span class="service-price" th:text="${servicio.price}"></span>)
-          
+          <span class="form-check-label" th:text="${servicio.name}"> </span> ($<span class="service-price"
+            th:text="${servicio.price}"></span>)
+
         </label>
 
 
@@ -107,7 +128,7 @@
         <p class="card-text">Total: $<span id="totalAmount" name="total">0</span></p>
         <br> <br>
 
-        <button class="btn border border-black" type="submit">Confirmar Reserva</button>
+        <button class="btn border border-black" type="submit" id="submit-button">Confirmar Reserva</button>
       </form>
     </main>
 
@@ -119,7 +140,7 @@
 
         // Deshabilitar el día de mañana para seleccionar
         var tomorrow = new Date();
-        tomorrow.setDate(tomorrow.getDate());
+        tomorrow.setDate(tomorrow.getDate() + 1);
         var tomorrowStr = tomorrow.toISOString().split('T')[0];
         document.getElementById('entry-date').min = tomorrowStr;
 
@@ -133,10 +154,6 @@
         // Calcula el total general (multiplica por 1 si es el mismo día de entrada y salida, de lo contrario, calcula el número de días de estancia)
         var days = 1;
         var totalAmount = pricePerDay;
-        if (entryDate < tomorrow) {
-          alert("La fecha de entrada debe ser a partir de mañana.");
-          return false;
-        }
 
         // Calcula el total general
         var totalAmount = pricePerDay + totalServices;
@@ -158,11 +175,68 @@
       calcularTotal();
     </script>
 
-    <script>
 
+    <script th:inline="javascript">
+      /* Obtenemos la lista de fechas resaltadas desde el modelo de Thymeleaf */
+      var fechasResaltadas = /*[[${fechasDeshabilitadas}]]*/[];
+
+      document.addEventListener('DOMContentLoaded', function () {
+        var fechaInput = document.getElementById('entry-date');
+        var estadoFecha = document.getElementById('estado-fecha');
+        var submitButton = document.getElementById('submit-button');
+
+        // Función para verificar si una fecha está en la lista de fechas resaltadas
+        function esFechaResaltada(fecha) {
+          return fechasResaltadas.includes(fecha);
+        }
+
+        // Función para aplicar el resaltado a la fecha seleccionada
+        function aplicarResaltado() {
+          var fechaSeleccionada = fechaInput.value;
+          if (!fechaSeleccionada) {
+            // Si no hay fecha seleccionada, deshabilitar el botón de submit y mostrar mensaje vacío
+            estadoFecha.textContent = '';
+            submitButton.disabled = true;
+            return;
+          }
+          if (esFechaResaltada(fechaSeleccionada)) {
+            fechaInput.classList.add('highlighted');
+            estadoFecha.textContent = 'Fecha no disponible';
+            estadoFecha.style.color = 'red';
+            submitButton.disabled = true; // Deshabilitar el botón de submit
+          } else {
+            fechaInput.classList.remove('highlighted');
+            estadoFecha.textContent = 'Fecha disponible';
+            estadoFecha.style.color = 'green';
+            submitButton.disabled = false; // Habilitar el botón de submit
+          }
+        }
+
+        // Escuchar cambios en la fecha seleccionada
+        fechaInput.addEventListener('change', aplicarResaltado);
+
+        // Aplicar el resaltado inicialmente
+        aplicarResaltado();
+      });
     </script>
-<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js" integrity="sha384-0pUGZvbkm6XF6gxjEnlmuGrJXVbNuzT9qBBavbLwCsOGabYfZo0T0to5eqruptLy" crossorigin="anonymous"></script>
+
+    <script>
+      window.onload = function () {
+        // Obtener el elemento de entrada de fecha
+        var fechaInput = document.getElementById('entry-date');
+
+        // Deshabilitar la entrada de teclado
+        fechaInput.addEventListener('keydown', function (event) {
+          event.preventDefault();
+        });
+      };
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
+      integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r"
+      crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js"
+      integrity="sha384-0pUGZvbkm6XF6gxjEnlmuGrJXVbNuzT9qBBavbLwCsOGabYfZo0T0to5eqruptLy"
+      crossorigin="anonymous"></script>
   </body>
 
 

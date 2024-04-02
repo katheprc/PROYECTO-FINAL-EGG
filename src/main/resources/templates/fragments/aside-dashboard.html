@@ -27,11 +27,13 @@
 				Propiedades
 			</span>
 		</a>
+		<a href="/dashboard/owner/properties" class="dashboard__enlace " th:if="${userType eq 'OWNER'}">
+			<i class="fa-solid fa-house dashboard__icono"></i>
+			<span class="dashboard__menu-texto">Mis propiedades</span>
+		</a>
 		<a href="/dashboard/owner/register-property" class="dashboard__enlace " th:if="${userType eq 'OWNER'}">
 			<i class="fa-solid fa-house dashboard__icono"></i>
-			<span class="dashboard__menu-texto">
-				Registrar propiedad
-			</span>
+			<span class="dashboard__menu-texto">Registrar propiedad</span>
 		</a>
 		<a href="/dashboard/owner/reservas" class="dashboard__enlace " th:if="${userType eq 'OWNER'}">
 			<i class="fa-solid fa-calendar dashboard__icono"></i>
